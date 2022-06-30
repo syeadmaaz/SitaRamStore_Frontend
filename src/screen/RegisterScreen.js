@@ -5,14 +5,23 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
+  ActivityIndicator,
   StyleSheet,
   View,
   ScrollView,
 } from "react-native";
+import { COLORS } from "../constants/theme";
+import Icon from "react-native-vector-icons/Ionicons";
 
 const RegisterScreen = ({ navigation }) => {
-  function navigate() {
+  function back() {
     navigation.goBack();
+  }
+
+  const [loading, setLoading] = React.useState(false);
+
+  function signupHandler() {
+    navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
   }
 
   return (
@@ -28,34 +37,47 @@ const RegisterScreen = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
+        <View style={styles.back}>
+          <TouchableOpacity onPress={back}>
+            <Icon
+              name="chevron-back-outline"
+              style={styles.backIcon}
+            //   color="black"
+              color="white"
+              size={35}
+            />
+          </TouchableOpacity>
+        </View>
+
         <Text style={styles.heading}>Create{"\n"}Account</Text>
         <View style={styles.formView}>
           <TextInput
             placeholder={"Name*"}
-            placeholderTextColor={"#fff"}
+            placeholderTextColor={"white"}
             style={styles.textInput}
           />
           <TextInput
             placeholder={"Mobile*"}
-            placeholderTextColor={"#fff"}
+            placeholderTextColor={"white"}
             style={styles.textInput}
           />
           <TextInput
             placeholder={"Email*"}
-            placeholderTextColor={"#fff"}
+            placeholderTextColor={"white"}
             style={styles.textInput}
           />
           <TextInput
             placeholder={"Password*"}
-            placeholderTextColor={"#fff"}
+            placeholderTextColor={"white"}
             secureTextEntry={true}
             style={styles.textInput}
           />
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Sign Up</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.textButton} onPress={navigate}>
-            <Text style={styles.signUpText}>Sign In</Text>
+          <TouchableOpacity style={styles.button} onPress={signupHandler}>
+            {loading ? (
+              <ActivityIndicator size={30} />
+            ) : (
+              <Text style={styles.buttonText}>Sign Up</Text>
+            )}
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -72,29 +94,39 @@ const styles = StyleSheet.create({
   },
   topView: {
     width: "100%",
-    height: "25%",
+    height: "28%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
   imageStyle: {
-    marginTop: 65,
+    marginTop: 75,
     width: "100%",
     resizeMode: "contain",
   },
   buttomView: {
     width: "100%",
-    height: "75%",
-    backgroundColor: "#000",
+    height: "72%",
+    backgroundColor: COLORS.orange,
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
   },
+  back: {
+    marginStart: 20,
+    marginTop: 10,
+    width: 40,
+    height: 40,
+    // backgroundColor: "white",
+    // borderRadius: 40/2
+  },
+  backIcon: {
+    padding: 2,
+  },
   heading: {
-    color: "#fff",
+    color: "white",
     fontSize: 40,
     fontWeight: "bold",
     marginLeft: 30,
-    marginTop: 20,
   },
   formView: {
     width: "100%",
@@ -102,23 +134,23 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 10,
   },
   textInput: {
+    color: "white",
+    fontWeight: "bold",
     width: "85%",
-    borderWidth: 1,
-    borderColor: "#fff",
+    borderWidth: 2,
+    borderColor: "white",
     height: 52,
     borderRadius: 10,
     paddingLeft: 15,
     marginTop: 20,
-    color: "#fff",
   },
   button: {
     width: "85%",
-    color: "#000",
     height: 52,
-    backgroundColor: "#ea721c",
+    backgroundColor: "white",
     borderRadius: 10,
     marginTop: 20,
     display: "flex",
@@ -138,7 +170,7 @@ const styles = StyleSheet.create({
   signUpText: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#ea721c",
+    color: "white",
   },
 });
 

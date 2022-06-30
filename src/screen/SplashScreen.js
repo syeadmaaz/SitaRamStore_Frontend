@@ -1,11 +1,18 @@
 import React from "react";
-import { StyleSheet, Text, View, ImageBackground, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  SafeAreaView,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { COLORS } from "../constants/theme";
 
 const SplashScreen = ({ navigation }) => {
   setTimeout(() => {
     navigation.replace("WelcomeScreen");
-  }, 3000);
+  }, 100);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -22,7 +29,7 @@ const SplashScreen = ({ navigation }) => {
         <Text style={{ fontSize: 20, fontWeight: "bold", color: "grey" }}>
           from
         </Text>
-        <Text style={styles.createdby}>Sought Soft</Text>
+        <Text style={styles.createdby}>SoughtSoft</Text>
       </View>
     </SafeAreaView>
   );
@@ -34,33 +41,30 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "white",
   },
   upper: {
     width: "100%",
     height: "90%",
     alignItems: "center",
-    // backgroundColor: "gray",
   },
   image: {
     width: "100%",
     height: "80%",
-    alignItems: 'center',
+    alignItems: "center",
     margin: 70,
-    // backgroundColor: "#000",
   },
   appName: {
     fontWeight: "bold",
     fontSize: 30,
     color: "#eb721c",
-    alignItems:'center',
-    paddingTop: 320
+    alignItems: "center",
+    paddingTop: 320,
   },
   lower: {
     width: "100%",
     height: "10%",
     alignItems: "center",
-    // backgroundColor: "green",
   },
   createdby: {
     fontWeight: "bold",

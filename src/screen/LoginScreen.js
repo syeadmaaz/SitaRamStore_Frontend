@@ -5,13 +5,21 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
+  ActivityIndicator,
   StyleSheet,
   View,
 } from "react-native";
+import { COLORS } from "../constants/theme";
 
 const LoginScreen = ({ navigation }) => {
   function navigate() {
     navigation.navigate("RegisterScreen");
+  }
+
+  const [loading, setLoading] = React.useState(false);
+
+  function signinHandler() {
+    navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
   }
 
   return (
@@ -27,18 +35,23 @@ const LoginScreen = ({ navigation }) => {
         <View style={styles.formView}>
           <TextInput
             placeholder={"Email/Phone*"}
-            placeholderTextColor={"#fff"}
+            placeholderTextColor={"white"}
             style={styles.textInput}
           />
           <TextInput
             placeholder={"Password*"}
-            placeholderTextColor={"#fff"}
+            placeholderTextColor={"white"}
             secureTextEntry={true}
             style={styles.textInput}
           />
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Sign In</Text>
+          <TouchableOpacity style={styles.button} onPress={signinHandler}>
+            {loading ? (
+              <ActivityIndicator size={30} />
+            ) : (
+              <Text style={styles.buttonText}>Sign In</Text>
+            )}
           </TouchableOpacity>
+
           <TouchableOpacity style={styles.textButton} onPress={navigate}>
             <Text style={styles.signUpText}>Sign Up</Text>
           </TouchableOpacity>
@@ -57,29 +70,29 @@ const styles = StyleSheet.create({
   },
   topView: {
     width: "100%",
-    height: "35%",
+    height: "40%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
   imageStyle: {
-    marginTop: 70,
+    marginTop: 80,
     width: "100%",
     resizeMode: "contain",
   },
   buttomView: {
     width: "100%",
-    height: "65%",
-    backgroundColor: "#000",
+    height: "60%",
+    backgroundColor: COLORS.orange,
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
   },
   heading: {
-    color: "#fff",
+    color: "white",
     fontSize: 40,
     fontWeight: "bold",
     marginLeft: 30,
-    marginTop: 50,
+    marginTop: 40,
   },
   formView: {
     width: "100%",
@@ -91,19 +104,20 @@ const styles = StyleSheet.create({
   },
   textInput: {
     width: "85%",
-    borderWidth: 1,
-    borderColor: "#fff",
+    borderWidth: 2,
+    fontWeight: "bold",
+    borderColor: "white",
     height: 52,
     borderRadius: 10,
     paddingLeft: 15,
     marginTop: 20,
-    color: "#fff",
+    color: "white",
   },
   button: {
     width: "85%",
-    color: "#000",
+    color: "black",
     height: 52,
-    backgroundColor: "#ea721c",
+    backgroundColor: "white",
     borderRadius: 10,
     marginTop: 20,
     display: "flex",
@@ -123,7 +137,7 @@ const styles = StyleSheet.create({
   signUpText: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#ea721c",
+    color: "white",
   },
 });
 

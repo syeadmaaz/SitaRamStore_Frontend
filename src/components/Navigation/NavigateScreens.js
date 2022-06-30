@@ -45,8 +45,7 @@ function AuthStackScreen() {
 function ProductStackScreen() {
   return (
     <ProductStack.Navigator
-      //   initialRouteName="ProductView"
-      initialRouteName="Home"
+      initialRouteName="HomeScreen"
       screenOptions={{
         headerShown: false,
         animationEnabled: false,
@@ -68,7 +67,10 @@ const NavigateScreens = () => {
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
         <RootStack.Screen name="MainStackScreen" component={MainStackScreen} />
         <RootStack.Screen name="AuthStackScreen" component={AuthStackScreen} />
-        <RootStack.Screen name="ProductStackScreen" component={ProductStackScreen} />
+        <RootStack.Screen
+          name="ProductStackScreen"
+          component={ProductStackScreen}
+        />
       </RootStack.Navigator>
     </View>
   );

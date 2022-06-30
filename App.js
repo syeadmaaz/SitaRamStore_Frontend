@@ -4,12 +4,11 @@ import { StatusBar } from "expo-status-bar";
 import { Provider as PaperProvider } from "react-native-paper";
 
 import LandingPage from "./src/screen/LandingPage";
-import LoginScreen from "./src/screen/LoginScreen";
-
+import HomeScreen from "./src/screen/HomeScreen";
 export default function App() {
   return (
     <PaperProvider>
-      {/* <LoginScreen /> */}
+      {/* <HomeScreen/> */}
       <NavigationContainer>
         <LandingPage />
       </NavigationContainer>

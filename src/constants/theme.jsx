@@ -1,25 +1,32 @@
 import { Dimensions } from "react-native";
 
-const { width, height } = Dimensions.get('screen');
+const { width, height } = Dimensions.get('window');
 
 export const COLORS = {
     primary: '#f52d56',
+    primary1: '#122636',
     title: '#072F4A',
-    white: '#FFFFFF',
-    lightGrey: '#D3D6D6',
-    grey: '#C1C0C9',
-    blue: '#087BB6',
-    yellow: '#F4D03F',
+    slide1: '#20d2bb',
+    slide2: '#febe29',
+    slide3: '#f56b2a',
+    orange: '#ea721c',
+    white: '#FFF',
+    dark: '#000',
+    light: '#f7f7f7',
+    grey: '#A9A9A9',
+    yellow: '#ffb900',
+    red: 'red',
+    tranparent: 'rgba(0,0,0,0)',
 };
 
-export const SIZES = {
-    h1: 22,
-    h2: 20,
-    h3: 18,
-    h4: 16,
-    h5: 14,
-    h6: 12,
+export const WIDTH = {
+    screenWidth: width,
+    cardWidth: width / 2.5,
+    imageWidth: width / 3.2,
+}
 
-    width,
-    height,
+export const HEIGHT = {
+    screenHeight: height,
+    cardHeight: width / 1.5,
+    imageHeight: width / 2.5,
 }
