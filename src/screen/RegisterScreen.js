@@ -120,14 +120,19 @@ const RegisterScreen = ({ navigation }) => {
         })
         .then((response) => {
           setLoading(false);
-          console.log(response);
+          if (response.status == 201) {
+            navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
+          } else {
+            setError(response.data.error);
+          }
         })
         .catch((e) => {
-          console.log(e);
-          setError("Invalid Credentials");
-          setTimeout(() => {
-            setError(null);
-          }, 2000);
+          // console.log(e.response.data);
+          // setTimeout(() => {
+          //   setError(null);
+          // }, 2000);
+          setLoading(false);
+          setError(e.response.data.error);
         });
     } else {
       setError("Please fill the fields properly");
@@ -136,7 +141,6 @@ const RegisterScreen = ({ navigation }) => {
       }, 2000);
     }
 
-    // navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
   }
 
   return (
