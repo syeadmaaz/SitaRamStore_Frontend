@@ -1,18 +1,18 @@
 import React from "react";
 import {
   StyleSheet,
+  StatusBar,
   Text,
   View,
   ImageBackground,
   SafeAreaView,
 } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import { COLORS } from "../constants/theme";
 
 const SplashScreen = ({ navigation }) => {
   setTimeout(() => {
     navigation.replace("WelcomeScreen");
-  }, 100);
+  }, 2000);
 
   return (
     <SafeAreaView style={styles.container}>

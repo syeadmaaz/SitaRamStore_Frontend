@@ -3,6 +3,7 @@ import {
   Text,
   Image,
   TextInput,
+  StatusBar,
   SafeAreaView,
   TouchableOpacity,
   ActivityIndicator,
@@ -20,11 +21,12 @@ const LoginScreen = ({ navigation }) => {
   const [loading, setLoading] = React.useState(false);
 
   function signinHandler() {
-    navigation.navigate("ProductStackScreen", { screen: "Home" });
+    navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
   }
 
   return (
     <SafeAreaView style={StyleSheet.container}>
+      <StatusBar />
       <View style={styles.topView}>
         <Image
           style={styles.imageStyle}

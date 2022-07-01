@@ -15,6 +15,7 @@ import {
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Card } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
+import { Header } from "react-native/Libraries/NewAppScreen";
 
 const Categories = [
   {
@@ -67,9 +68,51 @@ const Categories = [
     name: "Sweet Tooth",
     img: require("../assets/images/categories/Chocoice.jpeg"),
   },
+  
+  {
+    key: 11,
+    name: "Spice & Masala",
+    img: require("../assets/images/categories/SpiceMasala.jpeg"),
+  },
+  {
+    key: 12,
+    name: "Babycare Supplies",
+    img: require("../assets/images/categories/Babycare.jpg"),
+  },
+  {
+    key: 13,
+    name: "Sweet Tooth",
+    img: require("../assets/images/categories/Chocoice.jpeg"),
+  },
 ];
 
 const HomeScreen = ({ navigation }) => {
+  const LowerHeader = () => {
+    return (
+      <>
+        <View style={styles.lowerHeader}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.headerTitle}>Ready To Buy The Quality</Text>
+            <Text style={styles.headerTitle}>Products</Text>
+          </View>
+
+          <View style={styles.search}>
+            <View style={styles.searchInputContainer}>
+              <Icon name="magnify" size={35} style={styles.searchIcon} />
+              <TextInput placeholder="Search" style={styles.searchInput} />
+              <TouchableOpacity activeOpacity={0.8} style={styles.sortBtn}>
+                <Icon name="magnify" size={40} color="white" />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        <Text style={styles.categoryText}>Categories</Text>
+      </>
+    );
+  };
+  const Footer = () => {
+    return <View style={{ marginTop: 100 }}></View>;
+  };
   const renderData = (item) => {
     return (
       <View style={styles.categoriesContainer}>
@@ -77,9 +120,6 @@ const HomeScreen = ({ navigation }) => {
           <Image source={item.img} style={styles.imgStyling} />
           <Text style={styles.fontStyle}>{item.name}</Text>
         </Card>
-        {/* <Card style={styles.textCard}>
-          <Text style={styles.fontStyle}>{item.name}</Text>
-        </Card> */}
       </View>
     );
   };
@@ -93,36 +133,18 @@ const HomeScreen = ({ navigation }) => {
         <Icon name="cart-outline" size={28} color={COLORS.white} />
       </View>
 
-      {/* <ScrollView showsVerticalScrollIndicator={false}> */}
-      <View style={styles.lowerHeader}>
-        <View style={{ flex: 1 }}>
-          <Text style={styles.headerTitle}>Ready To Buy The Quality</Text>
-          <Text style={styles.headerTitle}>Products</Text>
-        </View>
-
-        <View style={styles.search}>
-          <View style={styles.searchInputContainer}>
-            <Icon name="magnify" size={35} style={styles.searchIcon} />
-            <TextInput placeholder="Search" style={styles.searchInput} />
-            <TouchableOpacity activeOpacity={0.8} style={styles.sortBtn}>
-              <Icon name="magnify" size={40} color="white" />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-
       <View style={styles.lower}>
-        <Text style={styles.categoryText}>Categories</Text>
         <FlatList
           numColumns={2}
           data={Categories}
           showsVerticalScrollIndicator={false}
-          // contentContainerStyle={{ paddingLeft: 20 }}
           renderItem={({ item }) => {
             return renderData(item);
           }}
           keyExtractor={(item) => `${item.name}`}
           scrollEnabled={true}
+          ListHeaderComponent={<LowerHeader />}
+          // ListFooterComponent={<Footer />}
         />
       </View>
 
@@ -134,23 +156,26 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // flexDirection: "column",
-    backgroundColor: COLORS.white,
+    flexDirection: "column",
+    backgroundColor: COLORS.orange,
   },
   header: {
-    backgroundColor: COLORS.orange,
     width: WIDTH.screenWidth,
-    height: HEIGHT.screenHeight/11,
+    height: HEIGHT.screenHeight / 11,
     paddingVertical: "5%",
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: "5%",
+    backgroundColor: COLORS.orange,
   },
   lowerHeader: {
+    flex:1,
     flexDirection: "column",
     backgroundColor: COLORS.orange,
-    height: "16%",
+    height: "5%",
     justifyContent: "center",
+    paddingTop: "5%",
+    paddingBottom: "8%",
     width: WIDTH.screenWidth,
     // backgroundColor: COLORS.dark,
   },
@@ -162,7 +187,7 @@ const styles = StyleSheet.create({
   },
   search: {
     maxWidth: WIDTH.screenWidth,
-    top: "25%",
+    top: "20%",
     height: "50%",
     marginHorizontal: "5%",
     // backgroundColor: COLORS.dark,
@@ -173,11 +198,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     Height: "100%",
-    backgroundColor: COLORS.white,
     borderRadius: 20,
     position: "absolute",
     alignItems: "center",
     elevation: 10,
+    backgroundColor: COLORS.white,
   },
   searchIcon: {
     display: "flex",
@@ -189,7 +214,7 @@ const styles = StyleSheet.create({
     // backgroundColor: COLORS.orange,
   },
   searchInput: {
-    color: "white",
+    color: "black",
     display: "flex",
     width: "65%",
     height: "100%",
@@ -208,23 +233,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: COLORS.orange,
   },
-  lower: {
-    marginTop: "10%",
-    paddingBottom: 50,
-    // backgroundColor: "orange",
-  },
+
   categoryText: {
     fontSize: 25,
     fontWeight: "bold",
-    color: COLORS.dark,
-    paddingTop: "8%",
+    marginTop: "8%",
     paddingHorizontal: "5%",
     paddingVertical: "5%",
-    backgroundColor: "white",
+    color: COLORS.dark,
+    // backgroundColor: "white",
   },
 
+  lower: {
+    flex:1,
+    flexDirection: "column",
+    backgroundColor: COLORS.white,
+  },
   categoriesContainer: {
     width: WIDTH.screenWidth / 2,
+    position: "relative",
+    marginTop: "2%",
     alignItems: "center",
     justifyContent: "center",
     // backgroundColor: COLORS.orange,
@@ -233,14 +261,14 @@ const styles = StyleSheet.create({
   cardStyle: {
     flexDirection: "column",
     height: HEIGHT.cardHeight,
-    backgroundColor: "white",
-    elevation: 10,
     width: WIDTH.cardWidth,
+    elevation: 10,
     padding: 10,
     marginVertical: 15,
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "white",
   },
 
   imgStyling: {
@@ -250,50 +278,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     margin: "4%",
     alignItems: "center",
-    backgroundColor: "orange",
+    // backgroundColor: "orange",
   },
 
   fontStyle: {
     fontSize: 15,
     fontWeight: "bold",
     width: WIDTH.imageWidth + 5,
-    height: WIDTH.cardWidth/3 -2,
+    height: WIDTH.cardWidth / 3 - 2,
     paddingTop: "5%",
     paddingLeft: "4%",
     // backgroundColor: "orange"
-  },
-
-  categoryItemBtn: {
-    flexDirection: "row",
-    backgroundColor: COLORS.light,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    borderRadius: 7,
-    alignItems: "center",
-  },
-
-  card: {
-    height: 190,
-    backgroundColor: COLORS.white,
-    elevation: 10,
-    width: WIDTH.cardWidth,
-    marginRight: 20,
-    padding: 10,
-    marginVertical: 20,
-    borderRadius: 10,
-  },
-
-  iconContainer: {
-    height: 25,
-    width: 25,
-    backgroundColor: COLORS.white,
-    position: "absolute",
-    elevation: 2,
-    right: 15,
-    top: 15,
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
 

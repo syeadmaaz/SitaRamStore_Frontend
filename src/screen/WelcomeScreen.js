@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
   Image,
@@ -33,6 +34,7 @@ const WelcomeScreen = ({ navigation }) => {
           paddingBottom: 80,
         }}
       >
+        <StatusBar/>
         <Text style={styles.introTitleStyle}>{item.title}</Text>
         <Image style={styles.introImageStyle} source={item.image} />
         <Text style={styles.introTextStyle}>{item.text}</Text>

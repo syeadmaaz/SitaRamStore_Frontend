@@ -4,6 +4,7 @@ import {
   Image,
   TextInput,
   SafeAreaView,
+  StatusBar,
   TouchableOpacity,
   ActivityIndicator,
   StyleSheet,
@@ -26,6 +27,7 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={StyleSheet.container}>
+      <StatusBar/>
       <View style={styles.topView}>
         <Image
           style={styles.imageStyle}

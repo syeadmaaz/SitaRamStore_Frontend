@@ -7,7 +7,6 @@ import WelcomeScreen from "../../screen/WelcomeScreen";
 import HomeScreen from "../../screen/HomeScreen";
 import LoginScreen from "../../screen/LoginScreen";
 import RegisterScreen from "../../screen/RegisterScreen";
-import Home from "../../screen/Home";
 
 const RootStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
@@ -53,7 +52,6 @@ function ProductStackScreen() {
       }}
     >
       <ProductStack.Screen name="HomeScreen" component={HomeScreen} />
-      <ProductStack.Screen name="Home" component={Home} />
       {/* <ProductStack.Screen name="ProductView" component={ProductView} />
           <ProductStack.Screen name="Products" component={ProductsScreen} />
           <ProductStack.Screen name="Address" component={AddressScreen} />
