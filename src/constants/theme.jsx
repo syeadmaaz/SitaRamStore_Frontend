@@ -27,6 +27,6 @@ export const WIDTH = {
 
 export const HEIGHT = {
     screenHeight: height,
-    cardHeight: width / 1.5,
-    imageHeight: width / 2.5,
+    cardHeight: width / 2,
+    imageHeight: width / 3.5,
 }

@@ -12,14 +12,15 @@ import {
 import { COLORS } from "../constants/theme";
 
 const LoginScreen = ({ navigation }) => {
-  function navigate() {
+
+  function sigupHandler() {
     navigation.navigate("RegisterScreen");
   }
 
   const [loading, setLoading] = React.useState(false);
 
   function signinHandler() {
-    navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
+    navigation.navigate("ProductStackScreen", { screen: "Home" });
   }
 
   return (
@@ -52,7 +53,7 @@ const LoginScreen = ({ navigation }) => {
             )}
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.textButton} onPress={navigate}>
+          <TouchableOpacity style={styles.textButton} onPress={sigupHandler}>
             <Text style={styles.signUpText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
