@@ -9,7 +9,6 @@ import {
 import AppIntroSlider from "react-native-app-intro-slider";
 import { COLORS } from "../constants/theme";
 import {slides} from "../data/IntroSlides";
- 
 
 const WelcomeScreen = ({ navigation }) => {
   function navigate() {
