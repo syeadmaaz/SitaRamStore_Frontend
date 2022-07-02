@@ -21,7 +21,6 @@ const RegisterScreen = ({ navigation }) => {
   }
 
   const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(null);
 
   const [userData, setUserData] = React.useState({
     name: {
@@ -42,74 +41,34 @@ const RegisterScreen = ({ navigation }) => {
     },
   });
 
-  const textFieldHandler = (data, type) => {
-    console.log(data,type)
-    if (type === 1) {
-      if (data) {
-        const tempUserData = { ...userData };
-        tempUserData.name.value = data;
-        tempUserData.name.isValid = true;
-        setUserData(tempUserData);
-      } else {
-        const tempUserData = { ...userData };
-        tempUserData.name.value = data;
-        tempUserData.name.isValid = false;
-        setUserData(tempUserData);
-      }
-    }
-    if (type === 2) {
-      if (data) {
-        const tempUserData = { ...userData };
-        tempUserData.mobile.value = data;
-        tempUserData.mobile.isValid = true;
-        setUserData(tempUserData);
-      } else {
-        const tempUserData = { ...userData };
-        tempUserData.mobile.value = data;
-        tempUserData.mobile.isValid = false;
-        setUserData(tempUserData);
-      }
-    }
-    if (type === 3) {
-      if (data) {
-        const tempUserData = { ...userData };
-        tempUserData.email.value = data;
-        tempUserData.email.isValid = true;
-        setUserData(tempUserData);
-      } else {
-        const tempUserData = { ...userData };
-        tempUserData.email.value = data;
-        tempUserData.email.isValid = false;
-        setUserData(tempUserData);
-      }
-    }
-    if (type === 4) {
-      if (data) {
-        const tempUserData = { ...userData };
-        tempUserData.password.value = data;
-        tempUserData.password.isValid = true;
-        setUserData(tempUserData);
-      } else {
-        const tempUserData = { ...userData };
-        tempUserData.password.value = data;
-        tempUserData.password.isValid = false;
-        setUserData(tempUserData);
-      }
+  const textFieldHandler = (data, key) => {
+    // console.log(data, key);
+    if (data) {
+      let tempUserData = { ...userData };
+      tempUserData[key].value = data;
+      tempUserData[key].isValid = true;
+      setUserData(tempUserData);
+    } else {
+      const tempUserData = { ...userData };
+      tempUserData[key].value = null;
+      tempUserData[key].isValid = false;
+      setUserData(tempUserData);
     }
   };
 
   function signupHandler() {
-    console.log("Sign-Up Clicked");
-    let valid = true;
-    valid =
-      valid &&
-      userData.name.isValid &&
-      userData.email.isValid &&
-      userData.mobile.isValid &&
-      userData.password.isValid;
-    console.log(valid)
-    console.log(userData);
-    if (valid) {
+    let temp = { ...userData };
+    // console.log(temp);
+
+    let isValid = true;
+    Object.keys(temp).map((item) => {
+      isValid = isValid && temp[item].isValid;
+    });
+
+    console.log(isValid);    
+
+    if (isValid) {
+      console.log(userData)
       setLoading(true);
       axios
         .post("/register", {
@@ -121,26 +80,21 @@ const RegisterScreen = ({ navigation }) => {
         .then((response) => {
           setLoading(false);
           if (response.status == 201) {
+            console.log(response.data);
             navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
           } else {
-            setError(response.data.error);
+            console.log(response.data.error);
+            alert(response.data.error);
           }
         })
         .catch((e) => {
           // console.log(e.response.data);
-          // setTimeout(() => {
-          //   setError(null);
-          // }, 2000);
           setLoading(false);
-          setError(e.response.data.error);
+          alert(e.response.data.error);
         });
     } else {
-      setError("Please fill the fields properly");
-      setTimeout(() => {
-        setError(null);
-      }, 2000);
+      alert("Please Fill The Fields Properly !");
     }
-
   }
 
   return (
@@ -152,66 +106,79 @@ const RegisterScreen = ({ navigation }) => {
           source={require("../assets/images/logo.png")}
         />
       </View>
-      <ScrollView
-        style={styles.buttomView}
+
+      <View style={styles.buttomView}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+        >
+          <View style={styles.back}>
+            <TouchableOpacity onPress={back}>
+              <Icon
+                name="chevron-back-outline"
+                style={styles.backIcon}
+                color="white"
+                size={35}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <Text style={styles.heading}>Create{"\n"}Account</Text>
+          {/* <ScrollView
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
-      >
-        <View style={styles.back}>
-          <TouchableOpacity onPress={back}>
-            <Icon
-              name="chevron-back-outline"
-              style={styles.backIcon}
-              //   color="black"
-              color="white"
-              size={35}
+      > */}
+          <View style={styles.formView}>
+            <TextInput
+              placeholder={"Name*"}
+              placeholderTextColor={"white"}
+              keyboardType="default"
+              autoCapitalize={"none"}
+              style={styles.textInput}
+              value={userData.name.value}
+              onChangeText={(text) => textFieldHandler(text, "name")}
             />
-          </TouchableOpacity>
-        </View>
+            <TextInput
+              placeholder={"Mobile*"}
+              placeholderTextColor={"white"}
+              keyboardType="numeric"
+              autoCapitalize={"none"}
+              style={styles.textInput}
+              value={userData.mobile.value}
+              onChangeText={(text) => textFieldHandler(text, "mobile")}
+            />
+            <TextInput
+              placeholder={"Email*"}
+              placeholderTextColor={"white"}
+              keyboardType="default"
+              autoCapitalize={"none"}
+              style={styles.textInput}
+              value={userData.email.value}
+              onChangeText={(text) => textFieldHandler(text, "email")}
+            />
+            <TextInput
+              placeholder={"Password*"}
+              placeholderTextColor={"white"}
+              keyboardType="default"
+              autoCapitalize={"none"}
+              secureTextEntry={true}
+              style={styles.textInput}
+              value={userData.password.value}
+              onChangeText={(text) => textFieldHandler(text, "password")}
+            />
 
-        <Text style={styles.heading}>Create{"\n"}Account</Text>
-        <View style={styles.formView}>
-          <TextInput
-            placeholder={"Name*"}
-            placeholderTextColor={"white"}
-            style={styles.textInput}
-            value={userData.name.value}
-            onChangeText={(text) => textFieldHandler(text, 1)}
-          />
-          <TextInput
-            placeholder={"Mobile*"}
-            placeholderTextColor={"white"}
-            style={styles.textInput}
-            value={userData.mobile.value}
-            onChangeText={(text) => textFieldHandler(text, 2)}
-          />
-          <TextInput
-            placeholder={"Email*"}
-            placeholderTextColor={"white"}
-            style={styles.textInput}
-            value={userData.email.value}
-            onChangeText={(text) => textFieldHandler(text, 3)}
-          />
-          <TextInput
-            placeholder={"Password*"}
-            placeholderTextColor={"white"}
-            secureTextEntry={true}
-            style={styles.textInput}
-            value={userData.password.value}
-            onChangeText={(text) => textFieldHandler(text, 4)}
-          />
+            {/* {error != null ? <TextInput value={error} /> : null} */}
 
-          {error != null ? <TextInput value={error} /> : null}
-
-          <TouchableOpacity style={styles.button} onPress={signupHandler}>
-            {loading ? (
-              <ActivityIndicator size={30} />
-            ) : (
-              <Text style={styles.buttonText}>Sign Up</Text>
-            )}
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+            <TouchableOpacity style={styles.button} onPress={signupHandler}>
+              {loading ? (
+                <ActivityIndicator size={30} />
+              ) : (
+                <Text style={styles.buttonText}>Sign Up</Text>
+              )}
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

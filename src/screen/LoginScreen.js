@@ -14,51 +14,50 @@ import { COLORS } from "../constants/theme";
 import axios from "../../axios.automate";
 
 const LoginScreen = ({ navigation }) => {
-
   function sigupHandler() {
     navigation.navigate("RegisterScreen");
   }
 
   const [loading, setLoading] = React.useState(false);
-  const [error,setError] = React.useState(false)
 
   const [loginData, setLoginData] = React.useState({
     userName: null,
-    password: null
+    password: null,
   });
 
   const textFieldHandler = (data, key) => {
-    console.log(loginData)
-    const tempLoginData = {...loginData}
-    tempLoginData[key] = data
-    setLoginData(tempLoginData)
-  }
+    let tempLoginData = { ...loginData };
+    if (data) {
+      tempLoginData[key] = data;
+      setLoginData(tempLoginData);
+    } else {
+      tempLoginData[key] = null;
+      setLoginData(tempLoginData);
+    }
+  };
 
   function signinHandler() {
-    setLoading(true)
+    console.log(loginData);
+    setLoading(true);
     axios
-      .get("/login", {
-        params: {
-          email: loginData.userName,
-          password: loginData.password
-        },
+      .post("/login", {
+        userName: loginData.userName,
+        password: loginData.password,
       })
       .then((response) => {
         setLoading(false);
-        console.log(response)
+        console.log(response.data);
         if (response.status == 201) {
+          // console.log(response.data);
           navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
         } else {
-          setError(response.data.error);
+          alert(response.data.error);
         }
       })
       .catch((e) => {
-        // console.log(e.response.data);
-        // setTimeout(() => {
-        //   setError(null);
-        // }, 2000);
+        console.log(e.response.data);
         setLoading(false);
-        setError(e.response.data.error);
+        alert(e.response.data.error);
       });
   }
 
@@ -77,6 +76,8 @@ const LoginScreen = ({ navigation }) => {
           <TextInput
             placeholder={"Email/Phone*"}
             placeholderTextColor={"white"}
+            keyboardType="default"
+            autoCapitalize={"none"}
             style={styles.textInput}
             value={loginData.userName}
             onChangeText={(text) => textFieldHandler(text, "userName")}
@@ -84,6 +85,8 @@ const LoginScreen = ({ navigation }) => {
           <TextInput
             placeholder={"Password*"}
             placeholderTextColor={"white"}
+            keyboardType="default"
+            autoCapitalize={"none"}
             secureTextEntry={true}
             style={styles.textInput}
             value={loginData.password}

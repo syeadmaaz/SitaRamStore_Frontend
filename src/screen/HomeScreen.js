@@ -87,6 +87,9 @@ const Categories = [
 ];
 
 const HomeScreen = ({ navigation }) => {
+  function logOut() {
+    navigation.naviagte("AuthStackScreen", {screen: "LoginScreen"});
+  }
   const LowerHeader = () => {
     return (
       <>
@@ -130,7 +133,7 @@ const HomeScreen = ({ navigation }) => {
       {/* Header container */}
       <View style={styles.header}>
         <Icon name="sort-variant" size={28} color={COLORS.white} />
-        <Icon name="cart-outline" size={28} color={COLORS.white} />
+        <Icon name="cart-outline" size={28} color={COLORS.white} onPress={logOut}/>
       </View>
 
       <View style={styles.lower}>
