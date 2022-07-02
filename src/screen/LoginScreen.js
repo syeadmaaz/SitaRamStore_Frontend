@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 import { COLORS } from "../constants/theme";
+import axios from "../../axios.automate";
 
 const LoginScreen = ({ navigation }) => {
 
@@ -19,9 +20,46 @@ const LoginScreen = ({ navigation }) => {
   }
 
   const [loading, setLoading] = React.useState(false);
+  const [error,setError] = React.useState(false)
+
+  const [loginData, setLoginData] = React.useState({
+    userName: null,
+    password: null
+  });
+
+  const textFieldHandler = (data, key) => {
+    console.log(loginData)
+    const tempLoginData = {...loginData}
+    tempLoginData[key] = data
+    setLoginData(tempLoginData)
+  }
 
   function signinHandler() {
-    navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
+    setLoading(true)
+    axios
+      .get("/login", {
+        params: {
+          email: loginData.userName,
+          password: loginData.password
+        },
+      })
+      .then((response) => {
+        setLoading(false);
+        console.log(response)
+        if (response.status == 201) {
+          navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
+        } else {
+          setError(response.data.error);
+        }
+      })
+      .catch((e) => {
+        // console.log(e.response.data);
+        // setTimeout(() => {
+        //   setError(null);
+        // }, 2000);
+        setLoading(false);
+        setError(e.response.data.error);
+      });
   }
 
   return (
@@ -40,13 +78,18 @@ const LoginScreen = ({ navigation }) => {
             placeholder={"Email/Phone*"}
             placeholderTextColor={"white"}
             style={styles.textInput}
+            value={loginData.userName}
+            onChangeText={(text) => textFieldHandler(text, "userName")}
           />
           <TextInput
             placeholder={"Password*"}
             placeholderTextColor={"white"}
             secureTextEntry={true}
             style={styles.textInput}
+            value={loginData.password}
+            onChangeText={(text) => textFieldHandler(text, "password")}
           />
+          {/* {error != null ? <TextInput value={error} /> : null} */}
           <TouchableOpacity style={styles.button} onPress={signinHandler}>
             {loading ? (
               <ActivityIndicator size={30} />

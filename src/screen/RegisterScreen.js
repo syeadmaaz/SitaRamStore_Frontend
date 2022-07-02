@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { COLORS } from "../constants/theme";
 import Icon from "react-native-vector-icons/Ionicons";
+import axios from "../../axios.automate";
 
 const RegisterScreen = ({ navigation }) => {
   function back() {
@@ -20,14 +21,131 @@ const RegisterScreen = ({ navigation }) => {
   }
 
   const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+
+  const [userData, setUserData] = React.useState({
+    name: {
+      value: null,
+      isValid: false,
+    },
+    email: {
+      value: null,
+      isValid: false,
+    },
+    mobile: {
+      value: null,
+      isValid: false,
+    },
+    password: {
+      value: null,
+      isValid: false,
+    },
+  });
+
+  const textFieldHandler = (data, type) => {
+    console.log(data,type)
+    if (type === 1) {
+      if (data) {
+        const tempUserData = { ...userData };
+        tempUserData.name.value = data;
+        tempUserData.name.isValid = true;
+        setUserData(tempUserData);
+      } else {
+        const tempUserData = { ...userData };
+        tempUserData.name.value = data;
+        tempUserData.name.isValid = false;
+        setUserData(tempUserData);
+      }
+    }
+    if (type === 2) {
+      if (data) {
+        const tempUserData = { ...userData };
+        tempUserData.mobile.value = data;
+        tempUserData.mobile.isValid = true;
+        setUserData(tempUserData);
+      } else {
+        const tempUserData = { ...userData };
+        tempUserData.mobile.value = data;
+        tempUserData.mobile.isValid = false;
+        setUserData(tempUserData);
+      }
+    }
+    if (type === 3) {
+      if (data) {
+        const tempUserData = { ...userData };
+        tempUserData.email.value = data;
+        tempUserData.email.isValid = true;
+        setUserData(tempUserData);
+      } else {
+        const tempUserData = { ...userData };
+        tempUserData.email.value = data;
+        tempUserData.email.isValid = false;
+        setUserData(tempUserData);
+      }
+    }
+    if (type === 4) {
+      if (data) {
+        const tempUserData = { ...userData };
+        tempUserData.password.value = data;
+        tempUserData.password.isValid = true;
+        setUserData(tempUserData);
+      } else {
+        const tempUserData = { ...userData };
+        tempUserData.password.value = data;
+        tempUserData.password.isValid = false;
+        setUserData(tempUserData);
+      }
+    }
+  };
 
   function signupHandler() {
-    navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
+    console.log("Sign-Up Clicked");
+    let valid = true;
+    valid =
+      valid &&
+      userData.name.isValid &&
+      userData.email.isValid &&
+      userData.mobile.isValid &&
+      userData.password.isValid;
+    console.log(valid)
+    console.log(userData);
+    if (valid) {
+      setLoading(true);
+      axios
+        .post("/register", {
+          name: userData.name.value,
+          mobile: userData.mobile.value,
+          email: userData.email.value,
+          password: userData.password.value,
+        })
+        .then((response) => {
+          setLoading(false);
+          if (response.status == 201) {
+            navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
+          } else {
+            setError(response.data.error);
+          }
+        })
+        .catch((e) => {
+          // console.log(e.response.data);
+          // setTimeout(() => {
+          //   setError(null);
+          // }, 2000);
+          setLoading(false);
+          setError(e.response.data.error);
+        });
+    } else {
+      setError("Please fill the fields properly");
+      setTimeout(() => {
+        setError(null);
+      }, 2000);
+    }
+
   }
 
   return (
     <SafeAreaView style={StyleSheet.container}>
-      <StatusBar/>
+      <StatusBar />
       <View style={styles.topView}>
         <Image
           style={styles.imageStyle}
@@ -44,7 +162,7 @@ const RegisterScreen = ({ navigation }) => {
             <Icon
               name="chevron-back-outline"
               style={styles.backIcon}
-            //   color="black"
+              //   color="black"
               color="white"
               size={35}
             />
@@ -57,23 +175,34 @@ const RegisterScreen = ({ navigation }) => {
             placeholder={"Name*"}
             placeholderTextColor={"white"}
             style={styles.textInput}
+            value={userData.name.value}
+            onChangeText={(text) => textFieldHandler(text, 1)}
           />
           <TextInput
             placeholder={"Mobile*"}
             placeholderTextColor={"white"}
             style={styles.textInput}
+            value={userData.mobile.value}
+            onChangeText={(text) => textFieldHandler(text, 2)}
           />
           <TextInput
             placeholder={"Email*"}
             placeholderTextColor={"white"}
             style={styles.textInput}
+            value={userData.email.value}
+            onChangeText={(text) => textFieldHandler(text, 3)}
           />
           <TextInput
             placeholder={"Password*"}
             placeholderTextColor={"white"}
             secureTextEntry={true}
             style={styles.textInput}
+            value={userData.password.value}
+            onChangeText={(text) => textFieldHandler(text, 4)}
           />
+
+          {error != null ? <TextInput value={error} /> : null}
+
           <TouchableOpacity style={styles.button} onPress={signupHandler}>
             {loading ? (
               <ActivityIndicator size={30} />
