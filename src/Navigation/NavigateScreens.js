@@ -2,11 +2,13 @@ import React from "react";
 import { View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import SplashScreen from "../../screen/SplashScreen";
-import WelcomeScreen from "../../screen/WelcomeScreen";
-import HomeScreen from "../../screen/HomeScreen";
-import LoginScreen from "../../screen/LoginScreen";
-import RegisterScreen from "../../screen/RegisterScreen";
+import SplashScreen from "../screen/SplashScreen";
+import WelcomeScreen from "../screen/WelcomeScreen";
+import HomeScreen from "../screen/HomeScreen";
+import LoginScreen from "../screen/LoginScreen";
+import RegisterScreen from "../screen/RegisterScreen";
+import ProductsScreen from "../screen/ProductsScreen";
+import CartScreen from "../screen/CartScreen";
 
 const RootStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
@@ -52,11 +54,11 @@ function ProductStackScreen() {
       }}
     >
       <ProductStack.Screen name="HomeScreen" component={HomeScreen} />
-      {/* <ProductStack.Screen name="ProductView" component={ProductView} />
-          <ProductStack.Screen name="Products" component={ProductsScreen} />
-          <ProductStack.Screen name="Address" component={AddressScreen} />
-          <ProductStack.Screen name="PlaceOrder" component={PlaceOrder} />
-          <ProductStack.Screen name="ThankYou" component={ThankYou} /> */}
+      <ProductStack.Screen name="ProductsScreen" component={ProductsScreen} />
+      <ProductStack.Screen name="CartScreen" component={CartScreen} />
+      {/* <ProductStack.Screen name="Address" component={AddressScreen} />
+      <ProductStack.Screen name="PlaceOrder" component={PlaceOrder} />
+      <ProductStack.Screen name="ThankYou" component={ThankYou} /> */}
     </ProductStack.Navigator>
   );
 }

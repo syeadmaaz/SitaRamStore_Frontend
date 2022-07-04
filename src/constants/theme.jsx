@@ -1,5 +1,4 @@
 import { Dimensions } from "react-native";
-
 const { width, height } = Dimensions.get('window');
 
 export const COLORS = {
@@ -23,10 +22,16 @@ export const WIDTH = {
     screenWidth: width,
     cardWidth: width / 2.5,
     imageWidth: width / 3.2,
+
+    productCardWidth: width / 1.13,
+    productImageWidth: width / 2.5,
 }
 
 export const HEIGHT = {
     screenHeight: height,
-    cardHeight: width / 2,
-    imageHeight: width / 3.5,
+    cardHeight: height / 4,
+    imageHeight: height / 7,
+    
+    productCardHeight: height / 5,
+    productImageHeight: height / 5.4,
 }

@@ -1,12 +1,12 @@
 import React from "react";
 import {
   StyleSheet,
-  StatusBar,
   Text,
   View,
   ImageBackground,
   SafeAreaView,
 } from "react-native";
+import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import { COLORS } from "../constants/theme";
 
 const SplashScreen = ({ navigation }) => {
@@ -16,7 +16,7 @@ const SplashScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar style="auto" />
+      <AppStatusBar backgroundColor={COLORS.white}/>
       <View style={styles.upper}>
         <ImageBackground
           source={require("../assets/images/logo.png")}

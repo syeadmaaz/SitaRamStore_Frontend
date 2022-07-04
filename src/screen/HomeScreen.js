@@ -4,18 +4,19 @@ import {
   StyleSheet,
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   Image,
   SafeAreaView,
   FlatList,
-  StatusBar,
-  ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Card } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
-import { Header } from "react-native/Libraries/NewAppScreen";
+
+import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
+
+import Header from "../components/Header/Header";
+import SearchHeader from "../components/Header/SearchHeader";
 
 const Categories = [
   {
@@ -68,60 +69,48 @@ const Categories = [
     name: "Sweet Tooth",
     img: require("../assets/images/categories/Chocoice.jpeg"),
   },
-  
-  {
-    key: 11,
-    name: "Spice & Masala",
-    img: require("../assets/images/categories/SpiceMasala.jpeg"),
-  },
-  {
-    key: 12,
-    name: "Babycare Supplies",
-    img: require("../assets/images/categories/Babycare.jpg"),
-  },
-  {
-    key: 13,
-    name: "Sweet Tooth",
-    img: require("../assets/images/categories/Chocoice.jpeg"),
-  },
+
+  // {
+  //   key: 11,
+  //   name: "Spice & Masala",
+  //   img: require("../assets/images/categories/SpiceMasala.jpeg"),
+  // },
+  // {
+  //   key: 12,
+  //   name: "Babycare Supplies",
+  //   img: require("../assets/images/categories/Babycare.jpg"),
+  // },
+  // {
+  //   key: 13,
+  //   name: "Sweet Tooth",
+  //   img: require("../assets/images/categories/Chocoice.jpeg"),
+  // },
 ];
 
 const HomeScreen = ({ navigation }) => {
   function logOut() {
-    navigation.naviagte("AuthStackScreen", {screen: "LoginScreen"});
+    navigation.naviagte("AuthStackScreen", { screen: "LoginScreen" });
+  }
+  function goToProductsScreen() {
+    navigation.navigate("ProductStackScreen", { screen: "ProductsScreen" });
   }
   const LowerHeader = () => {
     return (
       <>
-        <View style={styles.lowerHeader}>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.headerTitle}>Ready To Buy The Quality</Text>
-            <Text style={styles.headerTitle}>Products</Text>
-          </View>
-
-          <View style={styles.search}>
-            <View style={styles.searchInputContainer}>
-              <Icon name="magnify" size={35} style={styles.searchIcon} />
-              <TextInput placeholder="Search" style={styles.searchInput} />
-              <TouchableOpacity activeOpacity={0.8} style={styles.sortBtn}>
-                <Icon name="magnify" size={40} color="white" />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
+        <SearchHeader />
         <Text style={styles.categoryText}>Categories</Text>
       </>
     );
   };
-  const Footer = () => {
-    return <View style={{ marginTop: 100 }}></View>;
-  };
+
   const renderData = (item) => {
     return (
-      <View style={styles.categoriesContainer}>
+      <View style={styles.cardsContainer}>
         <Card style={styles.cardStyle}>
-          <Image source={item.img} style={styles.imgStyling} />
-          <Text style={styles.fontStyle}>{item.name}</Text>
+          <TouchableOpacity activeOpacity={0.2} onPress={goToProductsScreen}>
+            <Image source={item.img} style={styles.imgStyling} />
+            <Text style={styles.fontStyle}>{item.name}</Text>
+          </TouchableOpacity>
         </Card>
       </View>
     );
@@ -129,14 +118,10 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar translucent={false} backgroundColor={COLORS.orange} />
-      {/* Header container */}
-      <View style={styles.header}>
-        <Icon name="sort-variant" size={28} color={COLORS.white} />
-        <Icon name="cart-outline" size={28} color={COLORS.white} onPress={logOut}/>
-      </View>
+      <AppStatusBar backgroundColor={COLORS.orange}/>
+      <Header />
 
-      <View style={styles.lower}>
+      <View style={styles.content}>
         <FlatList
           numColumns={2}
           data={Categories}
@@ -144,13 +129,12 @@ const HomeScreen = ({ navigation }) => {
           renderItem={({ item }) => {
             return renderData(item);
           }}
-          keyExtractor={(item) => `${item.name}`}
+          keyExtractor={(item) => `${item.key}`}
           scrollEnabled={true}
           ListHeaderComponent={<LowerHeader />}
           // ListFooterComponent={<Footer />}
         />
       </View>
-
       {/* </ScrollView> */}
     </SafeAreaView>
   );
@@ -160,83 +144,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: COLORS.orange,
-  },
-  header: {
     width: WIDTH.screenWidth,
-    height: HEIGHT.screenHeight / 11,
-    paddingVertical: "5%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: "5%",
-    backgroundColor: COLORS.orange,
-  },
-  lowerHeader: {
-    flex:1,
-    flexDirection: "column",
-    backgroundColor: COLORS.orange,
-    height: "5%",
-    justifyContent: "center",
-    paddingTop: "5%",
-    paddingBottom: "8%",
-    width: WIDTH.screenWidth,
-    // backgroundColor: COLORS.dark,
-  },
-  headerTitle: {
-    color: "white",
-    fontSize: 23,
-    fontWeight: "bold",
-    paddingHorizontal: "5%",
-  },
-  search: {
-    maxWidth: WIDTH.screenWidth,
-    top: "20%",
-    height: "50%",
-    marginHorizontal: "5%",
-    // backgroundColor: COLORS.dark,
-  },
-
-  searchInputContainer: {
-    flex: 1,
-    flexDirection: "row",
-    width: "100%",
-    Height: "100%",
-    borderRadius: 20,
-    position: "absolute",
-    alignItems: "center",
-    elevation: 10,
-    backgroundColor: COLORS.white,
-  },
-  searchIcon: {
-    display: "flex",
-    color: COLORS.dark,
-    width: "10%",
-    height: "100%",
-    paddingVertical: "4%",
-    marginHorizontal: "3%",
     // backgroundColor: COLORS.orange,
   },
-  searchInput: {
-    color: "black",
-    display: "flex",
-    width: "65%",
-    height: "100%",
-    paddingVertical: "4%",
-    fontSize: 18,
-    alignItems: "center",
-    // backgroundColor: COLORS.grey,
-  },
-  sortBtn: {
-    display: "flex",
-    color: "white",
-    height: "100%",
-    width: "19%",
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: COLORS.orange,
-  },
-
   categoryText: {
     fontSize: 25,
     fontWeight: "bold",
@@ -246,13 +156,12 @@ const styles = StyleSheet.create({
     color: COLORS.dark,
     // backgroundColor: "white",
   },
-
-  lower: {
-    flex:1,
+  content: {
+    flex: 1,
     flexDirection: "column",
     backgroundColor: COLORS.white,
   },
-  categoriesContainer: {
+  cardsContainer: {
     width: WIDTH.screenWidth / 2,
     position: "relative",
     marginTop: "2%",

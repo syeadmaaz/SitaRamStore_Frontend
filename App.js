@@ -4,15 +4,25 @@ import { StatusBar } from "expo-status-bar";
 import { Provider as PaperProvider } from "react-native-paper";
 
 import LandingPage from "./src/screen/LandingPage";
+import SearchBar from "./src/components/SearchBar/SearchBar";
+import ProductsScreen from "./src/screen/ProductsScreen";
 import HomeScreen from "./src/screen/HomeScreen";
+
+
 export default function App() {
   return (
     <PaperProvider>
-      {/* <HomeScreen/> */}
+      <StatusBar style="auto" />
       <NavigationContainer>
+        {/* <ProductsScreen /> */}
+        {/* <HomeScreen /> */}
+
+
+        {/* <SearchBar/> */}
+        {/* <SearchHeader /> */}
+        
         <LandingPage />
       </NavigationContainer>
-      <StatusBar style="auto" />
     </PaperProvider>
   );
 }

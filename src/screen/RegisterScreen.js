@@ -14,6 +14,7 @@ import {
 import { COLORS } from "../constants/theme";
 import Icon from "react-native-vector-icons/Ionicons";
 import axios from "../../axios.automate";
+import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 
 const RegisterScreen = ({ navigation }) => {
   function back() {
@@ -99,7 +100,7 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={StyleSheet.container}>
-      <StatusBar />
+      <AppStatusBar backgroundColor={COLORS.white} />
       <View style={styles.topView}>
         <Image
           style={styles.imageStyle}
@@ -107,7 +108,7 @@ const RegisterScreen = ({ navigation }) => {
         />
       </View>
 
-      <View style={styles.buttomView}>
+      <View style={styles.bottomView}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
@@ -189,33 +190,33 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: COLORS.white
   },
   topView: {
     width: "100%",
-    height: "28%",
-    display: "flex",
+    height: "23%",
     justifyContent: "center",
     alignItems: "center",
+    // backgroundColor: COLORS.yellow
   },
   imageStyle: {
-    marginTop: 75,
-    width: "100%",
+    marginTop: "10%",
+    width:"100%",
     resizeMode: "contain",
+    backgroundColor: COLORS.white
   },
-  buttomView: {
+  bottomView: {
     width: "100%",
-    height: "72%",
-    backgroundColor: COLORS.orange,
+    height: "77%",
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
+    backgroundColor: COLORS.orange,
   },
   back: {
     marginStart: 20,
     marginTop: 10,
     width: 40,
     height: 40,
-    // backgroundColor: "white",
-    // borderRadius: 40/2
   },
   backIcon: {
     padding: 2,

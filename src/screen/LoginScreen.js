@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { COLORS } from "../constants/theme";
 import axios from "../../axios.automate";
+import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 
 const LoginScreen = ({ navigation }) => {
   function sigupHandler() {
@@ -62,8 +63,8 @@ const LoginScreen = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView style={StyleSheet.container}>
-      <StatusBar />
+    <SafeAreaView style={styles.container}>
+      <AppStatusBar backgroundColor={COLORS.white}/>
       <View style={styles.topView}>
         <Image
           style={styles.imageStyle}
@@ -116,25 +117,25 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: COLORS.white
   },
   topView: {
     width: "100%",
-    height: "40%",
-    display: "flex",
+    height: "35%",
     justifyContent: "center",
     alignItems: "center",
+    // backgroundColor: "orange",
   },
   imageStyle: {
-    marginTop: 80,
-    width: "100%",
+    marginTop: "10%",
     resizeMode: "contain",
   },
   buttomView: {
     width: "100%",
-    height: "60%",
-    backgroundColor: COLORS.orange,
+    height: "65%",
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
+    backgroundColor: COLORS.orange,
   },
   heading: {
     color: "white",
