@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { COLORS } from "../constants/theme";
 import axios from "../../axios.automate";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 
 const LoginScreen = ({ navigation }) => {
@@ -50,6 +51,7 @@ const LoginScreen = ({ navigation }) => {
         console.log(response.data);
         if (response.status == 201) {
           // console.log(response.data);
+          storeData({ userName: loginData.userName });
           navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
         } else {
           alert(response.data.error);
@@ -62,9 +64,18 @@ const LoginScreen = ({ navigation }) => {
       });
   }
 
+  const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("@userData", jsonValue);
+    } catch (e) {
+      // saving error
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <AppStatusBar backgroundColor={COLORS.white}/>
+      <AppStatusBar backgroundColor={COLORS.white} />
       <View style={styles.topView}>
         <Image
           style={styles.imageStyle}
@@ -117,7 +128,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: COLORS.white
+    backgroundColor: COLORS.white,
   },
   topView: {
     width: "100%",

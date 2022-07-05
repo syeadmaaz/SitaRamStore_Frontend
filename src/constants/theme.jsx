@@ -14,6 +14,7 @@ export const COLORS = {
     light: '#f7f7f7',
     grey: '#A9A9A9',
     yellow: '#ffb900',
+    green: "green",
     red: 'red',
     tranparent: 'rgba(0,0,0,0)',
 };

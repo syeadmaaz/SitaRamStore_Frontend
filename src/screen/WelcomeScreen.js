@@ -7,8 +7,7 @@ import {
   Image,
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
-import { COLORS } from "../constants/theme";
-import {slides} from "../data/IntroSlides";
+import {slides} from "../data/IntroData";
 
 const WelcomeScreen = ({ navigation }) => {
   function navigate() {

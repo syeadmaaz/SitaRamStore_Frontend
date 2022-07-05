@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native";
 import NavigateScreens from "../Navigation/NavigateScreens";
+
+import {Provider} from "react-redux";
+import store from "../redux/store";
 
 const LandingPage = () => {
   return (
-    <SafeAreaView>
+    <Provider store={store}>
       <NavigateScreens />
-    </SafeAreaView>
+    </Provider>
   );
 };
 

@@ -7,7 +7,7 @@ import LandingPage from "./src/screen/LandingPage";
 import SearchBar from "./src/components/SearchBar/SearchBar";
 import ProductsScreen from "./src/screen/ProductsScreen";
 import HomeScreen from "./src/screen/HomeScreen";
-
+import Cart from "./src/screen/Cart";
 
 export default function App() {
   return (
@@ -17,7 +17,8 @@ export default function App() {
         {/* <ProductsScreen /> */}
         {/* <HomeScreen /> */}
 
-
+        {/* <Cart /> */}
+        
         {/* <SearchBar/> */}
         {/* <SearchHeader /> */}
         
