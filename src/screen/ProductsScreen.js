@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import {
   RefreshControl,
   StyleSheet,
   View,
-  Text,
-  TouchableOpacity,
-  Image,
   SafeAreaView,
   FlatList,
   StatusBar,
@@ -22,6 +19,7 @@ import ProductCard from "../components/ProductCard/ProductCard";
 const ProductsScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
+  const [isAdded, setIsAdded] = useState(false)
 
   useEffect(() => {
     setProducts(getProducts());
@@ -31,8 +29,9 @@ const ProductsScreen = ({ navigation }) => {
     return (
       <ProductCard
         item={item}
+        // text={isAdded ? "Added" : "Add To Cart"}
         onPress={() => {
-          dispatch(addToCart(item));
+          dispatch(addToCart(item)), setIsAdded(true)
         }}
       />
     );
@@ -45,7 +44,7 @@ const ProductsScreen = ({ navigation }) => {
         title={"PRODUCTS"}
         onPressMenu={() => console.log("Menu")}
         onPressCart={() => {
-          [navigation.navigate("Cart"), console.log("CART")];
+          [navigation.navigate("CartScreen"), console.log("CART")];
         }}
       />
       <View style={styles.content}>

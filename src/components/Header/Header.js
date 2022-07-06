@@ -34,7 +34,7 @@ const Header = (props) => {
           <Badge
             visible={true}
             size={17}
-            style={{ position: "absolute", backgroundColor: "black", top: -4 }}
+            style={{ position: "absolute", backgroundColor: "red", fontSize:10, fontWeight:"bold", top: -4 }}
           >
             {total}
           </Badge>

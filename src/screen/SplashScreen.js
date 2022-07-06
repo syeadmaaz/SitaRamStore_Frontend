@@ -19,11 +19,11 @@ const SplashScreen = ({ navigation }) => {
       if (response) {
         setTimeout(() => {
           navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
-        }, 2000);
+        }, 3000);
       } else {
         setTimeout(() => {
           navigation.replace("WelcomeScreen");
-        }, 2000);
+        }, 3000);
       }
     }
     fetchData();

@@ -9,7 +9,6 @@ import LoginScreen from "../screen/LoginScreen";
 import RegisterScreen from "../screen/RegisterScreen";
 import ProductsScreen from "../screen/ProductsScreen";
 import CartScreen from "../screen/CartScreen";
-import Cart from "../screen/Cart";
 
 const RootStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
@@ -57,7 +56,6 @@ function ProductStackScreen() {
       <ProductStack.Screen name="HomeScreen" component={HomeScreen} />
       <ProductStack.Screen name="ProductsScreen" component={ProductsScreen} />
       <ProductStack.Screen name="CartScreen" component={CartScreen} />
-      <ProductStack.Screen name="Cart" component={Cart} />
       {/* <ProductStack.Screen name="Address" component={AddressScreen} />
       <ProductStack.Screen name="PlaceOrder" component={PlaceOrder} />
       <ProductStack.Screen name="ThankYou" component={ThankYou} /> */}

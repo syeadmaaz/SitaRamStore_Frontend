@@ -1,15 +1,17 @@
+import React, { useState, useEffect } from "react";
 import {
+  RefreshControl,
   StyleSheet,
-  Text,
   View,
-  Button,
-  FlatList,
-  Image,
+  Text,
   TouchableOpacity,
+  Image,
+  Button,
+  SafeAreaView,
+  FlatList,
+  StatusBar,
   Alert,
 } from "react-native";
-import React, { useEffect, useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import {
   increment,
@@ -18,14 +20,15 @@ import {
   removeItem,
 } from "../redux/features/cart/cartSlice";
 import { cartTotalPriceSelector } from "../redux/selectors";
-import { useNavigation, NavigationContainer } from "@react-navigation/native";
 
+import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
 import Header from "../components/Header/Header";
-import { Ionicons } from "@expo/vector-icons";
+import SearchBar from "../components/SearchBar/SearchBar";
+import CartCard from "../components/CartCard/CartCard";
+import CartCheckout from "../components/CartCheckout/CartCheckout";
+import EmptyCart from "../components/EmptyCart/EmptyCart";
 
-const amount = 0;
-
-const CartContainer = () => {
+const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const totalPrice = useSelector(cartTotalPriceSelector);
@@ -40,222 +43,123 @@ const CartContainer = () => {
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel",
         },
-        { text: "OK", onPress: () => dispatch(clear()) },
+        { text: "YES", onPress: () => dispatch(clear()) },
       ],
       { cancelable: false }
     );
   };
 
-  const renderStoreItems = ({ item }) => {
+  function renderData(item) {
+    // console.log(item)
     return (
-      <View style={styles.storeItem}>
-        <View style={styles.storeItemImg}>
-          <Image style={styles.storeItemImage} source={item.image} />
-        </View>
-        <View style={styles.storeItemInfo}>
-          <Text style={styles.storeItemTitle}>{item.title}</Text>
-          <Text style={styles.storeItemPrice}>
-            Rs. {item.quantity * item.price}
-          </Text>
-          <View style={styles.addToCart}>
-            <View style={styles.cartItemAmount}>
-              <TouchableOpacity
-                onPress={() => {
-                  if (item.quantity === 1) {
-                    dispatch(removeItem(item.id));
+      <CartCard
+        item={item}
+        onPressDecrement={() => {
+          if (item.quantity === 1) {
+            dispatch(removeItem(item.id));
 
-                    console.log("removed");
-                    return;
-                  } else {
-                    dispatch(decrement(item.id));
-                  }
-                }}
-              >
-                <Ionicons name="md-remove" size={24} color="black" />
-              </TouchableOpacity>
-              <Text style={styles.cartItemAmountText}>{item.quantity}</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  dispatch(increment(item.id));
-                }}
-              >
-                <Ionicons name="md-add" size={24} color="black" />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.cartItemRemove}>
-              <TouchableOpacity
-                onPress={() => {
-                  dispatch(removeItem(item.id));
-                }}
-                style={styles.cartItemRemoveButton}
-              >
-                <Ionicons name="md-trash" size={15} color="black" />
-                <Text>Remove</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </View>
-    );
-  };
-
-  return (
-    <View>
-      <FlatList
-        data={cart}
-        renderItem={renderStoreItems}
-        keyExtractor={(item) => item.id}
-        ListHeaderComponent={() => (
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: 10,
-            }}
-          >
-            <Text style={styles.storeItemTitle}>My Cart</Text>
-            <TouchableOpacity onPress={AlertItem}>
-              <Text style={styles.storeItemPrice}>Clear cart</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-        ListFooterComponent={() => {
-          return (
-            <View style={styles.cartFooter}>
-              <View style={styles.checkout}>
-                {cart.length === 0 ? (
-                  <Text style={styles.checkoutText}>Your cart is empty</Text>
-                ) : (
-                  <View style={styles.checkoutFull}>
-                    <Text style={styles.checkoutText}>
-                      Total: Rs. {totalPrice}
-                    </Text>
-
-                    <Button
-                      title="Checkout"
-                      color="#ff5a5f"
-                      onPress={() => {
-                        // dispatch(checkout());
-                      }}
-                    />
-                    <TouchableOpacity
-                      activeOpacity={0.5}
-                      onPress={() => goBack()}
-                      style={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        height: "26%",
-                        width: "100%",
-                        marginTop: "10%",
-                        backgroundColor: "orange",
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 14,
-                          fontWeight: "bold",
-                          color: "black",
-                        }}
-                      >
-                        START SHOPPING
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
-              </View>
-              <View style={{ height: 200 }} />
-            </View>
-          );
+            console.log("removed");
+            return;
+          } else {
+            dispatch(decrement(item.id));
+          }
+        }}
+        onPressIncrement={() => {
+          dispatch(increment(item.id));
+        }}
+        onPressRemove={() => {
+          dispatch(removeItem(item.id));
         }}
       />
-    </View>
-  );
-};
+    );
+  }
 
-const CartScreen = ({ navigation}) => {
+  function LowerHeader() {
+    return (
+      <View style={styles.clearDiv}>
+        <SearchBar />
+        <TouchableOpacity activeOpacity={0.3} onPress={AlertItem}>
+          <View style={styles.button}>
+            <Text style={styles.clearText}>CLEAR CART</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      <StatusBar translucent={false} backgroundColor={COLORS.orange} />
       <Header
         title="MY CART"
         onPressMenu={() => goBack()}
         onPressCart={() => console.log("CART PRESSED")}
       />
-      <CartContainer />
+      <View style={styles.content}>
+        <FlatList
+          data={cart}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => {
+            return renderData(item);
+          }}
+          scrollEnabled={true}
+          ListHeaderComponent={
+            cart.length !== 0 ? (
+              <LowerHeader />
+            ) : (
+              <EmptyCart
+                onPressShop={() => {
+                  navigation.navigate("HomeScreen");
+                }}
+              />
+            )
+          }
+          //   ListFooterComponent={<CartFooter />}
+        />
+      </View>
+      <>
+        {cart.length !== 0 ? (
+          <CartCheckout
+            totalPrice={totalPrice}
+            onPressCheckOut={() => {
+              console.log("CHECKOUT");
+            }}
+          />
+        ) : null}
+      </>
     </SafeAreaView>
   );
 };
 
-export default CartScreen;
-
 const styles = StyleSheet.create({
-  storeItem: {
-    flexDirection: "row",
-    padding: 10,
-    marginBottom: 10,
-    marginVertical: 5,
-    marginHorizontal: 10,
-    borderColor: "black",
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: "white",
-    justifyContent: "center",
-  },
-  storeItemImg: {
-    width: "30%",
-    height: 100,
-    borderRadius: 5,
-    overflow: "hidden",
-  },
-  storeItemImage: {
-    width: "100%",
-    height: "100%",
-  },
-  storeItemInfo: {
-    width: "70%",
-    padding: 10,
-  },
-  storeItemTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  storeItemPrice: {
-    fontSize: 16,
-    color: "red",
-  },
-  addToCart: {
-    backgroundColor: "coral",
-    borderRadius: 5,
-    marginTop: 10,
+  container: {
+    flex: 1,
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: COLORS.white,
   },
-  addToCartText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "bold",
+  content: {
+    flex: 1,
+    flexDirection: "column",
   },
-  cartItemAmount: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  clearDiv: {
     alignItems: "center",
-    width: "80%",
+    // backgroundColor: "yellow",
   },
-  cartItemAmountText: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  cartItemRemove: {
-    alignItems: "center",
+  button: {
+    width: WIDTH.screenWidth / 1.11,
+    height: HEIGHT.screenHeight / 20,
+    paddingVertical: "2%",
     justifyContent: "center",
-  },
-  cartItemRemoveButton: {
-    marginHorizontal: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
+    borderRadius: 10,
+    backgroundColor: COLORS.yellow,
   },
-  cartFooter: {
-    justifyContent: "space-between",
+  clearText: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: COLORS.dark,
   },
 });
+export default CartScreen;
