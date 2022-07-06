@@ -1,11 +1,9 @@
 import * as React from "react";
 import {
   View,
-  Text,
   TouchableOpacity,
   TextInput,
   StyleSheet,
-  StatusBar,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
@@ -28,13 +26,13 @@ const SearchBar = () => {
 
 const styles = StyleSheet.create({
   container: {
-    display:"flex",
+    display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     width: WIDTH.screenWidth,
     height: HEIGHT.screenHeight / 20,
     backgroundColor: COLORS.orange,
-    marginBottom: "10%"
+    marginBottom: "10%",
   },
 
   search: {

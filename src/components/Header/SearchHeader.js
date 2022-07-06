@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
-  StatusBar,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
@@ -33,7 +32,7 @@ const SearchHeader = () => {
 
 const styles = StyleSheet.create({
   lowerHeader: {
-    display:"flex",
+    display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     width: WIDTH.screenWidth,
@@ -41,7 +40,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.orange,
     // marginBottom: "10%",
     // marginTop: "10%"
-
   },
   headerTitle: {
     color: "white",

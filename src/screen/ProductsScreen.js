@@ -19,7 +19,7 @@ import ProductCard from "../components/ProductCard/ProductCard";
 const ProductsScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
-  const [isAdded, setIsAdded] = useState(false)
+  const [isAdded, setIsAdded] = useState(false);
 
   useEffect(() => {
     setProducts(getProducts());
@@ -31,7 +31,7 @@ const ProductsScreen = ({ navigation }) => {
         item={item}
         // text={isAdded ? "Added" : "Add To Cart"}
         onPress={() => {
-          dispatch(addToCart(item)), setIsAdded(true)
+          dispatch(addToCart(item)), setIsAdded(true);
         }}
       />
     );

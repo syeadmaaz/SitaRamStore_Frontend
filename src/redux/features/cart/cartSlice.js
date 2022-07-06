@@ -9,7 +9,7 @@ const cartSlice = createSlice({
     addToCart(state, { payload }) {
       // console.log(payload);
       // uid is the unique id of the item
-      
+
       const { id } = payload;
       // console.log(id)
 
@@ -59,9 +59,9 @@ const cartSlice = createSlice({
     clear(state) {
       return [];
     },
-    placeOrder(state){
+    placeOrder(state) {
       return initialState;
-    }
+    },
   },
 });
 

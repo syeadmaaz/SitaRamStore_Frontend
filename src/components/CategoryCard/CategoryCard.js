@@ -1,15 +1,9 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { Card } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 
-const CategoryCard = ({item, onPress}) => {
+const CategoryCard = ({ item, onPress }) => {
   return (
     <View style={styles.cardsContainer}>
       <Card style={styles.cardStyle}>

@@ -5,8 +5,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Image,
-  Button,
   SafeAreaView,
   FlatList,
   StatusBar,

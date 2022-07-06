@@ -5,12 +5,11 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  SafeAreaView,
 } from "react-native";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 
 const ProductCard = ({ item, onPress }) => {
-//   console.log(item);
+  //   console.log(item);
 
   return (
     <View style={styles.categoriesContainer}>

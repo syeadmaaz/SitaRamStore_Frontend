@@ -106,7 +106,6 @@ const PRODUCTS = [
   },
 ];
 
-
 export function getProducts() {
   return PRODUCTS;
 }

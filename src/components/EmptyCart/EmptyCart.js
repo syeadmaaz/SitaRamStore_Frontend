@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { COLORS, HEIGHT, WIDTH } from "../../constants/theme";
 
-const EmptyCart = ({onPressShop }) => {
+const EmptyCart = ({ onPressShop }) => {
   return (
     <View style={styles.conatiner}>
       <View style={styles.topView}>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "yellow",
   },
   shopBtn: {
-    width: WIDTH.screenWidth/2,
+    width: WIDTH.screenWidth / 2,
     height: HEIGHT.screenHeight / 17,
     marginTop: "10%",
     justifyContent: "center",

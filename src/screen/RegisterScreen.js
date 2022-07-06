@@ -4,7 +4,6 @@ import {
   Image,
   TextInput,
   SafeAreaView,
-  StatusBar,
   TouchableOpacity,
   ActivityIndicator,
   StyleSheet,
@@ -66,10 +65,10 @@ const RegisterScreen = ({ navigation }) => {
       isValid = isValid && temp[item].isValid;
     });
 
-    console.log(isValid);    
+    console.log(isValid);
 
     if (isValid) {
-      console.log(userData)
+      console.log(userData);
       setLoading(true);
       axios
         .post("/register", {
@@ -190,7 +189,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: COLORS.white
+    backgroundColor: COLORS.white,
   },
   topView: {
     width: "100%",
@@ -201,9 +200,9 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     marginTop: "10%",
-    width:"100%",
+    width: "100%",
     resizeMode: "contain",
-    backgroundColor: COLORS.white
+    backgroundColor: COLORS.white,
   },
   bottomView: {
     width: "100%",

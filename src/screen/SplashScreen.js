@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,7 +11,6 @@ import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import { COLORS } from "../constants/theme";
 
 const SplashScreen = ({ navigation }) => {
-
   useEffect(() => {
     async function fetchData() {
       // You can await here
@@ -37,7 +36,6 @@ const SplashScreen = ({ navigation }) => {
       // error reading value
     }
   };
-
 
   return (
     <SafeAreaView style={styles.container}>

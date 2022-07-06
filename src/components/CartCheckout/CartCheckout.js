@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {
-  RefreshControl,
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
-  Image,
-  Button,
-  SafeAreaView,
-  FlatList,
-  StatusBar,
-  Alert,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { COLORS, HEIGHT, WIDTH } from "../../constants/theme";
 
 const CartCheckout = ({ totalPrice, onPressCheckOut }) => {
@@ -71,7 +63,7 @@ const styles = StyleSheet.create({
   btnText: {
     fontSize: 15,
     fontWeight: "bold",
-    color: COLORS.white
+    color: COLORS.white,
   },
 });
 

@@ -3,7 +3,6 @@ import {
   Text,
   Image,
   TextInput,
-  StatusBar,
   SafeAreaView,
   TouchableOpacity,
   ActivityIndicator,

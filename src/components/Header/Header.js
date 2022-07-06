@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { cartTotalSelector } from "../../redux/selectors";
 
 import { Badge } from "react-native-paper";
@@ -34,7 +34,13 @@ const Header = (props) => {
           <Badge
             visible={true}
             size={17}
-            style={{ position: "absolute", backgroundColor: "red", fontSize:10, fontWeight:"bold", top: -4 }}
+            style={{
+              position: "absolute",
+              backgroundColor: "red",
+              fontSize: 10,
+              fontWeight: "bold",
+              top: -4,
+            }}
           >
             {total}
           </Badge>

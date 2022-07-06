@@ -5,7 +5,6 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  SafeAreaView,
 } from "react-native";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
   quantity: {
     flexDirection: "row",
     height: "22%",
-    width :"90%",
+    width: "90%",
     borderRadius: 10,
     marginTop: 10,
     justifyContent: "center",
