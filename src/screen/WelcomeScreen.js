@@ -1,15 +1,7 @@
 import React, { useState } from "react";
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  Image,
-} from "react-native";
+import { SafeAreaView, StatusBar, StyleSheet, Text, Image } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
-import { COLORS } from "../constants/theme";
-import {slides} from "../data/IntroSlides";
- 
+import { slides } from "../data/IntroData";
 
 const WelcomeScreen = ({ navigation }) => {
   function navigate() {
@@ -34,7 +26,7 @@ const WelcomeScreen = ({ navigation }) => {
           paddingBottom: 80,
         }}
       >
-        <StatusBar/>
+        <StatusBar />
         <Text style={styles.introTitleStyle}>{item.title}</Text>
         <Image style={styles.introImageStyle} source={item.image} />
         <Text style={styles.introTextStyle}>{item.text}</Text>
@@ -43,13 +35,13 @@ const WelcomeScreen = ({ navigation }) => {
   };
 
   return (
-      <AppIntroSlider
-        data={slides}
-        renderItem={RenderItem}
-        onDone={onDone}
-        showSkipButton={true}
-        onSkip={onSkip}
-      />
+    <AppIntroSlider
+      data={slides}
+      renderItem={RenderItem}
+      onDone={onDone}
+      showSkipButton={true}
+      onSkip={onSkip}
+    />
   );
 };
 

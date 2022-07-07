@@ -1,22 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
-  StatusBar,
   Text,
   View,
   ImageBackground,
   SafeAreaView,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import { COLORS } from "../constants/theme";
 
 const SplashScreen = ({ navigation }) => {
-  setTimeout(() => {
-    navigation.replace("WelcomeScreen");
-  }, 2000);
+  useEffect(() => {
+    async function fetchData() {
+      // You can await here
+      const response = await getData();
+      if (response) {
+        setTimeout(() => {
+          navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
+        }, 3000);
+      } else {
+        setTimeout(() => {
+          navigation.replace("WelcomeScreen");
+        }, 3000);
+      }
+    }
+    fetchData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("@userData");
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+      // error reading value
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar style="auto" />
+      <AppStatusBar backgroundColor={COLORS.white} />
       <View style={styles.upper}>
         <ImageBackground
           source={require("../assets/images/logo.png")}

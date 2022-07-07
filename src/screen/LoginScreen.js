@@ -3,7 +3,6 @@ import {
   Text,
   Image,
   TextInput,
-  StatusBar,
   SafeAreaView,
   TouchableOpacity,
   ActivityIndicator,
@@ -12,59 +11,70 @@ import {
 } from "react-native";
 import { COLORS } from "../constants/theme";
 import axios from "../../axios.automate";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 
 const LoginScreen = ({ navigation }) => {
-
   function sigupHandler() {
     navigation.navigate("RegisterScreen");
   }
 
   const [loading, setLoading] = React.useState(false);
-  const [error,setError] = React.useState(false)
 
   const [loginData, setLoginData] = React.useState({
     userName: null,
-    password: null
+    password: null,
   });
 
   const textFieldHandler = (data, key) => {
-    console.log(loginData)
-    const tempLoginData = {...loginData}
-    tempLoginData[key] = data
-    setLoginData(tempLoginData)
-  }
+    let tempLoginData = { ...loginData };
+    if (data) {
+      tempLoginData[key] = data;
+      setLoginData(tempLoginData);
+    } else {
+      tempLoginData[key] = null;
+      setLoginData(tempLoginData);
+    }
+  };
 
   function signinHandler() {
-    setLoading(true)
+    console.log(loginData);
+    setLoading(true);
     axios
-      .get("/login", {
-        params: {
-          email: loginData.userName,
-          password: loginData.password
-        },
+      .post("/login", {
+        userName: loginData.userName,
+        password: loginData.password,
       })
       .then((response) => {
         setLoading(false);
-        console.log(response)
+        console.log(response.data);
         if (response.status == 201) {
+          // console.log(response.data);
+          storeData({ userName: loginData.userName });
           navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
         } else {
-          setError(response.data.error);
+          alert(response.data.error);
         }
       })
       .catch((e) => {
-        // console.log(e.response.data);
-        // setTimeout(() => {
-        //   setError(null);
-        // }, 2000);
+        console.log(e.response.data);
         setLoading(false);
-        setError(e.response.data.error);
+        alert(e.response.data.error);
       });
   }
 
+  const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("@userData", jsonValue);
+    } catch (e) {
+      // saving error
+    }
+  };
+
   return (
-    <SafeAreaView style={StyleSheet.container}>
-      <StatusBar />
+    <SafeAreaView style={styles.container}>
+      <AppStatusBar backgroundColor={COLORS.white} />
       <View style={styles.topView}>
         <Image
           style={styles.imageStyle}
@@ -77,6 +87,8 @@ const LoginScreen = ({ navigation }) => {
           <TextInput
             placeholder={"Email/Phone*"}
             placeholderTextColor={"white"}
+            keyboardType="default"
+            autoCapitalize={"none"}
             style={styles.textInput}
             value={loginData.userName}
             onChangeText={(text) => textFieldHandler(text, "userName")}
@@ -84,6 +96,8 @@ const LoginScreen = ({ navigation }) => {
           <TextInput
             placeholder={"Password*"}
             placeholderTextColor={"white"}
+            keyboardType="default"
+            autoCapitalize={"none"}
             secureTextEntry={true}
             style={styles.textInput}
             value={loginData.password}
@@ -113,25 +127,25 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: COLORS.white,
   },
   topView: {
     width: "100%",
-    height: "40%",
-    display: "flex",
+    height: "35%",
     justifyContent: "center",
     alignItems: "center",
+    // backgroundColor: "orange",
   },
   imageStyle: {
-    marginTop: 80,
-    width: "100%",
+    marginTop: "10%",
     resizeMode: "contain",
   },
   buttomView: {
     width: "100%",
-    height: "60%",
-    backgroundColor: COLORS.orange,
+    height: "65%",
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
+    backgroundColor: COLORS.orange,
   },
   heading: {
     color: "white",
