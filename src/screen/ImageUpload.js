@@ -10,7 +10,7 @@ const App = () => {
   const [name,setName] = React.useState(null)
   const [desc,setDesc] = React.useState(null)
 
-  const [error,setError] = React.useState(null)
+  const [message,setMessage] = React.useState(null)
 
   const uploadPhoto = async () => {
     console.log(photo)
@@ -27,7 +27,7 @@ const App = () => {
     // console.log(formData)
 
     try {
-      const res = await axios.post("/adminUpload", formData, {
+      const res = await axios.post("/adminCategoryUpdate", formData, {
         headers: {
           Accept: "application/json",
           "Content-Type": "multipart/form-data",
@@ -37,13 +37,15 @@ const App = () => {
 
       console.log(res.data)
 
-      if (res.status==201) {
+      if (res.data.success) {
         // props.navigation.dispatch(StackActions.replace("UserProfile"));
         console.log("Success")
         console.log(res.data.message)
+        setMessage(res.data.message)
       }
     } catch (error) {
-      console.log(error.message);
+      console.log(error)
+      setMessage(error.message)
     }
   };
 

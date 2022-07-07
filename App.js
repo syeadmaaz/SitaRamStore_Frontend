@@ -19,11 +19,13 @@ export default function App() {
       {/* <NavigationContainer>
         <LandingPage />
       </NavigationContainer> */}
+      
       <StatusBar style="auto" />
       <StatusBar style="auto" />
       <NavigationContainer>
         <LandingPage />
       </NavigationContainer>
+    
     </PaperProvider>
     // <PaperProvider>
     //   <AdminUpload />

@@ -16,7 +16,29 @@ import Header from "../components/Header/Header";
 import SearchHeader from "../components/Header/SearchHeader";
 import CategoryCard from "../components/CategoryCard/CategoryCard";
 
+import axios from "../../axios.automate";
+
 const HomeScreen = ({ navigation }) => {
+
+  const [loading,setLoading] = React.useState(false)
+  const [category,setCategory] = React.useState(null)
+
+  React.useEffect(() => {
+    setLoading(true);
+    axios
+      .get("getCategory", { params: {} })
+      .then((res) => {
+        setLoading(false);
+        console.log(res);
+        if (res.data.success) 
+          setCategory(res.data.categoryItems);
+      })
+      .catch((err) => {
+        setLoading(false)
+        console.log(err);
+      });
+  }, []);
+
   const logout = async () => {
     console.log("first");
     try {
@@ -60,7 +82,7 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.content}>
         <FlatList
           numColumns={2}
-          data={CATEGORIES}
+          data={category}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => {
             return renderData(item);

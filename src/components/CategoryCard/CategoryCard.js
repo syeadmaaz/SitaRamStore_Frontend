@@ -8,8 +8,11 @@ const CategoryCard = ({ item, onPress }) => {
     <View style={styles.cardsContainer}>
       <Card style={styles.cardStyle}>
         <TouchableOpacity activeOpacity={0.2} onPress={onPress}>
-          <Image source={item.img} style={styles.imgStyling} />
-          <Text style={styles.fontStyle}>{item.name}</Text>
+          <Image
+            source={{ uri: item.categoryImage }}
+            style={styles.imgStyling}
+          />
+          <Text style={styles.fontStyle}>{item.categoryName}</Text>
         </TouchableOpacity>
       </Card>
     </View>
@@ -43,6 +46,8 @@ const styles = StyleSheet.create({
     display: "flex",
     width: WIDTH.imageWidth,
     height: HEIGHT.imageHeight,
+    // width: '100%', 
+    // height: '50%',
     borderRadius: 10,
     margin: "4%",
     alignItems: "center",
