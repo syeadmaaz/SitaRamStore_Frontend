@@ -1,1 +1,16 @@
--> loading container to be added in registeation
+-> loading container to be added in registeation and login
+-> admin side: image, name, desc of category -> API call ->
+-> add user_type in user_master
+
+
+Admin Feature:
+Add New Category -> Name (xyz), Upload Image, Desc(optional)
+
+Or Add new Product in existing category
+
+-> see all orders
+-> expo push notification
+
+home screen name/phrase
+
+Login: Mobile/Email

@@ -5,14 +5,23 @@ import { Provider as PaperProvider } from "react-native-paper";
 
 import LandingPage from "./src/screen/LandingPage";
 import HomeScreen from "./src/screen/HomeScreen";
+
+
+import ImageUpload from "./src/screen/ImageUpload"
+
 export default function App() {
   return (
     <PaperProvider>
       {/* <HomeScreen/> */}
-      <NavigationContainer>
+      <ImageUpload/>
+      {/* <NavigationContainer>
         <LandingPage />
-      </NavigationContainer>
+      </NavigationContainer> */}
       <StatusBar style="auto" />
     </PaperProvider>
+    // <PaperProvider>
+    //   <AdminUpload />
+    // </PaperProvider>
+    // <AdminUpload/>
   );
 }
