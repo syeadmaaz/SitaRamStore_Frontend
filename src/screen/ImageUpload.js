@@ -7,8 +7,8 @@ import axios from "../../axios.automate";
 const App = () => {
   const [photo, setPhoto] = React.useState(null);
 
-  const [name,setName] = React.useState(null)
-  const [desc,setDesc] = React.useState(null)
+  const [name,setName] = React.useState('')
+  const [desc,setDesc] = React.useState('')
 
   const [message,setMessage] = React.useState(null)
 
