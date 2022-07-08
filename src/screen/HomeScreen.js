@@ -87,7 +87,7 @@ const HomeScreen = ({ navigation }) => {
           renderItem={({ item }) => {
             return renderData(item);
           }}
-          keyExtractor={(item) => `${item.key}`}
+          keyExtractor={(item) => `${item.categoryID}`}
           scrollEnabled={true}
           ListHeaderComponent={<LowerHeader />}
           // ListFooterComponent={<Footer />}
