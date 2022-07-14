@@ -15,16 +15,16 @@ export default function App() {
   return (
     <PaperProvider>
       {/* <HomeScreen/> */}
-      <ImageUpload/>
+      {/* <ImageUpload/> */}
       {/* <NavigationContainer>
         <LandingPage />
       </NavigationContainer> */}
       
-      {/* <StatusBar style="auto" />
+      <StatusBar style="auto" />
       <StatusBar style="auto" />
       <NavigationContainer>
         <LandingPage />
-      </NavigationContainer> */}
+      </NavigationContainer>
     
     </PaperProvider>
     // <PaperProvider>
