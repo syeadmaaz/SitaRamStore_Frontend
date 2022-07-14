@@ -1,16 +1,34 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text, Image, TextInput } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import SelectDropdown from "react-native-select-dropdown";
 
 import axios from "../../axios.automate";
 
 const App = () => {
   const [photo, setPhoto] = React.useState(null);
 
-  const [name,setName] = React.useState(null)
-  const [desc,setDesc] = React.useState(null)
+  const [name,setName] = React.useState('')
+  const [desc,setDesc] = React.useState('')
+  const [categoryID,setCategoryID] = React.useState(null)
+  const [category,setCategory] = React.useState(null)
+  const [message,setMessage] = React.useState(null)
+  const [loading,setLoading] = React.useState(false)
 
-  const [error,setError] = React.useState(null)
+  React.useEffect(() => {
+    setLoading(true);
+    axios
+      .get("getCategory", { params: {} })
+      .then((res) => {
+        setLoading(false);
+        console.log(res);
+        if (res.data.success) setCategory(res.data.categoryItems);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
+  }, []);
 
   const uploadPhoto = async () => {
     console.log(photo)
@@ -27,7 +45,7 @@ const App = () => {
     // console.log(formData)
 
     try {
-      const res = await axios.post("/adminUpload", formData, {
+      const res = await axios.post("/adminCategoryUpdate", formData, {
         headers: {
           Accept: "application/json",
           "Content-Type": "multipart/form-data",
@@ -37,13 +55,53 @@ const App = () => {
 
       console.log(res.data)
 
-      if (res.status==201) {
+      if (res.data.success) {
         // props.navigation.dispatch(StackActions.replace("UserProfile"));
         console.log("Success")
         console.log(res.data.message)
+        setMessage(res.data.message)
       }
     } catch (error) {
-      console.log(error.message);
+      console.log(error)
+      setMessage(error.message)
+    }
+  };
+
+  const uploadPhoto1 = async () => {
+    console.log(photo);
+    const formData = new FormData();
+    formData.append("image", {
+      name: new Date() + "_image",
+      uri: photo,
+      type: "image/jpg",
+    });
+
+    formData.append("name", name);
+    formData.append("desc", desc);
+    FormData.append("categoryID",categoryID)
+
+    // console.log(formData)
+
+    try {
+      const res = await axios.post("/adminCategoryUpdate", formData, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+          // authorization: `JWT ${token}`,
+        },
+      });
+
+      console.log(res.data);
+
+      if (res.data.success) {
+        // props.navigation.dispatch(StackActions.replace("UserProfile"));
+        console.log("Success");
+        console.log(res.data.message);
+        setMessage(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      setMessage(error.message);
     }
   };
 
@@ -80,6 +138,8 @@ const App = () => {
         value={desc}
         onChangeText={(text) => setDesc(text)}
       />
+      <SelectDropdown
+	    data={category}/>
       <View>
         <TouchableOpacity
           onPress={openImageLibrary}
@@ -94,6 +154,7 @@ const App = () => {
             <Text style={styles.uploadBtn}>Upload Image</Text>
           )}
         </TouchableOpacity>
+
         <Text style={styles.skip}>Skip</Text>
         {photo ? (
           <Text
@@ -103,9 +164,21 @@ const App = () => {
               { backgroundColor: "green", color: "white", borderRadius: 8 },
             ]}
           >
-            Upload
+            Upload Category
           </Text>
         ) : null}
+        {categoryID && photo ? (
+        <Text
+          onPress={uploadPhoto1}
+          style={[
+            styles.skip,
+            { backgroundColor: "green", color: "white", borderRadius: 8 },
+          ]}
+        >
+          Upload Product
+        </Text>
+        ): null
+      }
       </View>
     </View>
   );

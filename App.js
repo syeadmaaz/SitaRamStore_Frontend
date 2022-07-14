@@ -4,7 +4,6 @@ import { StatusBar } from "expo-status-bar";
 import { Provider as PaperProvider } from "react-native-paper";
 
 import LandingPage from "./src/screen/LandingPage";
-
 import ImageUpload from "./src/screen/ImageUpload"
 
 
@@ -15,10 +14,8 @@ export default function App() {
       <NavigationContainer>
         <LandingPage />
       </NavigationContainer>
+    
     </PaperProvider>
-    // <PaperProvider>
-    //   <AdminUpload />
-    // </PaperProvider>
-    // <AdminUpload/>
+
   );
 }
