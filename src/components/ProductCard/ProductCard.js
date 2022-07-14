@@ -14,12 +14,25 @@ const ProductCard = ({ item, onPress }) => {
   return (
     <View style={styles.categoriesContainer}>
       <View style={styles.cardStyle}>
-        <Image source={item.image} style={styles.imgStyling} />
+        <Image
+          // source={item.image}
+          source={{uri: item.productImage}}
+          style={styles.imgStyling}
+        />
         <View style={styles.cardRight}>
           <View style={styles.Text}>
-            <Text style={styles.prodTitle}>{item.name}</Text>
-            <Text style={styles.prodDesc}>{item.description}</Text>
-            <Text style={styles.price}>Rs. {item.price}</Text>
+            <Text style={styles.prodTitle}>
+              {item.productName}
+              {/* {item.name} */}
+            </Text>
+            <Text style={styles.prodDesc}>
+              {item.productDescription}
+              {/* {item.description} */}
+            </Text>
+            <Text style={styles.price}>
+              Rs. {item.productPrice}
+              {/* {item.price} */}
+            </Text>
           </View>
           <TouchableOpacity
             activeOpacity={0.5}

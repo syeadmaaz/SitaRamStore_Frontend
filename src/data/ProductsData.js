@@ -1,3 +1,37 @@
+import React from 'react'
+
+export function ProductsData() {
+  const [product, setProduct] = React.useState([]);
+
+  React.useEffect(() => {
+    setLoading(true);
+    axios
+      .get("getProduct", {
+        params: {
+          categoryID: "C-1657253529229",
+        },
+      })
+      .then((res) => {
+        setLoading(false);
+        console.log(res);
+        if (res.data.success) setProduct(res.data.productItems);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
+  }, []);
+  // return (
+  //   <div>ProductsData</div>
+  // )
+
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
 const PRODUCTS = [
   {
     id: 100,

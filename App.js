@@ -10,6 +10,7 @@ import ImageUpload from "./src/screen/ImageUpload"
 export default function App() {
   return (
     <PaperProvider>
+      {/* <ImageUpload/> */}
       <StatusBar style="auto" />
       <NavigationContainer>
         <LandingPage />
