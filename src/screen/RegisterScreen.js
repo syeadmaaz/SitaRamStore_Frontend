@@ -76,6 +76,7 @@ const RegisterScreen = ({ navigation }) => {
           mobile: userData.mobile.value,
           email: userData.email.value,
           password: userData.password.value,
+          userType: 1
         })
         .then((response) => {
           setLoading(false);

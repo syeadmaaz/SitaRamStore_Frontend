@@ -48,11 +48,16 @@ const LoginScreen = ({ navigation }) => {
       .then((response) => {
         setLoading(false);
         console.log(response.data);
-        if (response.status == 201) {
+        if (response.status == 201 && response.data.userType == 1) {
           // console.log(response.data);
           storeData({ userName: loginData.userName });
           navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
-        } else {
+        }
+        else if(response.status == 201 && response.data.userType == 0){
+          storeData({ userName: loginData.userName });
+          navigation.navigate("AdminStackScreen", {screen: "AdminHomescreen" });
+        }
+         else {
           alert(response.data.error);
         }
       })

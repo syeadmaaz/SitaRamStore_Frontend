@@ -9,11 +9,14 @@ import LoginScreen from "../screen/LoginScreen";
 import RegisterScreen from "../screen/RegisterScreen";
 import ProductsScreen from "../screen/ProductsScreen";
 import CartScreen from "../screen/CartScreen";
+import AdminHomescreen from "../components/Admin/screen/AdminHomescreen";
+import MyComponent from "../components/Admin/screen/NewOrder";
 
 const RootStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
 const ProductStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
+const AdminStack = createNativeStackNavigator();
 
 function MainStackScreen() {
   return (
@@ -62,6 +65,21 @@ function ProductStackScreen() {
     </ProductStack.Navigator>
   );
 }
+function AdminStackScreen() {
+  return (
+    <AdminStack.Navigator
+    initialRouteName="AdminHomescreen"
+    screenOptions={{
+      headerShown: false,
+      animationEnabled: false,
+    }}
+  >
+    <AdminStack.Screen name="AdminHomescreen" component={AdminHomescreen} />
+    <AdminStack.Screen name="MyComponent" component={MyComponent} />
+    
+  </AdminStack.Navigator>
+  )
+}
 
 const NavigateScreens = () => {
   return (
@@ -73,6 +91,7 @@ const NavigateScreens = () => {
           name="ProductStackScreen"
           component={ProductStackScreen}
         />
+        <RootStack.Screen name="AdminStackScreen" component={AdminStackScreen} />
       </RootStack.Navigator>
     </View>
   );
