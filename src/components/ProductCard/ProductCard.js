@@ -9,7 +9,7 @@ import {
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 
 const ProductCard = ({ item, onPress }) => {
-  //   console.log(item);
+    // console.log(item);
 
   return (
     <View style={styles.categoriesContainer}>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import {
   RefreshControl,
   StyleSheet,
@@ -6,12 +6,14 @@ import {
   Text,
   SafeAreaView,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
-import CATEGORIES from "../data/CategoryData";
-import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 
+import CATEGORIES from "../data/CategoryData";
+import { setProducts } from "../data/ProductsData";
+
+import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
 import SearchHeader from "../components/Header/SearchHeader";
 import CategoryCard from "../components/CategoryCard/CategoryCard";
@@ -19,46 +21,69 @@ import CategoryCard from "../components/CategoryCard/CategoryCard";
 import axios from "../../axios.automate";
 
 const HomeScreen = ({ navigation }) => {
+  const [loading, setLoading] = React.useState(false);
+  const [category, setCategory] = React.useState(null);
+  const [error, setError] = React.useState(null);
 
-  const [loading,setLoading] = React.useState(false)
-  const [category,setCategory] = React.useState(null)
-
-  React.useEffect(() => {
+  useEffect(() => {
     setLoading(true);
     axios
       .get("getCategory", { params: {} })
       .then((res) => {
         setLoading(false);
-        // console.log(res);
-        if (res.data.success) 
-          setCategory(res.data.categoryItems);
+        // console.log(res.data.categoryItems);
+        if (res.data.success) setCategory(res.data.categoryItems);
       })
       .catch((err) => {
-        setLoading(false)
+        setLoading(true);
+        setError("Connection Failed !!");
         console.log(err);
       });
   }, []);
 
-  const logout = async () => {
-    console.log("first");
-    try {
-      // console.log("first");
-      let response = await AsyncStorage.clear();
-      console.log(response);
-      if (response) {
-        navigation.naviagte("AuthStackScreen", { screen: "LoginScreen" });
-      }
-    } catch (e) {
-      console.log("last");
-    }
+  // const logout = async () => {
+  //   console.log("first");
+  //   try {
+  //     // console.log("first");
+  //     let response = await AsyncStorage.clear();
+  //     console.log(response);
+  //     if (response) {
+  //       navigation.naviagte("AuthStackScreen", { screen: "LoginScreen" });
+  //     }
+  //   } catch (e) {
+  //     console.log("last");
+  //   }
+  // };
+
+  const goToProductsScreen = (item) => {
+    // setLoading(true);
+    axios
+      .get("getProduct", {
+        params: {
+          categoryID: "C-1657253529229",
+        },
+      })
+      .then((res) => {
+        // setLoading(false);
+        // console.log(res.data);
+        if (res.data.success) {
+          setProducts(res.data.productItems);
+
+          navigation.navigate("ProductStackScreen", {
+            screen: "ProductsScreen",
+          });
+        }
+      })
+      .catch((err) => {
+        // setLoading(false);
+        console.log(err);
+      });
   };
 
-  function goToProductsScreen() {
-    navigation.navigate("ProductStackScreen", { screen: "ProductsScreen" });
-  }
-
   const renderData = (item) => {
-    return <CategoryCard item={item} onPress={goToProductsScreen} />;
+    return (
+      <CategoryCard item={item} onPress={() => goToProductsScreen(item)} />
+    );
   };
 
   const LowerHeader = () => {
@@ -72,7 +97,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppStatusBar backgroundColor={COLORS.orange} />
+      <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header
         title={"HOME"}
         // onPressMenu={logout}
@@ -80,18 +105,44 @@ const HomeScreen = ({ navigation }) => {
       />
 
       <View style={styles.content}>
-        <FlatList
-          numColumns={2}
-          data={category}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => {
-            return renderData(item);
-          }}
-          keyExtractor={(item) => `${item.categoryID}`}
-          scrollEnabled={true}
-          ListHeaderComponent={<LowerHeader />}
-          // ListFooterComponent={<Footer />}
-        />
+        {loading ? (
+          error ? (
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                flex: 1,
+              }}
+            >
+              <Text style={{ color: "red", fontSize: 18, fontWeight: "bold" }}>
+                {error}
+              </Text>
+            </View>
+          ) : (
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                flex: 1,
+              }}
+            >
+              <ActivityIndicator size={80} color={COLORS.orange} />
+            </View>
+          )
+        ) : (
+          <FlatList
+            numColumns={2}
+            data={category}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => {
+              return renderData(item);
+            }}
+            keyExtractor={(item) => `${item.categoryID}`}
+            scrollEnabled={true}
+            ListHeaderComponent={<LowerHeader />}
+            // ListFooterComponent={<Footer />}
+          />
+        )}
       </View>
     </SafeAreaView>
   );

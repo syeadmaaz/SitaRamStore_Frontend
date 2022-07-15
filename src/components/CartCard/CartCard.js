@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 
@@ -16,17 +10,19 @@ const CartCard = ({
   onPressRemove,
 }) => {
   //   console.log("CART COMPONENT");
-  //   console.log(item);
+  // console.log(item);
 
   return (
     <View style={styles.categoriesContainer}>
       <View style={styles.cardStyle}>
-        <Image source={item.image} style={styles.imgStyling} />
+        <Image source={{ uri: item.productImage }} style={styles.imgStyling} />
         <View style={styles.cardRight}>
           <View style={styles.Text}>
-            <Text style={styles.prodTitle}>{item.name}</Text>
-            <Text style={styles.prodDesc}>{item.description}</Text>
-            <Text style={styles.price}>Rs. {item.quantity * item.price}</Text>
+            <Text style={styles.prodTitle}>{item.productName}</Text>
+            <Text style={styles.prodDesc}>{item.productDescription}</Text>
+            <Text style={styles.price}>
+              Rs. {item.quantity * item.productPrice}
+            </Text>
           </View>
 
           <View style={styles.quantity}>

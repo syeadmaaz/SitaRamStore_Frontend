@@ -18,8 +18,9 @@ import {
   removeItem,
 } from "../redux/features/cart/cartSlice";
 import { cartTotalPriceSelector } from "../redux/selectors";
-
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
+
+import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
 import SearchBar from "../components/SearchBar/SearchBar";
 import CartCard from "../components/CartCard/CartCard";
@@ -54,19 +55,18 @@ const CartScreen = ({ navigation }) => {
         item={item}
         onPressDecrement={() => {
           if (item.quantity === 1) {
-            dispatch(removeItem(item.id));
-
+            dispatch(removeItem(item.productID));
             console.log("removed");
             return;
           } else {
-            dispatch(decrement(item.id));
+            dispatch(decrement(item.productID));
           }
         }}
         onPressIncrement={() => {
-          dispatch(increment(item.id));
+          dispatch(increment(item.productID));
         }}
         onPressRemove={() => {
-          dispatch(removeItem(item.id));
+          dispatch(removeItem(item.productID));
         }}
       />
     );
@@ -87,7 +87,7 @@ const CartScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar translucent={false} backgroundColor={COLORS.orange} />
+      <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header
         title="MY CART"
         onPressMenu={() => goBack()}

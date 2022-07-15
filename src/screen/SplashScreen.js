@@ -39,7 +39,7 @@ const SplashScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppStatusBar backgroundColor={COLORS.white} />
+      <AppStatusBar translucent={true} backgroundColor={COLORS.white} />
       <View style={styles.upper}>
         <ImageBackground
           source={require("../assets/images/logo.png")}
