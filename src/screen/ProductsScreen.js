@@ -9,7 +9,7 @@ import {
   ToastAndroid,
 } from "react-native";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
-import { ProductsData, getProducts, getProduct } from "../data/ProductsData";
+import { getProducts, getProduct } from "../data/ProductsData";
 import { addToCart } from "../redux/features/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -17,41 +17,16 @@ import Header from "../components/Header/Header";
 import SearchBar from "../components/SearchBar/SearchBar";
 import ProductCard from "../components/ProductCard/ProductCard";
 
-import axios from "../../axios.automate";
-
 const ProductsScreen = ({ navigation }) => {
+
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
-  const [loading,setLoading] = useState(false)
-  const [isAdded, setIsAdded] = useState(false);
 
-  // useEffect(() => {
-  //   // setProducts(getProducts());
-  //   setProducts(ProductsData());
-  // });
+  useEffect(() => {
+    setProducts(getProducts());
+  });
 
-  //categoryID harcoded
-
-  React.useEffect(() => {
-    setLoading(true);
-    axios
-      .get("getProduct", {
-        params: {
-          categoryID: "C-1657253529229",
-        },
-      })
-      .then((res) => {
-        setLoading(false);
-        console.log(res);
-        if (res.data.success) setProducts(res.data.productItems);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err);
-      });
-  }, []);
-
-  function showToast(){
+  function showToast() {
     ToastAndroid.showWithGravityAndOffset(
       "Added To Cart !!",
       ToastAndroid.LONG,
@@ -59,15 +34,15 @@ const ProductsScreen = ({ navigation }) => {
       25,
       50
     );
-  };
+  }
 
   const renderData = (item) => {
+    // console.log(item)
     return (
       <ProductCard
         item={item}
-        // text={isAdded ? "Added" : "Add To Cart"}
         onPress={() => {
-          dispatch(addToCart(item)), setIsAdded(true), showToast
+          dispatch(addToCart(item)), showToast();
         }}
       />
     );
@@ -90,6 +65,7 @@ const ProductsScreen = ({ navigation }) => {
           renderItem={({ item }) => {
             return renderData(item);
           }}
+          keyExtractor={(item) => `${item.productID}`}
           scrollEnabled={true}
           ListHeaderComponent={<SearchBar />}
           // ListFooterComponent={<Footer />}

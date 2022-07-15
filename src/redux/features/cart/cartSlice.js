@@ -8,15 +8,14 @@ const cartSlice = createSlice({
   reducers: {
     addToCart(state, { payload }) {
       // console.log(payload);
-      // uid is the unique id of the item
 
-      const { id } = payload;
-      // console.log(id)
+      const { productID } = payload;
+      // console.log(productID)
 
-      const find = state.find((item) => item.id === id);
+      const find = state.find((item) => item.productID === productID);
       if (find) {
         return state.map((item) =>
-          item.id === id
+          item.productID === productID
             ? {
                 ...item,
                 quantity: item.quantity + 1,
@@ -31,8 +30,9 @@ const cartSlice = createSlice({
       }
     },
     increment(state, { payload }) {
+
       return state.map((item) =>
-        item.id === payload
+        item.productID === payload
           ? {
               ...item,
               quantity: item.quantity + 1,
@@ -41,8 +41,9 @@ const cartSlice = createSlice({
       );
     },
     decrement(state, { payload }) {
+
       return state.map((item) =>
-        item.id === payload
+        item.productID === payload
           ? {
               ...item,
               quantity: item.quantity - 1,
@@ -53,8 +54,8 @@ const cartSlice = createSlice({
     removeItem: (state, action) => {
       //   console.log(state);
       //   console.log(action);
-      const itemId = action.payload;
-      return state.filter((item) => item.id !== itemId);
+      const productID = action.payload;
+      return state.filter((item) => item.productID !== productID);
     },
     clear(state) {
       return [];
@@ -65,8 +66,14 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, increment, decrement, removeItem, clear } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  increment,
+  decrement,
+  removeItem,
+  clear,
+  placeOrder,
+} = cartSlice.actions;
 const cartReducer = cartSlice.reducer;
 
 export default cartReducer;

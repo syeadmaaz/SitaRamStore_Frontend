@@ -54,19 +54,18 @@ const CartScreen = ({ navigation }) => {
         item={item}
         onPressDecrement={() => {
           if (item.quantity === 1) {
-            dispatch(removeItem(item.id));
-
+            dispatch(removeItem(item.productID));
             console.log("removed");
             return;
           } else {
-            dispatch(decrement(item.id));
+            dispatch(decrement(item.productID));
           }
         }}
         onPressIncrement={() => {
-          dispatch(increment(item.id));
+          dispatch(increment(item.productID));
         }}
         onPressRemove={() => {
-          dispatch(removeItem(item.id));
+          dispatch(removeItem(item.productID));
         }}
       />
     );
