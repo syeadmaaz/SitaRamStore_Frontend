@@ -51,15 +51,15 @@ const ProductsScreen = ({ navigation }) => {
       });
   }, []);
 
-  function showToast(){
-    ToastAndroid.showWithGravityAndOffset(
-      "Added To Cart !!",
-      ToastAndroid.LONG,
-      ToastAndroid.BOTTOM,
-      25,
-      50
-    );
-  };
+  // function showToast(){
+  //   ToastAndroid.showWithGravityAndOffset(
+  //     "Added To Cart !!",
+  //     ToastAndroid.LONG,
+  //     ToastAndroid.BOTTOM,
+  //     25,
+  //     50
+  //   );
+  // };
 
   const renderData = (item) => {
     return (
