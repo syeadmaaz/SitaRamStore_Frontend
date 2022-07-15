@@ -29,7 +29,7 @@ const HomeScreen = ({ navigation }) => {
       .get("getCategory", { params: {} })
       .then((res) => {
         setLoading(false);
-        console.log(res);
+        // console.log(res);
         if (res.data.success) 
           setCategory(res.data.categoryItems);
       })

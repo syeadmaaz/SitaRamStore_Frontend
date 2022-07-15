@@ -14,6 +14,8 @@ const App = () => {
   const [category,setCategory] = React.useState(null)
   const [message,setMessage] = React.useState(null)
   const [loading,setLoading] = React.useState(false)
+  const [categoryName,setCategoryName] = React.useState()
+  const [price,setPrice] = React.useState('')
 
   React.useEffect(() => {
     setLoading(true);
@@ -22,7 +24,9 @@ const App = () => {
       .then((res) => {
         setLoading(false);
         console.log(res);
-        if (res.data.success) setCategory(res.data.categoryItems);
+        if (res.data.success) {
+          setCategory(res.data.categoryItems);
+        }
       })
       .catch((err) => {
         setLoading(false);
@@ -78,12 +82,13 @@ const App = () => {
 
     formData.append("name", name);
     formData.append("desc", desc);
-    FormData.append("categoryID",categoryID)
+    formData.append("categoryID",categoryID)
+    formData.append("price",price)
 
     // console.log(formData)
 
     try {
-      const res = await axios.post("/adminCategoryUpdate", formData, {
+      const res = await axios.post("/adminProductUpdate", formData, {
         headers: {
           Accept: "application/json",
           "Content-Type": "multipart/form-data",
@@ -138,8 +143,24 @@ const App = () => {
         value={desc}
         onChangeText={(text) => setDesc(text)}
       />
+      <TextInput
+        placeholder={"Price*"}
+        value={price}
+        onChangeText={(text) => setPrice(text)}
+      />
       <SelectDropdown
-	    data={category}/>
+        data={category}
+        onSelect={(selectedItem, index) => {
+          console.log(selectedItem, index);
+          setCategoryID(selectedItem.categoryID);
+        }}
+        buttonTextAfterSelection={(selectedItem) => {
+          return selectedItem.categoryName;
+        }}
+        rowTextForSelection={(item) => {
+          return item.categoryName;
+        }}
+      />
       <View>
         <TouchableOpacity
           onPress={openImageLibrary}
@@ -156,7 +177,7 @@ const App = () => {
         </TouchableOpacity>
 
         <Text style={styles.skip}>Skip</Text>
-        {photo ? (
+        {photo && name ? (
           <Text
             onPress={uploadPhoto}
             style={[
@@ -167,18 +188,17 @@ const App = () => {
             Upload Category
           </Text>
         ) : null}
-        {categoryID && photo ? (
-        <Text
-          onPress={uploadPhoto1}
-          style={[
-            styles.skip,
-            { backgroundColor: "green", color: "white", borderRadius: 8 },
-          ]}
-        >
-          Upload Product
-        </Text>
-        ): null
-      }
+        {categoryID && photo && name && price && desc ? (
+          <Text
+            onPress={uploadPhoto1}
+            style={[
+              styles.skip,
+              { backgroundColor: "green", color: "white", borderRadius: 8 },
+            ]}
+          >
+            Upload Product
+          </Text>
+        ) : null}
       </View>
     </View>
   );
