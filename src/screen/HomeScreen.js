@@ -97,7 +97,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AppStatusBar backgroundColor={COLORS.orange} />
+      <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header
         title={"HOME"}
         // onPressMenu={logout}

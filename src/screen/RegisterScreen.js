@@ -99,7 +99,7 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={StyleSheet.container}>
-      <AppStatusBar backgroundColor={COLORS.white} />
+      <AppStatusBar translucent={true} backgroundColor={COLORS.white} />
       <View style={styles.topView}>
         <Image
           style={styles.imageStyle}
