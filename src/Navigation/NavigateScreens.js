@@ -11,6 +11,8 @@ import ProductsScreen from "../screen/ProductsScreen";
 import CartScreen from "../screen/CartScreen";
 import AdminHomescreen from "../components/Admin/screen/AdminHomescreen";
 import MyComponent from "../components/Admin/screen/NewOrder";
+import ImageUpload from "../components/Admin/screen/ImageUpload";
+import CategoryUpdate from "../components/Admin/screen/CategoryUpdate";
 
 const RootStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
@@ -68,17 +70,18 @@ function ProductStackScreen() {
 function AdminStackScreen() {
   return (
     <AdminStack.Navigator
-    initialRouteName="AdminHomescreen"
-    screenOptions={{
-      headerShown: false,
-      animationEnabled: false,
-    }}
-  >
-    <AdminStack.Screen name="AdminHomescreen" component={AdminHomescreen} />
-    <AdminStack.Screen name="MyComponent" component={MyComponent} />
-    
-  </AdminStack.Navigator>
-  )
+      initialRouteName="AdminHomescreen"
+      screenOptions={{
+        headerShown: false,
+        animationEnabled: false,
+      }}
+    >
+      <AdminStack.Screen name="AdminHomescreen" component={AdminHomescreen} />
+      <AdminStack.Screen name="MyComponent" component={MyComponent} />
+      <AdminStack.Screen name="CategoryUpdate" component={CategoryUpdate} />
+      <AdminStack.Screen name="ImageUpload" component={ImageUpload} />
+    </AdminStack.Navigator>
+  );
 }
 
 const NavigateScreens = () => {

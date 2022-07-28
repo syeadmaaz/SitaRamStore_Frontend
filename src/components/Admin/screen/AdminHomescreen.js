@@ -9,44 +9,45 @@ const AdminHomescreen = ({navigation}) => {
         navigation.navigate("MyComponent");
       }
 
+    function goToImageUpload() {
+        navigation.navigate("ImageUpload");
+    }
+
+    function goToCategoryUpdate() {
+        navigation.navigate("CategoryUpdate");
+    }
+
   return (
     <SafeAreaView style={styles.deco}>
-        <ScrollView>
-           <Card style={styles.iconStyle}>
-                <Icon name="logout" size={35} />
-           </Card>
-          <Card elevation={4} style={styles.crdStyling}>
+      <ScrollView>
+        <Card style={styles.iconStyle}>
+          <Icon name="logout" size={35} />
+        </Card>
+        <Card elevation={4} style={styles.crdStyling}>
           <Card elevation={4} style={styles.cardStyle}>
             <TouchableOpacity activeOpacity={0.2} onPress={goToMyComponent}>
-            <Text style={styles.txtStyle}>
-                New Order
-            </Text>
+              <Text style={styles.txtStyle}>New Order</Text>
             </TouchableOpacity>
-            
-           </Card>
-           <Card elevation={4} style={styles.cardStyle}>
-            <Text style={styles.txtStyle}>
-                Order Status
-            </Text>
-           </Card>
-           <Card elevation={4} style={styles.cardStyle}>
-            <Text style={styles.txtStyle}>
-                Add Category
-            </Text>
-           </Card>
-           <Card elevation={4} style={styles.cardStyle}>
-            <Text style={styles.txtStyle}>
-                Add/Edit Products to Existing Category
-            </Text>
-           </Card>
           </Card>
-           
-        </ScrollView>
-      
+          <Card elevation={4} style={styles.cardStyle}>
+            <Text style={styles.txtStyle}>Order Status</Text>
+          </Card>
+          <Card elevation={4} style={styles.cardStyle}>
+            <TouchableOpacity activeOpacity={0.2} onPress={goToCategoryUpdate}>
+              <Text style={styles.txtStyle}>Add/Edit Category</Text>
+            </TouchableOpacity>
+          </Card>
+          <Card elevation={4} style={styles.cardStyle}>
+            <TouchableOpacity activeOpacity={0.2} onPress={goToImageUpload}>
+              <Text style={styles.txtStyle}>
+                Add/Edit Products to Existing Category
+              </Text>
+            </TouchableOpacity>
+          </Card>
+        </Card>
+      </ScrollView>
     </SafeAreaView>
-
-    
-  )
+  );
 }
 const styles = StyleSheet.create({
     deco: {
@@ -57,7 +58,6 @@ const styles = StyleSheet.create({
     iconStyle: {
         alignItems: 'flex-end',
         padding: '3%',
-
     },
     crdStyling: {
         // height: 400,

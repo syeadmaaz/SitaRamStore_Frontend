@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import AdminHomescreen from "../screen/AdminHomescreen";
 import MyComponent from '../screen/NewOrder';
+import ImageUpload from '../screen/ImageUpload'
 // import { NavigationContainer } from "@react-navigation/native";
 // import NewOrderList from "../screen/NewOrderList";
 
@@ -19,7 +20,7 @@ const OrderStack = createNativeStackNavigator();
   const NavigateScreen = () => {
     return (
        <View style={{width: '100%', height: '100%'}}>
-         <OrderStack.Navigator
+        <OrderStack.Navigator
         initialRouteName="AdminHomescreen"
         screenOptions={{
           headerShown: false,
@@ -28,6 +29,7 @@ const OrderStack = createNativeStackNavigator();
       >
         <OrderStack.Screen name="AdminHomescreen" component={AdminHomescreen} />
         <OrderStack.Screen name="MyComponent" component={MyComponent} />
+        {/* <OrderStack.Screen name="ImageUpload" component={ImageUpload} /> */}
         
       </OrderStack.Navigator>
        </View>

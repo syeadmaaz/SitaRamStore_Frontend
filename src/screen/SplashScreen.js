@@ -16,8 +16,14 @@ const SplashScreen = ({ navigation }) => {
       // You can await here
       const response = await getData();
       if (response) {
+        // setTimeout(() => {
+        //   navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
+        // }, 3000);
+
         setTimeout(() => {
-          navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
+          navigation.navigate("AdminStackScreen", {
+            screen: "AdminHomescreen",
+          });
         }, 3000);
       } else {
         setTimeout(() => {
