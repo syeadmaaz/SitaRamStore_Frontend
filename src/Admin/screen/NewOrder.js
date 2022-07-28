@@ -25,7 +25,9 @@ import Select from "../components/Select";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import NewOrderList from "./NewOrderList";
 
-const NewOrders = [
+
+
+const orders = [
   {
     key: "1",
     orderID: "01",
@@ -37,6 +39,10 @@ const NewOrders = [
     district: "Kanpur",
     state: "Uttar Pradesh",
     orderAmount: "1000",
+    accepted: false,
+    rejected: false,
+    delivered: false,
+    unDelivered: false
   },
   {
     key: "2",
@@ -49,6 +55,10 @@ const NewOrders = [
     district: "Rangpo",
     state: "Sikkim",
     orderAmount: "2000",
+    accepted: false,
+    rejected: false,
+    delivered: false,
+    unDelivered: false
   },
   {
     key: "3",
@@ -61,6 +71,10 @@ const NewOrders = [
     district: "Rangpo",
     state: "Sikkim",
     orderAmount: "2000",
+    accepted: false,
+    rejected: false,
+    delivered: false,
+    unDelivered: false
   },
   {
     key: "4",
@@ -73,6 +87,10 @@ const NewOrders = [
     district: "Rangpo",
     state: "Sikkim",
     orderAmount: "2000",
+    accepted: false,
+    rejected: false,
+    delivered: false,
+    unDelivered: false
   },
   {
     key: "5",
@@ -85,42 +103,42 @@ const NewOrders = [
     district: "Rangpo",
     state: "Sikkim",
     orderAmount: "2000",
+    accepted: false,
+    rejected: false,
+    delivered: false,
+    unDelivered: false
   },
 ];
 
 const MyComponent = ({ navigation }) => {
-  const [accepted, setAccepted] = React.useState(false);
-  const [rejected, setRejected] = React.useState(false);
-  const [delivered, setDelivered] = React.useState(false);
-  const [unDelivered, setUnDelivered] = React.useState(false);
+  
+  const [NewOrders,setNewOrders]= useState(orders)
 
-  // let container = null;
-  // if(accepted===false){
-  //   container =(
-  //     <View>
-  //        <Accept/ >
-  //     </View>
-  //   );
-  // }
-  // else{
-  //   container = (
-  //     <View>
-  //       <Delivered />
-  //     </View>
-  //   );
-  // }
 
-  const acceptHandler = () => {
-    setAccepted(true);
+  const acceptHandler = (index) => {
+    console.log(NewOrders[index])
+    NewOrders[index].accepted=true
+    setNewOrders([...NewOrders])
+    console.log(index)
   };
-  const rejectHandler = () => {
-    setRejected(true);
+
+  const rejectHandler = (index) => {
+    console.log(NewOrders[index]);
+    NewOrders[index].rejected = true;
+    setNewOrders([...NewOrders]);
+    console.log(index);
   };
-  const deliverHandler = () => {
-    setDelivered(true);
+  const deliverHandler = (index) => {
+    console.log(NewOrders[index]);
+    NewOrders[index].delivered = true;
+    setNewOrders([...NewOrders]);
+    console.log(index);
   };
-  const unDeliverHandler = () => {
-    setUnDelivered(true);
+  const unDeliverHandler = (index) => {
+    console.log(NewOrders[index]);
+    NewOrders[index].unDelivered = true;
+    setNewOrders([...NewOrders]);
+    console.log(index);
   };
 
   const LowerHeader = () => {
@@ -133,33 +151,7 @@ const MyComponent = ({ navigation }) => {
     );
   };
 
-  // const accept = () => {
-  //   return (
-  //     <View>
-  //       <Card>
-  //           <Card.Actions style={{flex: 1}}>
-  //               <Button onPress={() => {setAccepted(true)}} style={{width: '40%', backgroundColor: 'green', padding: 1, flex: 2}}><Text style={{color: 'white', fontSize: 15}}>Accept Order</Text></Button>
-  //               <Button style={{width: '40%', backgroundColor: 'red', padding: 1, flex: 2}}><Text style={{color: 'white', fontSize: 15}}>Reject Order</Text></Button>
-  //           </Card.Actions>
-  //       </Card>
-  //     </View>
-  //   );
-  // };
-
-  // const deliver = () => {
-  //     return(
-  //       <View>
-  //       <Card >
-  //            <Card.Actions style={{flex: 1}}>
-  //                <Button  style={{width: '40%', backgroundColor: 'green', padding: 1, flex: 2}}><Text style={{color: 'white', fontSize: 15}}>Order Delivered</Text></Button>
-  //                <Button style={{width: '40%', backgroundColor: 'red', padding: 1, flex: 2}}><Text style={{color: 'white', fontSize: 15}}>Order Cancelled</Text></Button>
-  //            </Card.Actions>
-  //       </Card>
-  //    </View>
-  //     );
-  // };
-
-  const renderData = (item) => {
+  const renderData = (item,index) => {
     return (
       <>
         <Card elevation={4} style={{ marginTop: "5%" }}>
@@ -183,25 +175,23 @@ const MyComponent = ({ navigation }) => {
           </Card.Content>
           <ViewProduct />
 
-          {/* {container} */}
-
-          {accepted ? (
-            delivered ? (
+          {item.accepted ? (
+            item.delivered ? (
               <Text> Order Delivered</Text>
-            ) : unDelivered ? (
+            ) : item.unDelivered ? (
               <Text>Undelivered</Text>
             ) : (
               <Delivered
-                onPressDelivered={deliverHandler}
-                onPressUndelivered={unDeliverHandler}
+                onPressDelivered={()=>deliverHandler(index)}
+                onPressUndelivered={()=>unDeliverHandler(index)}
               />
             )
-          ) : rejected ? (
+          ) : item.rejected ? (
             <Text>Rejected </Text>
           ) : (
             <Accept
-              onPressAccept={acceptHandler}
-              onPressReject={rejectHandler}
+              onPressAccept={()=>acceptHandler(index)}
+              onPressReject={()=>rejectHandler(index)}
             />
           )}
         </Card>
@@ -215,14 +205,16 @@ const MyComponent = ({ navigation }) => {
         <FlatList
           numColumns={1}
           data={NewOrders}
-          renderItem={({ item }) => {
-            return renderData(item);
+          renderItem={({ item,index }) => {
+            return renderData(item,index);
           }}
-          keyExtractor={(item) => `${item.key}`}
+          keyExtractor={(item) => item.orderID}
           ListHeaderComponent={<LowerHeader />}
+          extraData={NewOrders}
         />
       </View>
     </SafeAreaView>
   );
 };
 export default MyComponent;
+
