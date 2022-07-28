@@ -17,7 +17,13 @@ const SplashScreen = ({ navigation }) => {
       const response = await getData();
       if (response) {
         setTimeout(() => {
-          navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
+          response.userType == 1
+            ? navigation.navigate("ProductStackScreen", {
+                screen: "HomeScreen",
+              })
+            : navigation.navigate("AdminStackScreen", {
+                screen: "AdminHomescreen",
+              });
         }, 3000);
       } else {
         setTimeout(() => {
