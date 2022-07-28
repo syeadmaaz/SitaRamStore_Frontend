@@ -9,8 +9,8 @@ import LoginScreen from "../screen/LoginScreen";
 import RegisterScreen from "../screen/RegisterScreen";
 import ProductsScreen from "../screen/ProductsScreen";
 import CartScreen from "../screen/CartScreen";
-import AdminHomescreen from "../components/Admin/screen/AdminHomescreen";
-import MyComponent from "../components/Admin/screen/NewOrder";
+import AdminHomescreen from "../Admin/screen/AdminHomescreen";
+import MyComponent from "../Admin/screen/NewOrder";
 
 const RootStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
