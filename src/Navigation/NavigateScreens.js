@@ -13,6 +13,8 @@ import AdminHomescreen from "../components/Admin/screen/AdminHomescreen";
 import MyComponent from "../components/Admin/screen/NewOrder";
 import ImageUpload from "../components/Admin/screen/ImageUpload";
 import CategoryUpdate from "../components/Admin/screen/CategoryUpdate";
+import AdminHomescreen from "../Admin/screen/AdminHomescreen";
+import MyComponent from "../Admin/screen/NewOrder";
 
 const RootStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();

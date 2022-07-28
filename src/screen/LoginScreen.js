@@ -50,14 +50,20 @@ const LoginScreen = ({ navigation }) => {
         console.log(response.data);
         if (response.status == 201 && response.data.userType == 1) {
           // console.log(response.data);
-          storeData({ userName: loginData.userName });
+          storeData({
+            userName: loginData.userName,
+            userType: response.data.userType,
+          });
           navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
-        }
-        else if(response.status == 201 && response.data.userType == 0){
-          storeData({ userName: loginData.userName });
-          navigation.navigate("AdminStackScreen", {screen: "AdminHomescreen" });
-        }
-         else {
+        } else if (response.status == 201 && response.data.userType == 0) {
+          storeData({
+            userName: loginData.userName,
+            userType: response.data.userType,
+          });
+          navigation.navigate("AdminStackScreen", {
+            screen: "AdminHomescreen",
+          });
+        } else {
           alert(response.data.error);
         }
       })

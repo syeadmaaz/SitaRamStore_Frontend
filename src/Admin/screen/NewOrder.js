@@ -17,12 +17,13 @@ import {
   Text,
   Title,
 } from "react-native-paper";
+
+import ViewProduct from "./ViewProduct";
+import Delivered from "../components/Delivered";
+import Accept from "../components/Accept";
+import Select from "../components/Select";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import NewOrderList from "./NewOrderList";
-import ViewProduct from "./ViewProduct";
-import Delivered from "../component/Delivered";
-import Accept from "../component/Accept";
-import Select from "../component/Select";
 
 const NewOrders = [
   {
