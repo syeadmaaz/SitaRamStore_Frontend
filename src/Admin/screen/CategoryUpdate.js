@@ -14,14 +14,14 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-import AppStatusBar from "../../AppStatusBar/AppStatusBar";
-import Header from "../../Header/Header";
-import SearchHeader from "../../Header/SearchHeader";
-import CategoryCard from "../../CategoryCard/CategoryCard";
+import AppStatusBar from "../../components/AppStatusBar/AppStatusBar";
+import Header from "../../components/Header/Header";
+import SearchHeader from "../../components/Header/SearchHeader";
+import CategoryCard from "../../components/CategoryCard/CategoryCard";
 8
-import { COLORS, WIDTH, HEIGHT } from "../../../constants/theme";
+import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 
-import axios from "../../../../axios.automate";
+import axios from "../../../axios.automate";
 
 const CategoryUpdate = () => {
   const [photo, setPhoto] = React.useState(null);

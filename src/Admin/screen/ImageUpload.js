@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Text, Image, TextInput } from "reac
 import * as ImagePicker from "expo-image-picker";
 import SelectDropdown from "react-native-select-dropdown";
 
-import axios from "../../../../axios.automate";
+import axios from "../../../axios.automate";
 
 const App = () => {
   const [photo, setPhoto] = React.useState(null);
