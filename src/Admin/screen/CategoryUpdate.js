@@ -12,18 +12,20 @@ import {
   ActivityIndicator,
   Alert,
 } from "react-native";
+import { Card } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 import AppStatusBar from "../../components/AppStatusBar/AppStatusBar";
 import Header from "../../components/Header/Header";
 import SearchHeader from "../../components/Header/SearchHeader";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
-8
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 
 import axios from "../../../axios.automate";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
-const CategoryUpdate = () => {
+const CategoryUpdate = ({navigation}) => {
   const [photo, setPhoto] = React.useState(null);
 
   const [name, setName] = React.useState("");
@@ -34,13 +36,26 @@ const CategoryUpdate = () => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
 
-  const Separator = () => <View style={styles.separator} />;
-
   const LowerHeader = () => {
     return (
       <>
-        <SearchHeader />
-        <Text style={styles.categoryText}>Categories</Text>
+        {/* <SearchHeader /> */}
+        <SearchBar />
+        {/* <Text style={styles.categoryText}>Categories</Text> */}
+        <Card elevation={5} style={styles.addCard}>
+          <TouchableOpacity>
+            <Icon
+              name={"add"}
+              size={70}
+              color={"black"}
+              onPress={navigation.navigate("ImageUpload")}
+            />
+          </TouchableOpacity>
+        </Card>
+        {/* <Button
+          title="Add Category"
+          onPress={() => Alert.alert("Simple Button pressed")}
+        /> */}
       </>
     );
   };
@@ -180,11 +195,10 @@ const CategoryUpdate = () => {
     <SafeAreaView style={styles.container}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header
-        title={"HOME"}
+        title={"Add/Edit Category"}
         // onPressMenu={logout}
         onPressCart={() => navigation.navigate("CartScreen")}
       />
-
       <View style={styles.content}>
         {loading ? (
           error ? (
@@ -223,11 +237,6 @@ const CategoryUpdate = () => {
               scrollEnabled={true}
               ListHeaderComponent={<LowerHeader />}
               ListFooterComponent={<Footer />}
-            />
-            <Separator />
-            <Button
-              title="Add Category"
-              onPress={() => Alert.alert("Simple Button pressed")}
             />
           </>
         )}
@@ -283,6 +292,13 @@ const styles = StyleSheet.create({
     width: WIDTH.screenWidth,
     // backgroundColor: COLORS.orange,
   },
+  addCard: {
+    alignItems:"center",
+    justifyContent: "center",
+    // width: WIDTH.screenWidth,
+    marginHorizontal: "5%",
+    marginTop: "2%"
+  },
   categoryText: {
     fontSize: 25,
     fontWeight: "bold",
@@ -295,14 +311,8 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: COLORS.white,
+    // backgroundColor: COLORS.white,
   },
-  separator: {
-    marginVertical: 8,
-    borderBottomColor: "#737373",
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-
     container: {
       flex: 1,
       justifyContent: "center",

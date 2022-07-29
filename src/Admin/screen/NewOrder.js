@@ -123,19 +123,19 @@ const MyComponent = ({ navigation }) => {
   };
 
   const rejectHandler = (index) => {
-    console.log(NewOrders[index]);
+    console.log(NewOrders);
     NewOrders[index].rejected = true;
     setNewOrders([...NewOrders]);
     console.log(index);
   };
   const deliverHandler = (index) => {
-    console.log(NewOrders[index]);
+    console.log(NewOrders);
     NewOrders[index].delivered = true;
     setNewOrders([...NewOrders]);
     console.log(index);
   };
   const unDeliverHandler = (index) => {
-    console.log(NewOrders[index]);
+    console.log(NewOrders);
     NewOrders[index].unDelivered = true;
     setNewOrders([...NewOrders]);
     console.log(index);
