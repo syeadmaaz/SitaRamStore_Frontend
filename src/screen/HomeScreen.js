@@ -60,7 +60,7 @@ const HomeScreen = ({ navigation }) => {
     axios
       .get("getProduct", {
         params: {
-          categoryID: "C-1657253529229",
+          categoryID: "C-1657253762556",
         },
       })
       .then((res) => {
