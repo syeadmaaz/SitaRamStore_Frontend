@@ -1,5 +1,12 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity, Text, Image, TextInput } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Image,
+  TextInput,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import SelectDropdown from "react-native-select-dropdown";
 
@@ -8,14 +15,14 @@ import axios from "../../../axios.automate";
 const App = () => {
   const [photo, setPhoto] = React.useState(null);
 
-  const [name,setName] = React.useState('')
-  const [desc,setDesc] = React.useState('')
-  const [categoryID,setCategoryID] = React.useState(null)
-  const [category,setCategory] = React.useState(null)
-  const [message,setMessage] = React.useState(null)
-  const [loading,setLoading] = React.useState(false)
-  const [categoryName,setCategoryName] = React.useState()
-  const [price,setPrice] = React.useState('')
+  const [name, setName] = React.useState("");
+  const [desc, setDesc] = React.useState("");
+  const [categoryID, setCategoryID] = React.useState(null);
+  const [category, setCategory] = React.useState(null);
+  const [message, setMessage] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+  const [categoryName, setCategoryName] = React.useState();
+  const [price, setPrice] = React.useState("");
 
   React.useEffect(() => {
     setLoading(true);
@@ -35,7 +42,7 @@ const App = () => {
   }, []);
 
   const uploadPhoto = async () => {
-    console.log(photo)
+    console.log(photo);
     const formData = new FormData();
     formData.append("image", {
       name: new Date() + "_image",
@@ -44,7 +51,7 @@ const App = () => {
     });
 
     formData.append("name", name);
-    formData.append("desc",desc)
+    formData.append("desc", desc);
 
     // console.log(formData)
 
@@ -57,17 +64,17 @@ const App = () => {
         },
       });
 
-      console.log(res.data)
+      console.log(res.data);
 
       if (res.data.success) {
         // props.navigation.dispatch(StackActions.replace("UserProfile"));
-        console.log("Success")
-        console.log(res.data.message)
-        setMessage(res.data.message)
+        console.log("Success");
+        console.log(res.data.message);
+        setMessage(res.data.message);
       }
     } catch (error) {
-      console.log(error)
-      setMessage(error.message)
+      console.log(error);
+      setMessage(error.message);
     }
   };
 
@@ -82,8 +89,8 @@ const App = () => {
 
     formData.append("name", name);
     formData.append("desc", desc);
-    formData.append("categoryID",categoryID)
-    formData.append("price",price)
+    formData.append("categoryID", categoryID);
+    formData.append("price", price);
 
     // console.log(formData)
 
@@ -110,7 +117,6 @@ const App = () => {
     }
   };
 
-
   const openImageLibrary = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -129,7 +135,6 @@ const App = () => {
       }
     }
   };
-
 
   return (
     <View style={styles.container}>
