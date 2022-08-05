@@ -99,7 +99,7 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.content}>
         {loading ? (
           error ? (
-            <MessageCard message={error}/>
+            <MessageCard message={error} />
           ) : (
             <View
               style={{

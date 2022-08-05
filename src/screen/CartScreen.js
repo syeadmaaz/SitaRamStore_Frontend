@@ -53,6 +53,30 @@ const CartScreen = ({ navigation }) => {
     );
   };
 
+  function save() {
+    console.log(cart);
+    axios
+      .get("saveCart", {
+        params: {
+          userName: "testing..",
+          productDetails: cart,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        // setLoading(false);
+        if (res.data.success) {
+          // setProducts(res.data.productItems);
+          // navigation.navigate("ProductStackScreen", {
+          //   screen: "ProductsScreen",
+          // });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   function renderData(item) {
     // console.log(item)
     return (
@@ -72,37 +96,12 @@ const CartScreen = ({ navigation }) => {
         }}
         onPressRemove={() => {
           dispatch(removeItem(item.productID));
+          if (cart.length == 1) {
+            save();
+          }
         }}
       />
     );
-  }
-
-  function save(){
-    setCartData([
-
-    ])
-    console.log(cart);
-    axios
-      .get("saveCart", {
-        params: {
-          userName: "testing..",
-          productDetails: cart
-        },
-      })
-      .then((res) => {
-        console.log(res)
-        // setLoading(false);
-        if (res.data.success) {
-          // setProducts(res.data.productItems);
-
-          // navigation.navigate("ProductStackScreen", {
-          //   screen: "ProductsScreen",
-          // });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }
 
   function LowerHeader() {
@@ -119,7 +118,11 @@ const CartScreen = ({ navigation }) => {
               <Text style={styles.clearText}>CLEAR CART</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.3} style={styles.but2} onPress={save}>
+          <TouchableOpacity
+            activeOpacity={0.3}
+            style={styles.but2}
+            onPress={save}
+          >
             <View style={styles.button}>
               <Text style={styles.clearText}>SAVE CART</Text>
             </View>
