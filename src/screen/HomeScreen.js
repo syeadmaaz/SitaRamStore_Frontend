@@ -10,13 +10,13 @@ import {
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
 import { clearCookie } from "../data/Cokkie";
 import { setProducts } from "../data/ProductsData";
+import axios from "../../axios.automate";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
 import SearchHeader from "../components/Header/SearchHeader";
 import CategoryCard from "../components/CategoryCard/CategoryCard";
-
-import axios from "../../axios.automate";
+import MessageCard from "../components/MessageCard/MessageCard";
 
 const HomeScreen = ({ navigation }) => {
   const [loading, setLoading] = React.useState(false);
@@ -99,17 +99,7 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.content}>
         {loading ? (
           error ? (
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                flex: 1,
-              }}
-            >
-              <Text style={{ color: "red", fontSize: 18, fontWeight: "bold" }}>
-                {error}
-              </Text>
-            </View>
+            <MessageCard message={error}/>
           ) : (
             <View
               style={{

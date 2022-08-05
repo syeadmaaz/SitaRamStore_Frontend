@@ -61,7 +61,7 @@ const ProductsScreen = ({ navigation }) => {
         }}
       />
       {products.length == 0 ? (
-        <MessageCard />
+        <MessageCard message={"Products Not Available"}/>
       ) : (
         <View style={styles.content}>
           <FlatList

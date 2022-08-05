@@ -11,12 +11,12 @@ import {
 import { Card } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 
-const MessageCard = ({ item, onPress }) => {
+const MessageCard = (props) => {
   return (
     <SafeAreaView style={styles.cardsContainer}>
       <Card style={styles.cardStyle}>
         <Text style={styles.fontStyle}>Sorry!</Text>
-        <Text style={styles.fontStyle}>Products Not Available</Text>
+        <Text style={styles.fontStyle}>{props.message}</Text>
       </Card>
     </SafeAreaView>
   );
