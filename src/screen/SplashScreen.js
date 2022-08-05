@@ -6,6 +6,7 @@ import {
   ImageBackground,
   SafeAreaView,
 } from "react-native";
+import { getCookie } from "../data/Cokkie";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import { COLORS } from "../constants/theme";
@@ -14,12 +15,9 @@ const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     async function fetchData() {
       // You can await here
-      const response = await getData();
+      // const response = await getData();
+      const response = await getCookie();
       if (response) {
-        // setTimeout(() => {
-        //   navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
-        // }, 3000);
-
         setTimeout(() => {
           response.userType == 1
             ? navigation.navigate("ProductStackScreen", {
@@ -38,14 +36,14 @@ const SplashScreen = ({ navigation }) => {
     fetchData();
   }, []);
 
-  const getData = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem("@userData");
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch (e) {
-      // error reading value
-    }
-  };
+  // const getData = async () => {
+  //   try {
+  //     const jsonValue = await AsyncStorage.getItem("@userData");
+  //     return jsonValue != null ? JSON.parse(jsonValue) : null;
+  //   } catch (e) {
+  //     // error reading value
+  //   }
+  // };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -96,7 +94,7 @@ const styles = StyleSheet.create({
   },
   lower: {
     width: "100%",
-    height: "10%",
+    height: "12%",
     alignItems: "center",
   },
   createdby: {

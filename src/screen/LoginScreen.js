@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import { COLORS } from "../constants/theme";
 import axios from "../../axios.automate";
+import { setCookie } from "../data/Cokkie";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 
@@ -20,7 +22,6 @@ const LoginScreen = ({ navigation }) => {
   }
 
   const [loading, setLoading] = React.useState(false);
-
   const [loginData, setLoginData] = React.useState({
     userName: null,
     password: null,
@@ -38,7 +39,7 @@ const LoginScreen = ({ navigation }) => {
   };
 
   function signinHandler() {
-    console.log(loginData);
+    // console.log(loginData);
     setLoading(true);
     axios
       .post("/login", {
@@ -47,19 +48,18 @@ const LoginScreen = ({ navigation }) => {
       })
       .then((response) => {
         setLoading(false);
-        console.log(response.data);
+        // console.log(response.data);
         if (response.status == 201 && response.data.userType == 1) {
           // console.log(response.data);
-          storeData({
-            userName: loginData.userName,
-            userType: response.data.userType,
+
+          setCookie(loginData.userName, response.data.userType);
+
+          navigation.navigate("ProductStackScreen", {
+            screen: "HomeScreen",
           });
-          navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
         } else if (response.status == 201 && response.data.userType == 0) {
-          storeData({
-            userName: loginData.userName,
-            userType: response.data.userType,
-          });
+          setCookie(loginData.userName, response.data.userType);
+
           navigation.navigate("AdminStackScreen", {
             screen: "AdminHomescreen",
           });
@@ -73,15 +73,6 @@ const LoginScreen = ({ navigation }) => {
         alert(e.response.data.error);
       });
   }
-
-  const storeData = async (value) => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem("@userData", jsonValue);
-    } catch (e) {
-      // saving error
-    }
-  };
 
   return (
     <SafeAreaView style={styles.container}>

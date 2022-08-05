@@ -1,39 +1,39 @@
-import * as React from 'react'
-import { View, Text, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
-import {Card} from 'react-native-paper';
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {COLORS} from "../../constants/theme";
-import AppStatusBar from '../../components/AppStatusBar/AppStatusBar';
-import Header from '../../components/Header/Header';
+import * as React from "react";
+import {
+  Text,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import { Card } from "react-native-paper";
+import { clearCookie } from "../../data/Cokkie";
+import { COLORS } from "../../constants/theme";
+import AppStatusBar from "../../components/AppStatusBar/AppStatusBar";
+import Header from "../../components/Header/Header";
 
-const AdminHomescreen = ({navigation}) => {
-    function goToMyComponent() {
-        navigation.navigate("MyComponent");
-      }
+const AdminHomescreen = ({ navigation }) => {
+  function goToMyComponent() {
+    navigation.navigate("MyComponent");
+  }
 
-    function goToImageUpload() {
-        navigation.navigate("ImageUpload");
-    }
+  function goToImageUpload() {
+    navigation.navigate("ImageUpload");
+  }
 
-    function goToCategoryUpdate() {
-        navigation.navigate("CategoryUpdate");
-    }
+  function goToCategoryUpdate() {
+    navigation.navigate("CategoryUpdate");
+  }
 
   const logout = async () => {
-    console.log("first");
-      await AsyncStorage.clear();
-      navigation.navigate("AuthStackScreen", {screen: "LoginScreen"});
+    await clearCookie();
+    navigation.navigate("AuthStackScreen", { screen: "LoginScreen" });
   };
 
   return (
     <SafeAreaView style={styles.deco}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
-      <Header
-        title={"ADMIN HOME"}
-        name2={"logout"}
-        onPress2={logout}
-      />
+      <Header title={"ADMIN HOME"} name2={"logout"} onPress2={logout} />
       <ScrollView>
         <Card elevation={4} style={styles.crdStyling}>
           <Card elevation={4} style={styles.cardStyle}>
@@ -60,28 +60,28 @@ const AdminHomescreen = ({navigation}) => {
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
 const styles = StyleSheet.create({
-    iconStyle: {
-        alignItems: 'flex-end',
-        padding: '3%',
-    },
-    crdStyling: {
-        // height: 400,
-        padding: '3%',
-        backgroundColor: '#faf0e8',
-        marginTop: '3%',
-        borderRadius: 25,
-    },
-    cardStyle: {
-        width: '100%',
-        height: 50,
-        borderRadius: 25,
-        marginTop: '4%',
-    },
-    txtStyle: {
-        fontSize: 18,
-        padding: '2%',
-    }
+  iconStyle: {
+    alignItems: "flex-end",
+    padding: "3%",
+  },
+  crdStyling: {
+    // height: 400,
+    padding: "3%",
+    backgroundColor: "#faf0e8",
+    marginTop: "3%",
+    borderRadius: 25,
+  },
+  cardStyle: {
+    width: "100%",
+    height: 50,
+    borderRadius: 25,
+    marginTop: "4%",
+  },
+  txtStyle: {
+    fontSize: 18,
+    padding: "2%",
+  },
 });
 export default AdminHomescreen;

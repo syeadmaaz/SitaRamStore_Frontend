@@ -60,10 +60,10 @@ const ProductsScreen = ({ navigation }) => {
           [navigation.navigate("CartScreen"), console.log("CART")];
         }}
       />
-      <View style={styles.content}>
-        {products.length == 0 ? (
-            <MessageCard/>
-        ) : (
+      {products.length == 0 ? (
+        <MessageCard />
+      ) : (
+        <View style={styles.content}>
           <FlatList
             data={products}
             showsVerticalScrollIndicator={false}
@@ -75,8 +75,8 @@ const ProductsScreen = ({ navigation }) => {
             ListHeaderComponent={<SearchBar />}
             // ListFooterComponent={<Footer />}
           />
-        )}
-      </View>
+        </View>
+      )}
     </SafeAreaView>
   );
 };
