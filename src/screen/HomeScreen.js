@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  RefreshControl,
   StyleSheet,
   View,
   Text,
@@ -9,9 +8,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-import CATEGORIES from "../data/CategoryData";
+import { clearCookie } from "../data/Cokkie";
 import { setProducts } from "../data/ProductsData";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
@@ -43,8 +40,7 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   const logout = async () => {
-    console.log("first");
-    await AsyncStorage.clear();
+    await clearCookie();
     navigation.navigate("AuthStackScreen", { screen: "LoginScreen" });
   };
 

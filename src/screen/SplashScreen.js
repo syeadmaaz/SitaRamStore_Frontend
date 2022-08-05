@@ -6,6 +6,7 @@ import {
   ImageBackground,
   SafeAreaView,
 } from "react-native";
+import { getCookie } from "../data/Cokkie";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import { COLORS } from "../constants/theme";
@@ -14,7 +15,8 @@ const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     async function fetchData() {
       // You can await here
-      const response = await getData();
+      // const response = await getData();
+      const response = await getCookie();
       if (response) {
         setTimeout(() => {
           response.userType == 1
@@ -34,14 +36,14 @@ const SplashScreen = ({ navigation }) => {
     fetchData();
   }, []);
 
-  const getData = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem("@userData");
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch (e) {
-      // error reading value
-    }
-  };
+  // const getData = async () => {
+  //   try {
+  //     const jsonValue = await AsyncStorage.getItem("@userData");
+  //     return jsonValue != null ? JSON.parse(jsonValue) : null;
+  //   } catch (e) {
+  //     // error reading value
+  //   }
+  // };
 
   return (
     <SafeAreaView style={styles.container}>

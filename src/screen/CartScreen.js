@@ -31,7 +31,10 @@ const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const totalPrice = useSelector(cartTotalPriceSelector);
-  const [cartData, setcartData] = useState([]);
+  const [cartData, setCartData] = useState({
+    userName: null,
+    cart: null,
+  });
 
   const AlertItem = () => {
     Alert.alert(
@@ -74,6 +77,9 @@ const CartScreen = ({ navigation }) => {
   }
 
   function save(){
+    setCartData([
+
+    ])
     console.log(cart);
   }
 

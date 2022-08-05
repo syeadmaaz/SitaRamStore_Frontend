@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { COLORS } from "../constants/theme";
 import Icon from "react-native-vector-icons/Ionicons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { setCookie } from "../data/Cokkie";
 import axios from "../../axios.automate";
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 
@@ -83,10 +83,8 @@ const RegisterScreen = ({ navigation }) => {
           setLoading(false);
           if (response.status == 201) {
             console.log(response.data);
-            storeData({
-              userName: response.data.userName,
-              userType: response.data.userType,
-            });
+            setCookie(response.data.userName, response.data.userType);
+
             navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
           } else {
             console.log(response.data.error);
@@ -102,15 +100,6 @@ const RegisterScreen = ({ navigation }) => {
       alert("Please Fill The Fields Properly !");
     }
   }
-
-  const storeData = async (value) => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem("@userData", jsonValue);
-    } catch (e) {
-      // saving error
-    }
-  };
 
   return (
     <SafeAreaView style={StyleSheet.container}>
