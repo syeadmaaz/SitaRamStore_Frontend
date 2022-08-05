@@ -26,6 +26,7 @@ import SearchBar from "../components/SearchBar/SearchBar";
 import CartCard from "../components/CartCard/CartCard";
 import CartCheckout from "../components/CartCheckout/CartCheckout";
 import EmptyCart from "../components/EmptyCart/EmptyCart";
+import axios from "../../axios.automate";
 
 const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -74,6 +75,27 @@ const CartScreen = ({ navigation }) => {
 
   function save(){
     console.log(cart);
+    axios
+      .get("saveCart", {
+        params: {
+          userName: "testing..",
+          productDetails: cart
+        },
+      })
+      .then((res) => {
+        console.log(res)
+        // setLoading(false);
+        if (res.data.success) {
+          // setProducts(res.data.productItems);
+
+          // navigation.navigate("ProductStackScreen", {
+          //   screen: "ProductsScreen",
+          // });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function LowerHeader() {
