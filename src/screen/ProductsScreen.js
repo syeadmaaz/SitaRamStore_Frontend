@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {
-  RefreshControl,
   StyleSheet,
   View,
   SafeAreaView,
   FlatList,
-  StatusBar,
+  Text,
   ToastAndroid,
 } from "react-native";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
@@ -17,6 +16,7 @@ import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
 import SearchBar from "../components/SearchBar/SearchBar";
 import ProductCard from "../components/ProductCard/ProductCard";
+import MessageCard from "../components/MessageCard/MessageCard";
 
 const ProductsScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -61,17 +61,21 @@ const ProductsScreen = ({ navigation }) => {
         }}
       />
       <View style={styles.content}>
-        <FlatList
-          data={products}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => {
-            return renderData(item);
-          }}
-          keyExtractor={(item) => `${item.productID}`}
-          scrollEnabled={true}
-          ListHeaderComponent={<SearchBar />}
-          // ListFooterComponent={<Footer />}
-        />
+        {products.length == 0 ? (
+            <MessageCard/>
+        ) : (
+          <FlatList
+            data={products}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => {
+              return renderData(item);
+            }}
+            keyExtractor={(item) => `${item.productID}`}
+            scrollEnabled={true}
+            ListHeaderComponent={<SearchBar />}
+            // ListFooterComponent={<Footer />}
+          />
+        )}
       </View>
     </SafeAreaView>
   );

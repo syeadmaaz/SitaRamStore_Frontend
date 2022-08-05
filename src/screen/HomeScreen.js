@@ -44,22 +44,23 @@ const HomeScreen = ({ navigation }) => {
 
   const logout = async () => {
     console.log("first");
-      await AsyncStorage.clear();
-      navigation.navigate("AuthStackScreen", {screen: "LoginScreen"});
+    await AsyncStorage.clear();
+    navigation.navigate("AuthStackScreen", { screen: "LoginScreen" });
   };
 
   const goToProductsScreen = (item) => {
+    console.log(item.categoryID);
     // setLoading(true);
     axios
       .get("getProduct", {
         params: {
-          categoryID: "C-1657253762556",
+          categoryID: item.categoryID,
         },
       })
       .then((res) => {
         // setLoading(false);
-        // console.log(res.data);
         if (res.data.success) {
+          // console.log(res.data.productItems);
           setProducts(res.data.productItems);
 
           navigation.navigate("ProductStackScreen", {
