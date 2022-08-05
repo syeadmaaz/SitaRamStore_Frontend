@@ -16,6 +16,7 @@ export const COLORS = {
   yellow: "#ffb900",
   green: "green",
   red: "red",
+  blue: "#87cefa",
   tranparent: "rgba(0,0,0,0)",
 };
 

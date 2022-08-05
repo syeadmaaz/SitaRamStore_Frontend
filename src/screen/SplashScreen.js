@@ -16,10 +16,6 @@ const SplashScreen = ({ navigation }) => {
       // You can await here
       const response = await getData();
       if (response) {
-        // setTimeout(() => {
-        //   navigation.navigate("ProductStackScreen", { screen: "HomeScreen" });
-        // }, 3000);
-
         setTimeout(() => {
           response.userType == 1
             ? navigation.navigate("ProductStackScreen", {
@@ -96,7 +92,7 @@ const styles = StyleSheet.create({
   },
   lower: {
     width: "100%",
-    height: "10%",
+    height: "12%",
     alignItems: "center",
   },
   createdby: {

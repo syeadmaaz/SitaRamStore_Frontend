@@ -31,6 +31,7 @@ const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const totalPrice = useSelector(cartTotalPriceSelector);
+  const [cartData, setcartData] = useState([]);
 
   const AlertItem = () => {
     Alert.alert(
