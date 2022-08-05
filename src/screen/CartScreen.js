@@ -54,16 +54,18 @@ const CartScreen = ({ navigation }) => {
   };
 
   function save() {
+    console.log("saving initialized");
     console.log(cart);
+    let temp = [];
     axios
       .get("saveCart", {
         params: {
           userName: "testing..",
-          productDetails: cart,
+          productDetails: cart.length == 0 ? temp : cart,
         },
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         // setLoading(false);
         if (res.data.success) {
           // setProducts(res.data.productItems);
@@ -95,10 +97,12 @@ const CartScreen = ({ navigation }) => {
           dispatch(increment(item.productID));
         }}
         onPressRemove={() => {
-          dispatch(removeItem(item.productID));
-          if (cart.length == 1) {
-            save();
-          }
+          dispatch(removeItem(item.productID))
+          // console.log(cart.length)
+          // if (cart.length == 0) {
+          //   console.log("hello")
+          //   save();
+          // }
         }}
       />
     );
@@ -156,6 +160,7 @@ const CartScreen = ({ navigation }) => {
             ) : (
               <EmptyCart
                 onPressShop={() => {
+                  
                   navigation.navigate("HomeScreen");
                 }}
               />
@@ -172,7 +177,8 @@ const CartScreen = ({ navigation }) => {
               console.log("CHECKOUT");
             }}
           />
-        ) : null}
+        ) : [console.log(cart.length), save()]}
+
       </>
     </SafeAreaView>
   );
