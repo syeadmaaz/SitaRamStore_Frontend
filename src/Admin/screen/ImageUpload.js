@@ -13,8 +13,8 @@ import SelectDropdown from "react-native-select-dropdown";
 import axios from "../../../axios.automate";
 
 const App = () => {
-  const [photo, setPhoto] = React.useState(null);
 
+  const [photo, setPhoto] = React.useState(null);
   const [name, setName] = React.useState("");
   const [desc, setDesc] = React.useState("");
   const [categoryID, setCategoryID] = React.useState(null);

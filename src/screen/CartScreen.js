@@ -72,15 +72,30 @@ const CartScreen = ({ navigation }) => {
     );
   }
 
+  function save(){
+    console.log(cart);
+  }
+
   function LowerHeader() {
     return (
       <View style={styles.clearDiv}>
         <SearchBar />
-        <TouchableOpacity activeOpacity={0.3} onPress={AlertItem}>
-          <View style={styles.button}>
-            <Text style={styles.clearText}>CLEAR CART</Text>
-          </View>
-        </TouchableOpacity>
+        <View style={styles.buttons}>
+          <TouchableOpacity
+            activeOpacity={0.3}
+            style={styles.but1}
+            onPress={AlertItem}
+          >
+            <View style={styles.button}>
+              <Text style={styles.clearText}>CLEAR CART</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.3} style={styles.but2} onPress={save}>
+            <View style={styles.button}>
+              <Text style={styles.clearText}>SAVE CART</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -90,8 +105,10 @@ const CartScreen = ({ navigation }) => {
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header
         title="MY CART"
-        onPressMenu={() => goBack()}
-        onPressCart={() => console.log("CART PRESSED")}
+        name1={"keyboard-backspace"}
+        name2={"cart-outline"}
+        onPress1={() => navigation.goBack()}
+        onPress2={() => console.log("CART PRESSED")}
       />
       <View style={styles.content}>
         <FlatList
@@ -135,6 +152,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    width: WIDTH.screenWidth,
+    height: HEIGHT.screenHeight,
     backgroundColor: COLORS.white,
   },
   content: {
@@ -145,9 +164,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // backgroundColor: "yellow",
   },
+  buttons: {
+    flexDirection: "row",
+  },
+  but1: {
+    width: "50%",
+    paddingLeft: "6%",
+    paddingRight: "2%",
+    // backgroundColor: "orange",
+  },
+  but2: {
+    width: "50%",
+    paddingLeft: "2%",
+    paddingRight: "6%",
+    // backgroundColor: "orange",
+  },
   button: {
-    width: WIDTH.screenWidth / 1.11,
-    height: HEIGHT.screenHeight / 20,
+    // width: WIDTH.screenWidth / 1.11,
+    // height: HEIGHT.screenHeight / 20,
     paddingVertical: "2%",
     justifyContent: "center",
     alignItems: "center",

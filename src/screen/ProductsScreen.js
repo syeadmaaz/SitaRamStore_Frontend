@@ -53,8 +53,10 @@ const ProductsScreen = ({ navigation }) => {
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header
         title={"PRODUCTS"}
-        onPressMenu={() => console.log("Menu")}
-        onPressCart={() => {
+        name1={"keyboard-backspace"}
+        name2={"cart-outline"}
+        onPress1={() => navigation.goBack()}
+        onPress2={() => {
           [navigation.navigate("CartScreen"), console.log("CART")];
         }}
       />

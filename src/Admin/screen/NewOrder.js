@@ -25,8 +25,6 @@ import Select from "../components/Select";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import NewOrderList from "./NewOrderList";
 
-
-
 const orders = [
   {
     key: "1",
@@ -42,7 +40,7 @@ const orders = [
     accepted: false,
     rejected: false,
     delivered: false,
-    unDelivered: false
+    unDelivered: false,
   },
   {
     key: "2",
@@ -58,7 +56,7 @@ const orders = [
     accepted: false,
     rejected: false,
     delivered: false,
-    unDelivered: false
+    unDelivered: false,
   },
   {
     key: "3",
@@ -74,7 +72,7 @@ const orders = [
     accepted: false,
     rejected: false,
     delivered: false,
-    unDelivered: false
+    unDelivered: false,
   },
   {
     key: "4",
@@ -90,7 +88,7 @@ const orders = [
     accepted: false,
     rejected: false,
     delivered: false,
-    unDelivered: false
+    unDelivered: false,
   },
   {
     key: "5",
@@ -106,20 +104,18 @@ const orders = [
     accepted: false,
     rejected: false,
     delivered: false,
-    unDelivered: false
+    unDelivered: false,
   },
 ];
 
 const MyComponent = ({ navigation }) => {
-  
-  const [NewOrders,setNewOrders]= useState(orders)
-
+  const [NewOrders, setNewOrders] = useState(orders);
 
   const acceptHandler = (index) => {
-    console.log(NewOrders[index])
-    NewOrders[index].accepted=true
-    setNewOrders([...NewOrders])
-    console.log(index)
+    console.log(NewOrders[index]);
+    NewOrders[index].accepted = true;
+    setNewOrders([...NewOrders]);
+    console.log(index);
   };
 
   const rejectHandler = (index) => {
@@ -151,7 +147,7 @@ const MyComponent = ({ navigation }) => {
     );
   };
 
-  const renderData = (item,index) => {
+  const renderData = (item, index) => {
     return (
       <>
         <Card elevation={4} style={{ marginTop: "5%" }}>
@@ -182,16 +178,16 @@ const MyComponent = ({ navigation }) => {
               <Text>Undelivered</Text>
             ) : (
               <Delivered
-                onPressDelivered={()=>deliverHandler(index)}
-                onPressUndelivered={()=>unDeliverHandler(index)}
+                onPressDelivered={() => deliverHandler(index)}
+                onPressUndelivered={() => unDeliverHandler(index)}
               />
             )
           ) : item.rejected ? (
             <Text>Rejected </Text>
           ) : (
             <Accept
-              onPressAccept={()=>acceptHandler(index)}
-              onPressReject={()=>rejectHandler(index)}
+              onPressAccept={() => acceptHandler(index)}
+              onPressReject={() => rejectHandler(index)}
             />
           )}
         </Card>
@@ -205,8 +201,8 @@ const MyComponent = ({ navigation }) => {
         <FlatList
           numColumns={1}
           data={NewOrders}
-          renderItem={({ item,index }) => {
-            return renderData(item,index);
+          renderItem={({ item, index }) => {
+            return renderData(item, index);
           }}
           keyExtractor={(item) => item.orderID}
           ListHeaderComponent={<LowerHeader />}
@@ -217,4 +213,3 @@ const MyComponent = ({ navigation }) => {
   );
 };
 export default MyComponent;
-

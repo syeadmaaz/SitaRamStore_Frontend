@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import CATEGORIES from "../data/CategoryData";
 import { setProducts } from "../data/ProductsData";
@@ -41,19 +42,11 @@ const HomeScreen = ({ navigation }) => {
       });
   }, []);
 
-  // const logout = async () => {
-  //   console.log("first");
-  //   try {
-  //     // console.log("first");
-  //     let response = await AsyncStorage.clear();
-  //     console.log(response);
-  //     if (response) {
-  //       navigation.naviagte("AuthStackScreen", { screen: "LoginScreen" });
-  //     }
-  //   } catch (e) {
-  //     console.log("last");
-  //   }
-  // };
+  const logout = async () => {
+    console.log("first");
+      await AsyncStorage.clear();
+      navigation.navigate("AuthStackScreen", {screen: "LoginScreen"});
+  };
 
   const goToProductsScreen = (item) => {
     // setLoading(true);
@@ -100,8 +93,10 @@ const HomeScreen = ({ navigation }) => {
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header
         title={"HOME"}
-        // onPressMenu={logout}
-        onPressCart={() => navigation.navigate("CartScreen")}
+        name1={"sort-variant"}
+        name2={"cart-outline"}
+        onPress1={logout}
+        onPress2={() => navigation.navigate("CartScreen")}
       />
 
       <View style={styles.content}>

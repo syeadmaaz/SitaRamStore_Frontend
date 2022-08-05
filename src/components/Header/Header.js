@@ -12,23 +12,21 @@ const Header = (props) => {
 
   return (
     <View style={styles.header}>
-      <TouchableOpacity activeOpacity={0.5} onPress={props.onPressMenu}>
+      <TouchableOpacity activeOpacity={0.5} onPress={props.onPress1}>
         <Icon
-          name="sort-variant"
+          name={props.name1}
           size={28}
           color={COLORS.white}
-          // onPress={props.onPressMenu}
         />
       </TouchableOpacity>
       <View style={{ justifyContent: "center" }}>
         {props.title ? <Text style={styles.title}>{props.title}</Text> : null}
       </View>
-      <TouchableOpacity activeOpacity={0.5} onPress={props.onPressCart}>
+      <TouchableOpacity activeOpacity={0.5} onPress={props.onPress2}>
         <Icon
-          name="cart-outline"
+          name={props.name2}
           size={28}
           color={COLORS.white}
-          // onPress={props.onPressCart}
         />
         {total ? (
           <Badge
