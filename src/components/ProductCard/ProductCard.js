@@ -7,7 +7,7 @@ import {
   Image,
 } from "react-native";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
-
+// import Icon from 'react-native-vector-icons/FontAwesome';
 const ProductCard = ({ item, onPress }) => {
     // console.log(item);
 
@@ -29,10 +29,27 @@ const ProductCard = ({ item, onPress }) => {
               {item.productDescription}
               {/* {item.description} */}
             </Text>
-            <Text style={styles.price}>
-              Rs. {item.productPrice}
+            <View style={{flexDirection: "row"}}>
+              <View style={{flexDirection: "row"}}>
+              <Text style={{padding: '2%'}}>
+                MRP- 
+              {/* MRP-  <Icon name="rupee" style={{fontSize:14}} /> */}
               {/* {item.price} */}
             </Text>
+            <Text style={{padding: '2%', textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>
+            {item.productMRP}
+            </Text>
+            <Text style={{padding: '2%', color: 'green'}}>
+             {item.productPrice} Rs
+            </Text>
+              </View>
+            
+            <Text style={{padding: '2%', color: 'red'}}>
+            ( - {Math.round(((item.productMRP-item.productPrice)*100)/item.productMRP)}% )
+            </Text>
+            
+            </View>
+            
           </View>
           <TouchableOpacity
             activeOpacity={0.5}

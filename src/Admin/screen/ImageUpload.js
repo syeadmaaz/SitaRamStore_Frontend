@@ -23,6 +23,7 @@ const App = () => {
   const [loading, setLoading] = React.useState(false);
   const [categoryName, setCategoryName] = React.useState();
   const [price, setPrice] = React.useState("");
+  const [mrp, setMrp] = React.useState("");
 
   React.useEffect(() => {
     setLoading(true);
@@ -90,6 +91,7 @@ const App = () => {
     formData.append("name", name);
     formData.append("desc", desc);
     formData.append("categoryID", categoryID);
+    formData.append("mrp", mrp);
     formData.append("price", price);
 
     // console.log(formData)
@@ -149,6 +151,11 @@ const App = () => {
         onChangeText={(text) => setDesc(text)}
       />
       <TextInput
+        placeholder={"MRP*"}
+        value={mrp}
+        onChangeText={(text) => setMrp(text)}
+      />
+      <TextInput
         placeholder={"Price*"}
         value={price}
         onChangeText={(text) => setPrice(text)}
@@ -193,7 +200,7 @@ const App = () => {
             Upload Category
           </Text>
         ) : null}
-        {categoryID && photo && name && price && desc ? (
+        {categoryID && photo && name && mrp && price && desc ? (
           <Text
             onPress={uploadPhoto1}
             style={[
