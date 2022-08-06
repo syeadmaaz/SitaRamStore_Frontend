@@ -27,15 +27,34 @@ import CartCard from "../components/CartCard/CartCard";
 import CartCheckout from "../components/CartCheckout/CartCheckout";
 import EmptyCart from "../components/EmptyCart/EmptyCart";
 import axios from "../../axios.automate";
+import { getCookie } from "../data/Cokkie";
 
 const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const totalPrice = useSelector(cartTotalPriceSelector);
-  const [cartData, setCartData] = useState({
-    userName: null,
-    cart: null,
-  });
+  const [error, setError] = useState(null);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const cookie = await getCookie();
+  //     axios
+  //       .get("fetchCart", {
+  //         params: {
+  //           userName: cookie.userName,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         // console.log(res.data.categoryItems);
+  //         if (res.data.success) setCategory(res.data.categoryItems);
+  //       })
+  //       .catch((err) => {
+  //         setError("Connection Failed !!");
+  //         console.log(err);
+  //       });
+  //   }
+  //   fetchData();
+  // }, []);
 
   const AlertItem = () => {
     Alert.alert(
@@ -53,25 +72,25 @@ const CartScreen = ({ navigation }) => {
     );
   };
 
+  function saveCart() {
+    console.log("first");
+    let temp = { ...cart };
+    if (temp.length == 1) {
+      console.log("DELETED");
+    }
+  }
   function save() {
     console.log("saving initialized");
     console.log(cart);
-    let temp = [];
     axios
-      .get("saveCart", {
-        params: {
-          userName: "testing..",
-          productDetails: cart.length == 0 ? temp : cart,
-        },
+      .post("saveCart", {
+        userName: "testing..",
+        productDetails: cart,
       })
       .then((res) => {
         // console.log(res);
         // setLoading(false);
         if (res.data.success) {
-          // setProducts(res.data.productItems);
-          // navigation.navigate("ProductStackScreen", {
-          //   screen: "ProductsScreen",
-          // });
         }
       })
       .catch((err) => {
@@ -97,12 +116,16 @@ const CartScreen = ({ navigation }) => {
           dispatch(increment(item.productID));
         }}
         onPressRemove={() => {
-          dispatch(removeItem(item.productID))
-          // console.log(cart.length)
+          // [
+          dispatch(removeItem(item.productID));
+          // ,
+          // console.log(cart.length),
+          // cart.length == 1 ? saveCart() : null,
           // if (cart.length == 0) {
           //   console.log("hello")
           //   save();
           // }
+          // ];
         }}
       />
     );
@@ -160,7 +183,6 @@ const CartScreen = ({ navigation }) => {
             ) : (
               <EmptyCart
                 onPressShop={() => {
-                  
                   navigation.navigate("HomeScreen");
                 }}
               />
@@ -170,15 +192,17 @@ const CartScreen = ({ navigation }) => {
         />
       </View>
       <>
-        {cart.length !== 0 ? (
-          <CartCheckout
-            totalPrice={totalPrice}
-            onPressCheckOut={() => {
-              console.log("CHECKOUT");
-            }}
-          />
-        ) : [console.log(cart.length), save()]}
-
+        {
+          cart.length !== 0 ? (
+            <CartCheckout
+              totalPrice={totalPrice}
+              onPressCheckOut={() => {
+                console.log("CHECKOUT");
+              }}
+            />
+          ) : null
+          // [console.log(cart.length), save()]
+        }
       </>
     </SafeAreaView>
   );
