@@ -51,17 +51,14 @@ const LoginScreen = ({ navigation }) => {
       })
       .then((response) => {
         setLoading(false);
-        // console.log(response.data);
-        if (response.status == 201 && response.data.userType == 1) {
+        if (response.status == 200 && response.data.userType == 1) {
           // console.log(response.data);
           setCookie(loginData.userName, response.data.userType);
-
-          // fetchCart(loginData.userName);
-          
+          dispatch(fetchCart(response.data.cartDetails));
           navigation.navigate("ProductStackScreen", {
             screen: "HomeScreen",
           });
-        } else if (response.status == 201 && response.data.userType == 0) {
+        } else if (response.status == 200 && response.data.userType == 0) {
           setCookie(loginData.userName, response.data.userType);
 
           navigation.navigate("AdminStackScreen", {
