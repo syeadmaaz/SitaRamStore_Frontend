@@ -17,6 +17,8 @@ import {
 } from "../redux/features/cart/cartSlice";
 import { cartTotalPriceSelector } from "../redux/selectors";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
+import axios from "../../axios.automate";
+import { getCookie } from "../data/Cokkie";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
@@ -24,161 +26,15 @@ import SearchBar from "../components/SearchBar/SearchBar";
 import CartCard from "../components/CartCard/CartCard";
 import CartCheckout from "../components/CartCheckout/CartCheckout";
 import EmptyCart from "../components/EmptyCart/EmptyCart";
-import axios from "../../axios.automate";
-import { getCookie } from "../data/Cokkie";
-// import { getFetchResult, CartFetchTrue } from "../data/CartFetchTrue"
+
 
 const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const totalPrice = useSelector(cartTotalPriceSelector);
 
-  const [fetch, setFetch] = useState(false);
-  const [cookie, setCookie] = useState({});
-  const [removed, setRemoved] = useState(false);
   const [error, setError] = useState(null);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const cooki = await getCookie();
-  //     setCookie(cooki);
-  //     console.log(cooki)
-  //   }
-  //   fetchData();
-  // }, []);
-
-  const isInitialMount = useRef(true);
-
-  // useEffect(() => {
-  //   isInitialMount.current &&
-  //     // {
-  //     axios
-  //       .get("fetchCart", {
-  //         params: {
-  //           userName: cookie.userName,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         // console.log(res.data.cartDetails);
-  //         if (res.data.success) {
-  //           console.log("first");
-  //           // dispatch(cartFetch(res.data.cartDetails));
-  //           let temp = [];
-  //           res.data.cartDetails.map((item) => {
-  //             temp.push({
-  //               categoryID: item.categoryID,
-  //               productID: item.productID,
-  //               productName: item.productName,
-  //               productDescription: item.porductDescription,
-  //               productPrice: item.productPrice,
-  //               productImage: item.productImage,
-  //               quantity: item.quantity,
-  //             });
-  //           });
-  //           console.log(temp);
-  //           dispatch(cartFetch(temp));
-  //           // setFetch(true);
-  //           // console.log(cart);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         setError("Connection Failed !!");
-  //         console.log(err);
-  //       });
-  //   // }
-  //   return () => {
-  //     isInitialMount.current = false;
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   // if (isInitialMount.current) {
-  //     if(initialFetch){
-  //     // console.log(isInitialMount.current);
-  //     console.log(initialFetch);
-  //     setInitialFetch(false);
-  //     // isInitialMount.current = false;
-  //   }else {
-  //   async function fetchData() {
-  //     const cooki = await getCookie();
-  //     setCookie(cooki);
-  //     // const fetc = await getFetchResult();
-  //     // console.log(fetc)
-  //     // setFetch(fetc);
-  //     axios
-  //       .get("fetchCart", {
-  //         params: {
-  //           userName: cooki.userName,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         // console.log(res.data.cartDetails);
-  //         if (res.data.success) {
-  //           console.log("first");
-  //           // dispatch(cartFetch(res.data.cartDetails));
-  //           let temp = [];
-  //           res.data.cartDetails.map((item) => {
-  //             temp.push({
-  //               categoryID: item.categoryID,
-  //               productID: item.productID,
-  //               productName: item.productName,
-  //               productDescription: item.porductDescription,
-  //               productPrice: item.productPrice,
-  //               productImage: item.productImage,
-  //               quantity: item.quantity,
-  //             });
-  //           });
-  //           // console.log(temp);
-  //           dispatch(cartFetch(temp));
-  //           // setFetch(true);
-  //           // console.log(cart);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         setError("Connection Failed !!");
-  //         console.log(err);
-  //       });
-  //   }
-  //   fetchData();
-  // }
-  // },[]);
-
-  // if (!fetch) {
-  //   console.log(cookie);
-  //   axios
-  //     .get("fetchCart", {
-  //       params: {
-  //         userName: cookie.userName,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       // console.log(res.data.cartDetails);
-  //       if (res.data.success) {
-  //         console.log("first");
-  //         let temp = [];
-  //         res.data.cartDetails.map((item) => {
-  //           temp.push({
-  //             categoryID: item.categoryID,
-  //             productID: item.productID,
-  //             productName: item.productName,
-  //             productDescription: item.porductDescription,
-  //             productPrice: item.productPrice,
-  //             productImage: item.productImage,
-  //             quantity: item.quantity,
-  //           });
-  //         });
-  //         console.log(temp);
-  //         dispatch(cartFetch(temp));
-  //         // setFetch(true);
-  //         // console.log(cart);
-  //       }
-  //       // setCategory(res.data.categoryItems);
-  //     })
-  //     .catch((err) => {
-  //       setError("Connection Failed !!");
-  //       console.log(err);
-  //     });
-  // }
 
   const AlertItem = () => {
     Alert.alert(
@@ -196,13 +52,6 @@ const CartScreen = ({ navigation }) => {
     );
   };
 
-  function saveCart() {
-    console.log("first");
-    let temp = { ...cart };
-    if (temp.length == 1) {
-      console.log("DELETED");
-    }
-  }
   async function save() {
     console.log("saving initialized");
     console.log(cart);

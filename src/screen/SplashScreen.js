@@ -15,9 +15,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../redux/features/cart/cartSlice";
 
 const SplashScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
-  const [fetch, setFetch] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -33,11 +33,11 @@ const SplashScreen = ({ navigation }) => {
             },
           })
           .then((res) => {
-            // console.log(res.data.categoryItems);
             if (res.data.success) {
-              console.log("Fetch Cart Page");
-              console.log(res.data);
-              // dispatch(fetchCart(res.data.cartDetails));
+              console.log("Fetching Cart");
+              // console.log(res.data.cartDetails);
+
+              dispatch(fetchCart(res.data.cartDetails));
             }
           })
           .catch((err) => {

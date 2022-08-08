@@ -5,16 +5,13 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    fetchCart(state, {payload}) {
-      console.log("redux");
-      console.log({...payload});
-      // var test={...payload};
-      // // console.log(test.payload)
-      // var test1=test.payload
-      // test1.map((item) => {
-      //   state.push({ item });
-      // });
-      // state.push({ ...payload });
+    fetchCart(state, { payload }) {
+      console.log("Redux Page");
+      console.log(payload);
+      var products = payload;
+      products.map((item) => {
+        state.push(item);
+      });
     },
     addToCart(state, { payload }) {
       console.log(payload);
