@@ -12,6 +12,7 @@ import { getCookie } from "../data/Cokkie";
 
 import axios from "../../axios.automate";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../redux/features/cart/cartSlice";
 
 const SplashScreen = ({ navigation }) => {
   const cart = useSelector((state) => state.cart);
@@ -23,26 +24,26 @@ const SplashScreen = ({ navigation }) => {
     async function fetchData() {
       const cookie = await getCookie();
       if (cookie) {
+        // console.log(cookie);
 
         axios
-        .get("fetchCart", {
-          params: {
-            userName: cookie.userName,
-          },
-        })
-        .then((res) => {
-          // console.log(res.data.categoryItems);
-          if (res.data.success) {
-            console.log("Fetch Cart Page");
-            console.log(res.data.cartDetails);
-            let temp = [];
-          }
-        })
-        .catch((err) => {
-          setError("Connection Failed !!");
-          console.log(err);
-        });
-
+          .get("fetchCart", {
+            params: {
+              userName: cookie.userName,
+            },
+          })
+          .then((res) => {
+            // console.log(res.data.categoryItems);
+            if (res.data.success) {
+              console.log("Fetch Cart Page");
+              console.log(res.data);
+              // dispatch(fetchCart(res.data.cartDetails));
+            }
+          })
+          .catch((err) => {
+            setError("Connection Failed !!");
+            console.log(err);
+          });
 
         setTimeout(() => {
           cookie.userType == 1

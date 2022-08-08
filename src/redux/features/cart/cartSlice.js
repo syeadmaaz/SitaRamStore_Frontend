@@ -6,15 +6,14 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     fetchCart(state, {payload}) {
-
       console.log("redux");
-      // console.log({...payload});
-      var test={...payload};
-      // console.log(test.payload)
-      var test1=test.payload
-      test1.map((item) => {
-        state.push({ item });
-      });
+      console.log({...payload});
+      // var test={...payload};
+      // // console.log(test.payload)
+      // var test1=test.payload
+      // test1.map((item) => {
+      //   state.push({ item });
+      // });
       // state.push({ ...payload });
     },
     addToCart(state, { payload }) {
