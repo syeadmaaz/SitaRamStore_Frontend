@@ -27,14 +27,34 @@ import CartCard from "../components/CartCard/CartCard";
 import CartCheckout from "../components/CartCheckout/CartCheckout";
 import EmptyCart from "../components/EmptyCart/EmptyCart";
 
-
 const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const totalPrice = useSelector(cartTotalPriceSelector);
 
-  const [error, setError] = useState(null);
-
+  async function clearCart() {
+    console.log("CLEARING CART");
+    const cookie = await getCookie();
+    console.log(cookie);
+    axios
+      .get("clearCart", {
+        params: {
+          userName: cookie.userName,
+        }
+      })
+      .then((res) => {
+        // console.log(res);
+        // setLoading(false);
+        if (res.data.success) {
+          console.log(res.data);
+          dispatch(clear());
+        }
+      })
+      .catch((err) => {
+        console.log("ERROR")
+        console.log(err);
+      });
+  }
 
   const AlertItem = () => {
     Alert.alert(
@@ -46,7 +66,7 @@ const CartScreen = ({ navigation }) => {
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel",
         },
-        { text: "YES", onPress: () => dispatch(clear()) },
+        { text: "YES", onPress: () => clearCart() },
       ],
       { cancelable: false }
     );
@@ -90,16 +110,7 @@ const CartScreen = ({ navigation }) => {
           dispatch(increment(item.productID));
         }}
         onPressRemove={() => {
-          // [
           dispatch(removeItem(item.productID));
-          // ,
-          // console.log(cart.length),
-          // cart.length == 1 ? saveCart() : null,
-          // if (cart.length == 0) {
-          //   console.log("hello")
-          //   save();
-          // }
-          // ];
         }}
       />
     );
@@ -201,7 +212,9 @@ const styles = StyleSheet.create({
     // backgroundColor: "yellow",
   },
   buttons: {
+    paddingVertical: "0.5%",
     flexDirection: "row",
+    // backgroundColor: "black"
   },
   but1: {
     width: "50%",
@@ -216,9 +229,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "orange",
   },
   button: {
-    // width: WIDTH.screenWidth / 1.11,
-    // height: HEIGHT.screenHeight / 20,
-    paddingVertical: "2%",
+    paddingVertical: "4%",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
