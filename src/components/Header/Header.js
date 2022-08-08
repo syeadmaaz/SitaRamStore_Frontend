@@ -13,22 +13,31 @@ const Header = (props) => {
   return (
     <View style={styles.header}>
       <TouchableOpacity activeOpacity={0.5} onPress={props.onPress1}>
-        <Icon
-          name={props.name1}
-          size={28}
-          color={COLORS.white}
-        />
+        <Icon name={props.name1} size={28} color={COLORS.white} />
       </TouchableOpacity>
       <View style={{ justifyContent: "center" }}>
         {props.title ? <Text style={styles.title}>{props.title}</Text> : null}
       </View>
       <TouchableOpacity activeOpacity={0.5} onPress={props.onPress2}>
-        <Icon
-          name={props.name2}
-          size={28}
-          color={COLORS.white}
-        />
-        {total ? (
+        <Icon name={props.name2} size={28} color={COLORS.white} />
+        {props.name2 == "cart-outline" ? (
+          total ? (
+            <Badge
+              visible={true}
+              size={17}
+              style={{
+                position: "absolute",
+                backgroundColor: "red",
+                fontSize: 10,
+                fontWeight: "bold",
+                top: -4,
+              }}
+            >
+              {total}
+            </Badge>
+          ) : null
+        ) : null}
+        {/* {total ? (
           <Badge
             visible={true}
             size={17}
@@ -42,7 +51,7 @@ const Header = (props) => {
           >
             {total}
           </Badge>
-        ) : null}
+        ) : null} */}
       </TouchableOpacity>
     </View>
   );

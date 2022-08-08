@@ -12,11 +12,14 @@ import {
 import { COLORS } from "../constants/theme";
 import axios from "../../axios.automate";
 import { setCookie } from "../data/Cokkie";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../redux/features/cart/cartSlice";
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 
 const LoginScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+
   function sigupHandler() {
     navigation.navigate("RegisterScreen");
   }
@@ -51,9 +54,10 @@ const LoginScreen = ({ navigation }) => {
         // console.log(response.data);
         if (response.status == 201 && response.data.userType == 1) {
           // console.log(response.data);
-
           setCookie(loginData.userName, response.data.userType);
 
+          // fetchCart(loginData.userName);
+          
           navigation.navigate("ProductStackScreen", {
             screen: "HomeScreen",
           });
