@@ -1,16 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = [];
-
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
     fetchCart(state, {payload}) {
-      console.log(payload);
+
+      console.log("redux");
+      // console.log({...payload});
+      var test={...payload};
+      // console.log(test.payload)
+      var test1=test.payload
+      test1.map((item) => {
+        state.push({ item });
+      });
+      // state.push({ ...payload });
     },
     addToCart(state, { payload }) {
-      // console.log(payload);
+      console.log(payload);
 
       const { productID } = payload;
       // console.log(productID)
@@ -33,7 +41,6 @@ const cartSlice = createSlice({
       }
     },
     increment(state, { payload }) {
-
       return state.map((item) =>
         item.productID === payload
           ? {
@@ -44,7 +51,6 @@ const cartSlice = createSlice({
       );
     },
     decrement(state, { payload }) {
-
       return state.map((item) =>
         item.productID === payload
           ? {

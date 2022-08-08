@@ -6,8 +6,9 @@ import { Provider as PaperProvider } from "react-native-paper";
 import LandingPage from "./src/screen/LandingPage";
 import ImageUpload from "./src/Admin/screen/ImageUpload"
 
-
 export default function App() {
+  const [initialFetch, setInitialFetch] = React.useState(true);
+
   return (
     <PaperProvider>
       {/* <ImageUpload/> */}
