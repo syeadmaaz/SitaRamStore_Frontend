@@ -9,6 +9,7 @@ export function setProducts(props) {
       productID: item.productID,
       productName: item.productName,
       productDescription: item.productDescription,
+      productMRP: item.productMRP,
       productPrice: item.productPrice,
       productImage: item.productImage,
     });

@@ -11,7 +11,6 @@ const CartCard = ({
 }) => {
   //   console.log("CART COMPONENT");
   // console.log(item);
-
   return (
     <View style={styles.categoriesContainer}>
       <View style={styles.cardStyle}>

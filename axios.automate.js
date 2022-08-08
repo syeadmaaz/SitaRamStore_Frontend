@@ -8,7 +8,11 @@ const api = axios.create({
   // Amrit
   baseURL: "http://192.168.43.194:5000/",
   // Shashwat
+
   // baseURL: "http://192.168.43.194:5001/",
+
+  // baseURL: "http://192.168.97.190:5000/",
+
 });
 
 console.log(api.baseURL);
