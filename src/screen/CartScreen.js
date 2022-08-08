@@ -17,6 +17,8 @@ import {
 } from "../redux/features/cart/cartSlice";
 import { cartTotalPriceSelector } from "../redux/selectors";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
+import axios from "../../axios.automate";
+import { getCookie } from "../data/Cokkie";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
@@ -24,8 +26,7 @@ import SearchBar from "../components/SearchBar/SearchBar";
 import CartCard from "../components/CartCard/CartCard";
 import CartCheckout from "../components/CartCheckout/CartCheckout";
 import EmptyCart from "../components/EmptyCart/EmptyCart";
-import axios from "../../axios.automate";
-import { getCookie } from "../data/Cokkie";
+
 
 const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
