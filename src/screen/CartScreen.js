@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   FlatList,
   Alert,
+  ToastAndroid,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -32,28 +33,24 @@ const CartScreen = ({ navigation }) => {
   const cart = useSelector((state) => state.cart);
   const totalPrice = useSelector(cartTotalPriceSelector);
 
-  async function clearCart() {
-    console.log("CLEARING CART");
-    const cookie = await getCookie();
-    console.log(cookie);
-    axios
-      .get("clearCart", {
-        params: {
-          userName: cookie.userName,
-        }
-      })
-      .then((res) => {
-        // console.log(res);
-        // setLoading(false);
-        if (res.data.success) {
-          console.log(res.data);
-          dispatch(clear());
-        }
-      })
-      .catch((err) => {
-        console.log("ERROR")
-        console.log(err);
-      });
+  function saveToast() {
+    ToastAndroid.showWithGravityAndOffset(
+      "Cart Saved Sucessfully !!",
+      ToastAndroid.SHORT,
+      ToastAndroid.TOP,
+      25,
+      50
+    );
+  }
+
+  function clearToast() {
+    ToastAndroid.showWithGravityAndOffset(
+      "Cart Cleared Sucessfully !!",
+      ToastAndroid.SHORT,
+      ToastAndroid.TOP,
+      25,
+      50
+    );
   }
 
   const AlertItem = () => {
@@ -72,6 +69,29 @@ const CartScreen = ({ navigation }) => {
     );
   };
 
+  async function clearCart() {
+    console.log("CLEARING CART");
+    const cookie = await getCookie();
+    // console.log(cookie);
+    axios
+      .get("clearCart", {
+        params: {
+          userName: cookie.userName,
+        },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          console.log(res.data.message);
+          dispatch(clear());
+          clearToast();
+        }
+      })
+      .catch((err) => {
+        console.log("ERROR");
+        console.log(err);
+      });
+  }
+
   async function save() {
     console.log("saving initialized");
     console.log(cart);
@@ -83,11 +103,13 @@ const CartScreen = ({ navigation }) => {
       })
       .then((res) => {
         // console.log(res);
-        // setLoading(false);
         if (res.data.success) {
+          console.log(res.data.message);
+          saveToast();
         }
       })
       .catch((err) => {
+        console.log("ERROR");
         console.log(err);
       });
   }
@@ -99,8 +121,11 @@ const CartScreen = ({ navigation }) => {
         item={item}
         onPressDecrement={() => {
           if (item.quantity === 1) {
+            if (cart.length === 1) {
+              clearCart();
+            }
             dispatch(removeItem(item.productID));
-            console.log("removed");
+            console.log("PRODUCT REMOVED FROM CART");
             return;
           } else {
             dispatch(decrement(item.productID));
