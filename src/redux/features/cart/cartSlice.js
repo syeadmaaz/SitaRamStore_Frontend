@@ -6,6 +6,9 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    fetchCart(state, {payload}) {
+      console.log(payload);
+    },
     addToCart(state, { payload }) {
       // console.log(payload);
 
@@ -67,6 +70,7 @@ const cartSlice = createSlice({
 });
 
 export const {
+  fetchCart,
   addToCart,
   increment,
   decrement,

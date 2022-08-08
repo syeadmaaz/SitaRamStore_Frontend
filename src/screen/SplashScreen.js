@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,20 +6,46 @@ import {
   ImageBackground,
   SafeAreaView,
 } from "react-native";
-import { getCookie } from "../data/Cokkie";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import { COLORS } from "../constants/theme";
+import { getCookie } from "../data/Cokkie";
+
+import axios from "../../axios.automate";
+import { useDispatch, useSelector } from "react-redux";
 
 const SplashScreen = ({ navigation }) => {
+  const cart = useSelector((state) => state.cart);
+
+  const [fetch, setFetch] = useState(false);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     async function fetchData() {
-      // You can await here
-      // const response = await getData();
-      const response = await getCookie();
-      if (response) {
+      const cookie = await getCookie();
+      if (cookie) {
+
+        axios
+        .get("fetchCart", {
+          params: {
+            userName: cookie.userName,
+          },
+        })
+        .then((res) => {
+          // console.log(res.data.categoryItems);
+          if (res.data.success) {
+            console.log("Fetch Cart Page");
+            console.log(res.data.cartDetails);
+            let temp = [];
+          }
+        })
+        .catch((err) => {
+          setError("Connection Failed !!");
+          console.log(err);
+        });
+
+
         setTimeout(() => {
-          response.userType == 1
+          cookie.userType == 1
             ? navigation.navigate("ProductStackScreen", {
                 screen: "HomeScreen",
               })
@@ -35,15 +61,6 @@ const SplashScreen = ({ navigation }) => {
     }
     fetchData();
   }, []);
-
-  // const getData = async () => {
-  //   try {
-  //     const jsonValue = await AsyncStorage.getItem("@userData");
-  //     return jsonValue != null ? JSON.parse(jsonValue) : null;
-  //   } catch (e) {
-  //     // error reading value
-  //   }
-  // };
 
   return (
     <SafeAreaView style={styles.container}>

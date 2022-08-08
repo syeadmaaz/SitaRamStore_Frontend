@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
-  RefreshControl,
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
   SafeAreaView,
   FlatList,
-  StatusBar,
   Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
