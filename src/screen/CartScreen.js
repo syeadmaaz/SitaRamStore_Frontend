@@ -135,6 +135,9 @@ const CartScreen = ({ navigation }) => {
           dispatch(increment(item.productID));
         }}
         onPressRemove={() => {
+          if(cart.length === 1){
+            clearCart();
+          }
           dispatch(removeItem(item.productID));
         }}
       />

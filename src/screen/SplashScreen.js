@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   upper: {
     width: "100%",
-    height: "90%",
+    height: "85%",
     alignItems: "center",
   },
   image: {
@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     margin: 70,
   },
   appName: {
+    position: "absolute",
     fontWeight: "bold",
     fontSize: 30,
     color: "#eb721c",
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
   },
   lower: {
     width: "100%",
-    height: "12%",
+    height: "15%",
     alignItems: "center",
   },
   createdby: {
