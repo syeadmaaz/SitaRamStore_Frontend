@@ -15,12 +15,11 @@ const Button = ({ onPress }) => {
 const styles = StyleSheet.create({
   container: {
     width: WIDTH.screenWidth,
-    height: HEIGHT.screenHeight / 12,
+    height: HEIGHT.buttonHeight,
     justifyContent: "center",
     alignItems: "center",
     // backgroundColor: COLORS.slide2,
   },
-
   button: {
     width: WIDTH.buttonWidth,
     height: HEIGHT.buttonHeight,

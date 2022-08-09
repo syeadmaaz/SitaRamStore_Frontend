@@ -76,8 +76,8 @@ const BillCard = ({
           </View>
           <View style={styles.savingPoints}>
             <Text style={styles.pointText}>{"\u2B24"}   Quality Product</Text>
-            <Text style={styles.pointText}>{"\u2B24"}   Free Delivery</Text>
-            <Text style={styles.pointText}>{"\u2B24"}   Item Discount</Text>
+            <Text style={styles.pointText}>{"\u2B24"}   Discount On Products</Text>
+            <Text style={styles.pointText}>{"\u2B24"}   Fast Delivery</Text>
           </View>
         </View>
       </Card>
@@ -89,14 +89,14 @@ const styles = StyleSheet.create({
   cardsContainer: {
     width: WIDTH.screenWidth,
     alignItems: "center",
-    justifyupper: "center",
-    // backgroundColor: COLORS.green,
+    justifyContent: "center",
+    // backgroundColor: COLORS.yellow,
   },
   cardStyle: {
     flexDirection: "column",
     height: HEIGHT.billCardHeight,
     width: WIDTH.productCardWidth,
-    justifyupper: "center",
+    justifyContent: "center",
     alignItems: "center",
     elevation: 10,
     marginVertical: "4%",
@@ -158,10 +158,9 @@ const styles = StyleSheet.create({
     paddingLeft: "10%",
   },
   pointText: {
-    marginTop: "4%",
-    // fontWeight: "bold",
     fontSize: 15,
     fontFamily: FONT.f7,
+    marginTop: "3%",
   },
 });
 

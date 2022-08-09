@@ -9,11 +9,11 @@ import {
   Alert,
   BackHandler,
 } from "react-native";
-import {useFocusEffect} from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
 import { clearCookie } from "../data/Cokkie";
 import { setProducts } from "../data/ProductsData";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { clear } from "../redux/features/cart/cartSlice";
 import axios from "../../axios.automate";
 
@@ -37,22 +37,21 @@ const HomeScreen = ({ navigation }) => {
           {
             text: "Cancel",
             onPress: () => null,
-            style: "cancel"
+            style: "cancel",
           },
-          { text: "YES", onPress: () => BackHandler.exitApp() }
+          { text: "YES", onPress: () => BackHandler.exitApp() },
         ]);
         return true;
       };
-  
+
       const backHandler = BackHandler.addEventListener(
         "hardwareBackPress",
         backAction
       );
-  
+
       return () => backHandler.remove();
     }, [])
   );
-
 
   useEffect(() => {
     setLoading(true);

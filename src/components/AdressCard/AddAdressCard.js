@@ -1,19 +1,23 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { Card } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT, FONT } from "../../constants/theme";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
-const AddressCard = ({ item, onPress }) => {
+const AddAddressCard = ({ onPress }) => {
   return (
     <View style={styles.cardsContainer}>
       <Card style={styles.cardStyle}>
-        <Text style={styles.nameText}>{item.name}</Text>
-        <Text style={styles.fontStyle}>{item.address1}</Text>
-        <Text style={styles.fontStyle}>{item.address2}</Text>
-        <Text style={styles.fontStyle}>{item.city}, Madhya Pradesh</Text>
-        <Text style={styles.fontStyle}>PIN - {item.pinCode}</Text>
-        <Text style={styles.fontStyle}>Landmark: {item.landmark}</Text>
-        <Text style={[styles.fontStyle, {color:"red"}]}>Mobile: {item.mobile}</Text>
+        <TouchableOpacity activeOpacity={0.5}>
+          <View style={styles.addView}>
+            <Icon
+              name={"add"}
+              size={70}
+              color={"black"}
+              onPress={console.log("ADD ADDRESS")}
+            />
+          </View>
+        </TouchableOpacity>
       </Card>
     </View>
   );
@@ -26,26 +30,30 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     // backgroundColor: COLORS.red,
   },
-
   cardStyle: {
     flexDirection: "column",
     height: HEIGHT.adressCardHeight,
     width: WIDTH.productCardWidth,
     elevation: 10,
     marginVertical: "4%",
-    paddingVertical: "4%",
     paddingHorizontal: "6%",
     borderRadius: 20,
     justifyContent: "center",
-    alignItems: "flex-start",
+    alignItems: "center",
     // backgroundColor: COLORS.blue,
   },
-
+  addView: {
+    width: WIDTH.productCardWidth,
+    height: HEIGHT.adressCardHeight,
+    justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: COLORS.blue,
+  },
   nameText: {
     fontSize: 18,
     fontWeight: "bold",
     fontFamily: FONT.f8,
-    color: COLORS.green
+    color: COLORS.green,
     // backgroundColor: "orange"
   },
   fontStyle: {
@@ -55,4 +63,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddressCard;
+export default AddAddressCard;

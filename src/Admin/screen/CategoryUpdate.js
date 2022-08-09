@@ -18,7 +18,6 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 import AppStatusBar from "../../components/AppStatusBar/AppStatusBar";
 import Header from "../../components/Header/Header";
-import SearchHeader from "../../components/Header/SearchHeader";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 

@@ -5,8 +5,9 @@ import {
   Text,
   SafeAreaView,
   ScrollView,
+  FlatList,
 } from "react-native";
-import { COLORS, HEIGHT, WIDTH } from "../constants/theme";
+import { COLORS, FONT, HEIGHT, WIDTH } from "../constants/theme";
 import { useSelector } from "react-redux";
 import {
   cartTotalPriceSelector,
@@ -14,12 +15,14 @@ import {
   cartTotalDiscountSelector,
   cartTotalMRPSelector,
 } from "../redux/selectors";
+import { getAddresses } from "../data/AddressData";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
 import BillCard from "../components/BillCard/BillCard";
 import Button from "../components/Button/Button";
 import AddressCard from "../components/AdressCard/AdressCard";
+import AddAddressCard from "../components/AdressCard/AddAdressCard";
 
 const CheckOutScreen = ({ navigation }) => {
   const totalPrice = useSelector(cartTotalPriceSelector);
@@ -27,17 +30,30 @@ const CheckOutScreen = ({ navigation }) => {
   const totalMRP = useSelector(cartTotalMRPSelector);
   const totalDiscount = useSelector(cartTotalDiscountSelector);
 
+  const [addresses, setAddresses] = useState([]);
+
+  useEffect(() => {
+    setAddresses(getAddresses());
+  });
+
+  const renderData = (item) => {
+    console.log(item);
+    return (
+      <AddressCard
+        item={item}
+        onPress={() => {
+          console.log(item);
+          //   dispatch(addToCart(item)), showToast();
+        }}
+      />
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
-      <Header
-        title={"CHECK-OUT"}
-        // name1={"keyboard-backspace"}
-        // name2={"cart-outline"}
-        // onPress1={logout}
-        // onPress2={() => navigation.navigate("CartScreen")}
-      />
-      <ScrollView>
+      <Header title={"CHECK-OUT"} />
+      <View style={styles.billView}>
         <BillCard
           title={"ORDER BILL"}
           totalItems={totalItems}
@@ -45,20 +61,65 @@ const CheckOutScreen = ({ navigation }) => {
           totalMRP={totalMRP}
           totalDiscount={totalDiscount}
         />
-        <AddressCard />
+      </View>
+
+      <View style={styles.deliveryView}>
+        <Text style={styles.deliveryText}>SELECT DELIVERY ADDRESS</Text>
+      </View>
+      <View style={styles.adressView}>
+        {addresses.length !== 0 ? (
+          <FlatList
+            data={addresses}
+            horizontal
+            renderItem={({ item }) => {
+              return renderData(item);
+            }}
+            scrollEnabled={true}
+          />
+        ) : (
+          <AddAddressCard />
+        )}
+      </View>
+      <View style={styles.buttonView}>
         <Button />
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "column",
     width: WIDTH.screenWidth,
     height: HEIGHT.screenHeight,
     // backgroundColor: COLORS.red,
+  },
+  billView: {
+    height: "52.5%",
+    // backgroundColor: "red",
+  },
+  deliveryView: {
+    height: "4%",
+    justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: COLORS.green,
+  },
+  deliveryText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    fontFamily: FONT.f9,
+    paddingHorizontal: "6%",
+  },
+  adressView: {
+    height: "28%",
+    // backgroundColor: COLORS.dark,
+  },
+  buttonView: {
+    height: "6%",
+    marginVertical: "2%",
+    justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: "black",
   },
 });
 
