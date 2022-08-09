@@ -29,7 +29,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: "4%",
+    paddingHorizontal: "6%",
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: COLORS.grey,
     backgroundColor: COLORS.slide2,
   },
   cartTotal: {
@@ -40,7 +43,7 @@ const styles = StyleSheet.create({
   checkoutArea: {
     width: "50%",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-end",
     // backgroundColor: "black",
   },
   subTotalText: {
@@ -55,11 +58,11 @@ const styles = StyleSheet.create({
   checkoutBtn: {
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: "25%",
+    paddingHorizontal: "22%",
     paddingVertical: "7%",
-    borderRadius: 10,
-    // borderColor: COLORS.tranparent,
-    elevation: 5,
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: "white",
     backgroundColor: COLORS.orange,
   },
   btnText: {
