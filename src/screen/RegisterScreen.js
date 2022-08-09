@@ -112,26 +112,26 @@ const RegisterScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.bottomView}>
+        {/* <ScrollView
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+        > */}
+        <View style={styles.back}>
+          <TouchableOpacity onPress={back}>
+            <Icon
+              name="chevron-back-outline"
+              style={styles.backIcon}
+              color="white"
+              size={35}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.heading}>Create{"\n"}Account</Text>
         <ScrollView
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
         >
-          <View style={styles.back}>
-            <TouchableOpacity onPress={back}>
-              <Icon
-                name="chevron-back-outline"
-                style={styles.backIcon}
-                color="white"
-                size={35}
-              />
-            </TouchableOpacity>
-          </View>
-
-          <Text style={styles.heading}>Create{"\n"}Account</Text>
-          {/* <ScrollView
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-      > */}
           <View style={styles.formView}>
             <TextInput
               placeholder={"Name*"}

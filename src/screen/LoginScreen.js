@@ -8,7 +8,10 @@ import {
   ActivityIndicator,
   StyleSheet,
   View,
+  Alert,
+  BackHandler,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import { COLORS } from "../constants/theme";
 import axios from "../../axios.automate";
 import { setCookie } from "../data/Cokkie";
@@ -17,6 +20,29 @@ import { fetchCart } from "../redux/features/cart/cartSlice";
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 
 const LoginScreen = ({ navigation }) => {
+  useFocusEffect(
+    React.useCallback(() => {
+      const backAction = () => {
+        Alert.alert("Hold On!", "Are you sure you want to Exit?", [
+          {
+            text: "Cancel",
+            onPress: () => null,
+            style: "cancel",
+          },
+          { text: "YES", onPress: () => BackHandler.exitApp() },
+        ]);
+        return true;
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+
+      return () => backHandler.remove();
+    }, [])
+  );
+
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 

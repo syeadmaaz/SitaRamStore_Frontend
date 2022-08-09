@@ -6,7 +6,10 @@ import {
   SafeAreaView,
   FlatList,
   ActivityIndicator,
+  Alert,
+  BackHandler,
 } from "react-native";
+import {useFocusEffect} from "@react-navigation/native";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
 import { clearCookie } from "../data/Cokkie";
 import { setProducts } from "../data/ProductsData";
@@ -26,6 +29,30 @@ const HomeScreen = ({ navigation }) => {
   const [loading, setLoading] = React.useState(false);
   const [category, setCategory] = React.useState(null);
   const [error, setError] = React.useState(null);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const backAction = () => {
+        Alert.alert("Hold On!", "Are you sure you want to Exit?", [
+          {
+            text: "Cancel",
+            onPress: () => null,
+            style: "cancel"
+          },
+          { text: "YES", onPress: () => BackHandler.exitApp() }
+        ]);
+        return true;
+      };
+  
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+  
+      return () => backHandler.remove();
+    }, [])
+  );
+
 
   useEffect(() => {
     setLoading(true);

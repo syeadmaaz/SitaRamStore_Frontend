@@ -54,10 +54,7 @@ const CartScreen = ({ navigation }) => {
   }
 
   const AlertItem = () => {
-    Alert.alert(
-      "Are you sure you want to clear the cart?",
-      "",
-      [
+      Alert.alert("Hold On!", "Are you sure you want to Clear Cart?", [
         {
           text: "Cancel",
           onPress: () => console.log("Cancel Pressed"),
