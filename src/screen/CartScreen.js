@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -16,7 +16,7 @@ import {
   clear,
   removeItem,
 } from "../redux/features/cart/cartSlice";
-import { cartTotalPriceSelector } from "../redux/selectors";
+import { cartTotalDiscountSelector, cartTotalPriceSelector, cartTotalSelector } from "../redux/selectors";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
 import axios from "../../axios.automate";
 import { getCookie } from "../data/Cokkie";
@@ -32,6 +32,8 @@ const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const totalPrice = useSelector(cartTotalPriceSelector);
+  const totalQuantity = useSelector(cartTotalSelector);
+  const totalDiscount = useSelector(cartTotalDiscountSelector);
 
   function saveToast() {
     ToastAndroid.showWithGravityAndOffset(
@@ -54,7 +56,10 @@ const CartScreen = ({ navigation }) => {
   }
 
   const AlertItem = () => {
-      Alert.alert("Hold On!", "Are you sure you want to Clear Cart?", [
+    Alert.alert(
+      "Hold On!",
+      "Are you sure you want to Clear Cart?",
+      [
         {
           text: "Cancel",
           onPress: () => console.log("Cancel Pressed"),
@@ -132,7 +137,7 @@ const CartScreen = ({ navigation }) => {
           dispatch(increment(item.productID));
         }}
         onPressRemove={() => {
-          if(cart.length === 1){
+          if (cart.length === 1) {
             clearCart();
           }
           dispatch(removeItem(item.productID));
@@ -206,9 +211,11 @@ const CartScreen = ({ navigation }) => {
           cart.length !== 0 ? (
             <CartCheckout
               totalPrice={totalPrice}
-              onPressCheckOut={() => {
-                console.log("CHECKOUT");
-              }}
+              onPressCheckOut={() =>
+                navigation.navigate("ProductStackScreen", {
+                  screen: "CheckOutScreen",
+                })
+              }
             />
           ) : null
           // [console.log(cart.length), save()]

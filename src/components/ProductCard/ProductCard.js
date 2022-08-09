@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
-// import Icon from 'react-native-vector-icons/FontAwesome';
 const ProductCard = ({ item, onPress }) => {
-  // console.log(item);
 
   return (
     <View style={styles.categoriesContainer}>
