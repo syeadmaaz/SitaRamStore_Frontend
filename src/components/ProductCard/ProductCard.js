@@ -1,55 +1,49 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 // import Icon from 'react-native-vector-icons/FontAwesome';
 const ProductCard = ({ item, onPress }) => {
-    // console.log(item);
+  // console.log(item);
 
   return (
     <View style={styles.categoriesContainer}>
       <View style={styles.cardStyle}>
-        <Image
-          // source={item.image}
-          source={{uri: item.productImage}}
-          style={styles.imgStyling}
-        />
+        <Image source={{ uri: item.productImage }} style={styles.imgStyling} />
         <View style={styles.cardRight}>
           <View style={styles.Text}>
-            <Text style={styles.prodTitle}>
-              {item.productName}
-              {/* {item.name} */}
-            </Text>
-            <Text style={styles.prodDesc}>
-              {item.productDescription}
-              {/* {item.description} */}
-            </Text>
-            <View style={{flexDirection: "row"}}>
-              <View style={{flexDirection: "row"}}>
-              <Text style={{padding: '2%'}}>
-                MRP- 
-              {/* MRP-  <Icon name="rupee" style={{fontSize:14}} /> */}
-              {/* {item.price} */}
-            </Text>
-            <Text style={{padding: '2%', textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>
-            {item.productMRP}
-            </Text>
-            <Text style={{padding: '2%', color: 'green'}}>
-             {item.productPrice} Rs
-            </Text>
+            <Text style={styles.prodTitle}>{item.productName}</Text>
+            <Text style={styles.prodDesc}>{item.productDescription}</Text>
+            <View style={{ flexDirection: "row" }}>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ padding: "2%" }}>
+                  MRP
+                  {/* MRP-  <Icon name="rupee" style={{fontSize:14}} /> */}
+                  {/* {item.price} */}
+                </Text>
+                <Text
+                  style={{
+                    padding: "2%",
+                    textDecorationLine: "line-through",
+                    textDecorationStyle: "solid",
+                  }}
+                >
+                  {" "}
+                  {item.productMRP}{" "}
+                </Text>
+                <Text style={{ padding: "2%", color: "green" }}>
+                  {item.productPrice}
+                </Text>
               </View>
-            
-            <Text style={{padding: '2%', color: 'red'}}>
-            ( - {Math.round(((item.productMRP-item.productPrice)*100)/item.productMRP)}% )
-            </Text>
-            
+
+              <Text style={{ padding: "2%", color: "red" }}>
+                ( -{" "}
+                {Math.round(
+                  ((item.productMRP - item.productPrice) * 100) /
+                    item.productMRP
+                )}
+                % )
+              </Text>
             </View>
-            
           </View>
           <TouchableOpacity
             activeOpacity={0.5}
