@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,20 +6,47 @@ import {
   ImageBackground,
   SafeAreaView,
 } from "react-native";
-import { getCookie } from "../data/Cokkie";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import { COLORS } from "../constants/theme";
+import { getCookie } from "../data/Cokkie";
+
+import axios from "../../axios.automate";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../redux/features/cart/cartSlice";
 
 const SplashScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     async function fetchData() {
-      // You can await here
-      // const response = await getData();
-      const response = await getCookie();
-      if (response) {
+      const cookie = await getCookie();
+      if (cookie) {
+        // console.log(cookie);
+
+        axios
+          .get("fetchCart", {
+            params: {
+              userName: cookie.userName,
+            },
+          })
+          .then((res) => {
+            if (res.data.success) {
+              console.log("Fetching Cart");
+              // console.log(res.data.cartDetails);
+
+              dispatch(fetchCart(res.data.cartDetails));
+            }
+          })
+          .catch((err) => {
+            setError("Connection Failed !!");
+            console.log(err);
+          });
+
         setTimeout(() => {
-          response.userType == 1
+          cookie.userType == 1
             ? navigation.navigate("ProductStackScreen", {
                 screen: "HomeScreen",
               })
@@ -35,15 +62,6 @@ const SplashScreen = ({ navigation }) => {
     }
     fetchData();
   }, []);
-
-  // const getData = async () => {
-  //   try {
-  //     const jsonValue = await AsyncStorage.getItem("@userData");
-  //     return jsonValue != null ? JSON.parse(jsonValue) : null;
-  //   } catch (e) {
-  //     // error reading value
-  //   }
-  // };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -76,7 +94,7 @@ const styles = StyleSheet.create({
   },
   upper: {
     width: "100%",
-    height: "90%",
+    height: "85%",
     alignItems: "center",
   },
   image: {
@@ -86,6 +104,7 @@ const styles = StyleSheet.create({
     margin: 70,
   },
   appName: {
+    position: "absolute",
     fontWeight: "bold",
     fontSize: 30,
     color: "#eb721c",
@@ -94,7 +113,7 @@ const styles = StyleSheet.create({
   },
   lower: {
     width: "100%",
-    height: "12%",
+    height: "15%",
     alignItems: "center",
   },
   createdby: {

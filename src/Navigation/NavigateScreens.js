@@ -4,12 +4,16 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import SplashScreen from "../screen/SplashScreen";
 import WelcomeScreen from "../screen/WelcomeScreen";
-import HomeScreen from "../screen/HomeScreen";
+
+// Customer Side
 import LoginScreen from "../screen/LoginScreen";
 import RegisterScreen from "../screen/RegisterScreen";
+import HomeScreen from "../screen/HomeScreen";
 import ProductsScreen from "../screen/ProductsScreen";
 import CartScreen from "../screen/CartScreen";
+import CheckOutScreen from "../screen/CheckOutScreen";
 
+// Admin Side
 import AdminHomescreen from "../Admin/screen/AdminHomescreen";
 import MyComponent from "../Admin/screen/NewOrder";
 import ImageUpload from "../Admin/screen/ImageUpload";
@@ -63,6 +67,7 @@ function ProductStackScreen() {
       <ProductStack.Screen name="HomeScreen" component={HomeScreen} />
       <ProductStack.Screen name="ProductsScreen" component={ProductsScreen} />
       <ProductStack.Screen name="CartScreen" component={CartScreen} />
+      <ProductStack.Screen name="CheckOutScreen" component={CheckOutScreen} />
       {/* <ProductStack.Screen name="Address" component={AddressScreen} />
       <ProductStack.Screen name="PlaceOrder" component={PlaceOrder} />
       <ProductStack.Screen name="ThankYou" component={ThankYou} /> */}
@@ -97,7 +102,10 @@ const NavigateScreens = () => {
           name="ProductStackScreen"
           component={ProductStackScreen}
         />
-        <RootStack.Screen name="AdminStackScreen" component={AdminStackScreen} />
+        <RootStack.Screen
+          name="AdminStackScreen"
+          component={AdminStackScreen}
+        />
       </RootStack.Navigator>
     </View>
   );

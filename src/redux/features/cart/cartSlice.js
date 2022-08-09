@@ -1,13 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = [];
-
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    fetchCart(state, { payload }) {
+      console.log("Redux Page");
+      console.log(payload);
+      var products = payload;
+      products.map((item) => {
+        state.push(item);
+      });
+    },
     addToCart(state, { payload }) {
-      // console.log(payload);
+      console.log(payload);
 
       const { productID } = payload;
       // console.log(productID)
@@ -30,7 +37,6 @@ const cartSlice = createSlice({
       }
     },
     increment(state, { payload }) {
-
       return state.map((item) =>
         item.productID === payload
           ? {
@@ -41,7 +47,6 @@ const cartSlice = createSlice({
       );
     },
     decrement(state, { payload }) {
-
       return state.map((item) =>
         item.productID === payload
           ? {
@@ -52,8 +57,6 @@ const cartSlice = createSlice({
       );
     },
     removeItem: (state, action) => {
-      //   console.log(state);
-      //   console.log(action);
       const productID = action.payload;
       return state.filter((item) => item.productID !== productID);
     },
@@ -67,6 +70,7 @@ const cartSlice = createSlice({
 });
 
 export const {
+  fetchCart,
   addToCart,
   increment,
   decrement,

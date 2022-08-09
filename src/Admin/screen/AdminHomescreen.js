@@ -5,14 +5,40 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  Alert,
+  BackHandler,
 } from "react-native";
 import { Card } from "react-native-paper";
+import { useFocusEffect } from "@react-navigation/native";
 import { clearCookie } from "../../data/Cokkie";
 import { COLORS } from "../../constants/theme";
 import AppStatusBar from "../../components/AppStatusBar/AppStatusBar";
 import Header from "../../components/Header/Header";
 
 const AdminHomescreen = ({ navigation }) => {
+  useFocusEffect(
+    React.useCallback(() => {
+      const backAction = () => {
+        Alert.alert("Hold On!", "Are you sure you want to Exit?", [
+          {
+            text: "Cancel",
+            onPress: () => null,
+            style: "cancel",
+          },
+          { text: "YES", onPress: () => BackHandler.exitApp() },
+        ]);
+        return true;
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+
+      return () => backHandler.remove();
+    }, [])
+  );
+
   function goToMyComponent() {
     navigation.navigate("MyComponent");
   }

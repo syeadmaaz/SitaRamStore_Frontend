@@ -8,15 +8,44 @@ import {
   ActivityIndicator,
   StyleSheet,
   View,
+  Alert,
+  BackHandler,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import { COLORS } from "../constants/theme";
 import axios from "../../axios.automate";
 import { setCookie } from "../data/Cokkie";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCart } from "../redux/features/cart/cartSlice";
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 
 const LoginScreen = ({ navigation }) => {
+  useFocusEffect(
+    React.useCallback(() => {
+      const backAction = () => {
+        Alert.alert("Hold On!", "Are you sure you want to Exit?", [
+          {
+            text: "Cancel",
+            onPress: () => null,
+            style: "cancel",
+          },
+          { text: "YES", onPress: () => BackHandler.exitApp() },
+        ]);
+        return true;
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+
+      return () => backHandler.remove();
+    }, [])
+  );
+
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+
   function sigupHandler() {
     navigation.navigate("RegisterScreen");
   }
@@ -48,16 +77,14 @@ const LoginScreen = ({ navigation }) => {
       })
       .then((response) => {
         setLoading(false);
-        // console.log(response.data);
-        if (response.status == 201 && response.data.userType == 1) {
+        if (response.status == 200 && response.data.userType == 1) {
           // console.log(response.data);
-
           setCookie(loginData.userName, response.data.userType);
-
+          dispatch(fetchCart(response.data.cartDetails));
           navigation.navigate("ProductStackScreen", {
             screen: "HomeScreen",
           });
-        } else if (response.status == 201 && response.data.userType == 0) {
+        } else if (response.status == 200 && response.data.userType == 0) {
           setCookie(loginData.userName, response.data.userType);
 
           navigation.navigate("AdminStackScreen", {

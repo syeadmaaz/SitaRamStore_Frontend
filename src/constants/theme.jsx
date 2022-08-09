@@ -20,20 +20,35 @@ export const COLORS = {
   tranparent: "rgba(0,0,0,0)",
 };
 
+export const FONT = {
+  f1: 'normal',
+  f2: 'notoserif',
+  f3: 'sans-serif',
+  f4: 'sans-serif-light',
+  f5: 'sans-serif-thin',
+  f6: 'sans-serif-condensed',
+  f7: 'sans-serif-medium',
+  f8: 'serif',
+  f9: 'Roboto',
+  f10: 'monospace',
+};
+
 export const WIDTH = {
   screenWidth: width,
   cardWidth: width / 2.5,
-  imageWidth: width / 3.2,
-
   productCardWidth: width / 1.13,
   productImageWidth: width / 2.5,
+  imageWidth: width / 3.2,
+  buttonWidth: width / 1.13,
 };
 
 export const HEIGHT = {
   screenHeight: height,
   cardHeight: height / 4,
-  imageHeight: height / 7,
-
   productCardHeight: height / 5,
   productImageHeight: height / 5.4,
+  imageHeight: height / 7,
+  billCardHeight: height / 2,
+  adressCardHeight: height / 4,
+  buttonHeight: height / 15,
 };

@@ -4,13 +4,12 @@ import {
   View,
   SafeAreaView,
   FlatList,
-  Text,
   ToastAndroid,
 } from "react-native";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
-import { getProducts, getProduct } from "../data/ProductsData";
+import { getProducts } from "../data/ProductsData";
 import { addToCart } from "../redux/features/cart/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
@@ -61,7 +60,7 @@ const ProductsScreen = ({ navigation }) => {
         }}
       />
       {products.length == 0 ? (
-        <MessageCard message={"Products Not Available"}/>
+        <MessageCard message={"Products Not Available"} />
       ) : (
         <View style={styles.content}>
           <FlatList

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
-  RefreshControl,
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
   SafeAreaView,
   FlatList,
-  StatusBar,
   Alert,
+  ToastAndroid,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -17,8 +16,10 @@ import {
   clear,
   removeItem,
 } from "../redux/features/cart/cartSlice";
-import { cartTotalPriceSelector } from "../redux/selectors";
+import { cartTotalDiscountSelector, cartTotalPriceSelector, cartTotalSelector } from "../redux/selectors";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
+import axios from "../../axios.automate";
+import { getCookie } from "../data/Cokkie";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
@@ -26,74 +27,91 @@ import SearchBar from "../components/SearchBar/SearchBar";
 import CartCard from "../components/CartCard/CartCard";
 import CartCheckout from "../components/CartCheckout/CartCheckout";
 import EmptyCart from "../components/EmptyCart/EmptyCart";
-import axios from "../../axios.automate";
-import { getCookie } from "../data/Cokkie";
 
 const CartScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const totalPrice = useSelector(cartTotalPriceSelector);
-  const [error, setError] = useState(null);
+  const totalQuantity = useSelector(cartTotalSelector);
+  const totalDiscount = useSelector(cartTotalDiscountSelector);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const cookie = await getCookie();
-  //     axios
-  //       .get("fetchCart", {
-  //         params: {
-  //           userName: cookie.userName,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         // console.log(res.data.categoryItems);
-  //         if (res.data.success) setCategory(res.data.categoryItems);
-  //       })
-  //       .catch((err) => {
-  //         setError("Connection Failed !!");
-  //         console.log(err);
-  //       });
-  //   }
-  //   fetchData();
-  // }, []);
+  function saveToast() {
+    ToastAndroid.showWithGravityAndOffset(
+      "Cart Saved Sucessfully !!",
+      ToastAndroid.SHORT,
+      ToastAndroid.TOP,
+      25,
+      50
+    );
+  }
+
+  function clearToast() {
+    ToastAndroid.showWithGravityAndOffset(
+      "Cart Cleared Sucessfully !!",
+      ToastAndroid.SHORT,
+      ToastAndroid.TOP,
+      25,
+      50
+    );
+  }
 
   const AlertItem = () => {
     Alert.alert(
-      "Are you sure you want to clear the cart?",
-      "",
+      "Hold On!",
+      "Are you sure you want to Clear Cart?",
       [
         {
           text: "Cancel",
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel",
         },
-        { text: "YES", onPress: () => dispatch(clear()) },
+        { text: "YES", onPress: () => clearCart() },
       ],
       { cancelable: false }
     );
   };
 
-  function saveCart() {
-    console.log("first");
-    let temp = { ...cart };
-    if (temp.length == 1) {
-      console.log("DELETED");
-    }
+  async function clearCart() {
+    console.log("CLEARING CART");
+    const cookie = await getCookie();
+    // console.log(cookie);
+    axios
+      .get("clearCart", {
+        params: {
+          userName: cookie.userName,
+        },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          console.log(res.data.message);
+          dispatch(clear());
+          clearToast();
+        }
+      })
+      .catch((err) => {
+        console.log("ERROR");
+        console.log(err);
+      });
   }
-  function save() {
+
+  async function save() {
     console.log("saving initialized");
     console.log(cart);
+    const cookie = await getCookie();
     axios
       .post("saveCart", {
-        userName: "testing..",
+        userName: cookie.userName,
         productDetails: cart,
       })
       .then((res) => {
         // console.log(res);
-        // setLoading(false);
         if (res.data.success) {
+          console.log(res.data.message);
+          saveToast();
         }
       })
       .catch((err) => {
+        console.log("ERROR");
         console.log(err);
       });
   }
@@ -105,8 +123,11 @@ const CartScreen = ({ navigation }) => {
         item={item}
         onPressDecrement={() => {
           if (item.quantity === 1) {
+            if (cart.length === 1) {
+              clearCart();
+            }
             dispatch(removeItem(item.productID));
-            console.log("removed");
+            console.log("PRODUCT REMOVED FROM CART");
             return;
           } else {
             dispatch(decrement(item.productID));
@@ -116,16 +137,10 @@ const CartScreen = ({ navigation }) => {
           dispatch(increment(item.productID));
         }}
         onPressRemove={() => {
-          // [
+          if (cart.length === 1) {
+            clearCart();
+          }
           dispatch(removeItem(item.productID));
-          // ,
-          // console.log(cart.length),
-          // cart.length == 1 ? saveCart() : null,
-          // if (cart.length == 0) {
-          //   console.log("hello")
-          //   save();
-          // }
-          // ];
         }}
       />
     );
@@ -196,9 +211,11 @@ const CartScreen = ({ navigation }) => {
           cart.length !== 0 ? (
             <CartCheckout
               totalPrice={totalPrice}
-              onPressCheckOut={() => {
-                console.log("CHECKOUT");
-              }}
+              onPressCheckOut={() =>
+                navigation.navigate("ProductStackScreen", {
+                  screen: "CheckOutScreen",
+                })
+              }
             />
           ) : null
           // [console.log(cart.length), save()]
@@ -227,7 +244,9 @@ const styles = StyleSheet.create({
     // backgroundColor: "yellow",
   },
   buttons: {
+    paddingVertical: "0.5%",
     flexDirection: "row",
+    // backgroundColor: "black"
   },
   but1: {
     width: "50%",
@@ -242,9 +261,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "orange",
   },
   button: {
-    // width: WIDTH.screenWidth / 1.11,
-    // height: HEIGHT.screenHeight / 20,
-    paddingVertical: "2%",
+    paddingVertical: "4%",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,

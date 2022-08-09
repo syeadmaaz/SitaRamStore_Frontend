@@ -20,7 +20,8 @@ const CartCard = ({
             <Text style={styles.prodTitle}>{item.productName}</Text>
             <Text style={styles.prodDesc}>{item.productDescription}</Text>
             <Text style={styles.price}>
-              Rs. {item.quantity * item.productPrice}
+              {/* Rs. {item.quantity * item.productPrice} */}
+              Rs. {item.productPrice}
             </Text>
           </View>
 
