@@ -9,27 +9,24 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import SelectDropdown from "react-native-select-dropdown";
-import Header from "../../components/Header/Header";
 
 import axios from "../../../axios.automate";
-import { COLORS } from "../../constants/theme";
+import { Button } from "react-native-paper";
+import { COLORS, WIDTH } from "../../constants/theme";
+import Header from "../../components/Header/Header";
 
 const App = () => {
 
   const [photo, setPhoto] = React.useState(null);
   const [name, setName] = React.useState("");
   const [desc, setDesc] = React.useState("");
-  const [categoryID, setCategoryID] = React.useState(null);
   const [category, setCategory] = React.useState(null);
   const [message, setMessage] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
-  const [categoryName, setCategoryName] = React.useState();
-  const [price, setPrice] = React.useState("");
-  const [mrp, setMrp] = React.useState("");
-
+  
 
   const UploadCategory = () =>{
-    if (name && desc && mrp && price && photo){
+    if (name && photo){
       return <View style={{backgroundColor: COLORS.orange, borderRadius: 10}}>
         <TouchableOpacity >
             <Text style={{color: 'white', textAlign:'center', fontSize: 30}}>
@@ -48,7 +45,6 @@ const App = () => {
         </View>
     }
   };
-
 
   React.useEffect(() => {
     setLoading(true);
@@ -104,46 +100,7 @@ const App = () => {
     }
   };
 
-  const uploadPhoto1 = async () => {
-    console.log(photo);
-    const formData = new FormData();
-    formData.append("image", {
-      name: new Date() + "_image",
-      uri: photo,
-      type: "image/jpg",
-    });
-
-    formData.append("name", name);
-    formData.append("desc", desc);
-    formData.append("categoryID", categoryID);
-    formData.append("mrp", mrp);
-    formData.append("price", price);
-
-    // console.log(formData)
-
-    try {
-      const res = await axios.post("/adminProductUpdate", formData, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "multipart/form-data",
-          // authorization: `JWT ${token}`,
-        },
-      });
-
-      console.log(res.data);
-
-      if (res.data.success) {
-        // props.navigation.dispatch(StackActions.replace("UserProfile"));
-        console.log("Success");
-        console.log(res.data.message);
-        setMessage(res.data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      setMessage(error.message);
-    }
-  };
-
+  
   const openImageLibrary = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -163,58 +120,30 @@ const App = () => {
     }
   };
 
-  return (
-    <View style={styles.container}>
-      <Header title={"ADD PRODUCT"} />
-      <View style={styles.alignText}>
+  return ( 
+
+    <View style={styles.container}>   
+        <Header title={"ADD CATEGORY"} />
+  
+      <View style={styles.styling}>
+      <View style={styles.align}>
       <TextInput style={styles.deco}
-        placeholder={"NAME*"}
+        placeholder={"Name*"}
         placeholderTextColor={"grey"}
         keyboardType="default"
         autoCapitalize={"none"}
         value={name}
         onChangeText={(text) => setName(text)}
       />
+      </View>
+      <View style={styles.align}>
       <TextInput style={styles.deco}
-       placeholder={"DESCRIPTION*"}
-       placeholderTextColor={"grey"}
-       keyboardType="default"
-       autoCapitalize={"none"}
+        placeholder={"Description"}
         value={desc}
         onChangeText={(text) => setDesc(text)}
       />
-      <TextInput style={styles.deco}
-        placeholder={"MRP*"}
-        placeholderTextColor={"grey"}
-        keyboardType="default"
-        autoCapitalize={"none"}
-        value={mrp}
-        onChangeText={(text) => setMrp(text)}
-      />
-      <TextInput style={styles.deco}
-        placeholder={"PRICE*"}
-        placeholderTextColor={"grey"}
-        keyboardType="default"
-        autoCapitalize={"none"}
-        value={price}
-        onChangeText={(text) => setPrice(text)}
-      />
       </View>
-      <SelectDropdown style={styles.deco}
-      keyboardType="default"
-      autoCapitalize={"none"}
-        data={category}
-        onSelect={(selectedItem, index) => {
-          console.log(selectedItem, index);
-          setCategoryID(selectedItem.categoryID);
-        }}
-        buttonTextAfterSelection={(selectedItem) => {
-          return selectedItem.categoryName;
-        }}
-        rowTextForSelection={(item) => {
-          return item.categoryName;
-        }}
-      />
+      </View>
       <View style={styles.alignImage}>
         <TouchableOpacity
           onPress={openImageLibrary}
@@ -226,12 +155,15 @@ const App = () => {
               style={{ width: "100%", height: "100%" }}
             />
           ) : (
-            <Text style={styles.uploadBtn}>Upload Image</Text>
+            <Text style={styles.uploadBtn}>Upload Image*</Text>
           )}
         </TouchableOpacity>
 
-        {/* <Text style={styles.skip}>Skip</Text>
-        {photo && name ? (
+        {/* <Text style={styles.skip}>Skip</Text> */}
+        
+           
+          
+        {/* {photo && name ? (
           <Text
             onPress={uploadPhoto}
             style={[
@@ -241,57 +173,52 @@ const App = () => {
           >
             Upload Category
           </Text>
-        ) : null}
-        {categoryID && photo && name && mrp && price && desc ? (
-          <Text
-            onPress={uploadPhoto1}
-            style={[
-              styles.skip,
-              { backgroundColor: "green", color: "white", borderRadius: 8 },
-            ]}
-          >
-            Upload Product
-          </Text>
         ) : null} */}
-
       </View>
       <View style={styles.alignbtn}>
            <UploadCategory />
       </View>
     </View>
+   
   );
 };
 
 const styles = StyleSheet.create({
-  deco: {
+    styling: {
+      width: WIDTH.screenWidth,
+        padding: 5,
+    },
+    align: {
+        padding: 5,
+    },
+    deco: {
     width: "100%",
     borderWidth: 1.5,
     fontWeight: "bold",
-    borderColor: COLORS.orange,
+    borderColor: "orange",
     height: 52,
     borderRadius: 10,
     padding: 15,
     marginTop: 20,
     color: "black",
     },
-    alignText: {
-      padding: 5,
-    },
   container: {
+    // flex: 1,
+    marginTop: '6%',
     // justifyContent: "center",
     // alignItems: "center",
-    marginTop: '6%',
+
   },
   uploadBtnContainer: {
     height: 125,
     width: 125,
     borderRadius: 125 / 6,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    // alignItems: "center",
     borderStyle: "dashed",
     borderWidth: 1.5,
     overflow: "hidden",
-    borderColor: COLORS.orange,
+    borderColor: 'orange',
   },
   uploadBtn: {
     textAlign: "center",
@@ -299,23 +226,23 @@ const styles = StyleSheet.create({
     opacity: 0.3,
     fontWeight: "bold",
   },
-  skip: {
-    textAlign: "center",
-    padding: 10,
-    fontSize: 16,
-    fontWeight: "bold",
-    textTransform: "uppercase",
-    letterSpacing: 2,
-    opacity: 0.5,
+  alignbtn: {
+    padding: '5%',
   },
   alignImage: {
     // justifyContent: 'center',
     alignItems: 'center',
     marginTop: '4%'
   },
-  alignbtn: {
-    padding: '5%',
-  },
+//   skip: {
+//     textAlign: "center",
+//     padding: 10,
+//     fontSize: 16,
+//     fontWeight: "bold",
+//     textTransform: "uppercase",
+//     letterSpacing: 2,
+//     opacity: 0.5,
+//   },
 });
 
 export default App;

@@ -41,16 +41,22 @@ const CategoryUpdate = ({navigation}) => {
         {/* <SearchHeader /> */}
         <SearchBar />
         {/* <Text style={styles.categoryText}>Categories</Text> */}
-        <Card elevation={5} style={styles.addCard}>
-          <TouchableOpacity>
+
+        <View>
+          <TouchableOpacity activeOpacity={0.1} onPress={()=>(navigation.navigate("newCategoryUpload"))}>
+        <Card elevation={27} style={styles.addCard}>
+          
             <Icon
               name={"add"}
               size={70}
               color={"black"}
-              onPress={navigation.navigate("ImageUpload")}
+              // onPress={navigation.navigate("ImageUpload")}
+              
             />
-          </TouchableOpacity>
+          
         </Card>
+        </TouchableOpacity>
+        </View>
         {/* <Button
           title="Add Category"
           onPress={() => Alert.alert("Simple Button pressed")}
@@ -63,52 +69,52 @@ const CategoryUpdate = ({navigation}) => {
     return <></>;
   };
 
-  const AddCategory = () => {
-    return (
-      <>
-        <View style={styles.container}>
-          <TextInput
-            placeholder={"Category Name*"}
-            value={name}
-            onChangeText={(text) => setName(text)}
-          />
-          <TextInput
-            placeholder={"Category Description*"}
-            value={desc}
-            onChangeText={(text) => setDesc(text)}
-          />
-          <View>
-            <TouchableOpacity
-              onPress={openImageLibrary}
-              style={styles.uploadBtnContainer}
-            >
-              {photo ? (
-                <Image
-                  source={{ uri: photo }}
-                  style={{ width: "100%", height: "100%" }}
-                />
-              ) : (
-                <Text style={styles.uploadBtn}>Upload Category Image</Text>
-              )}
-            </TouchableOpacity>
+  // const AddCategory = () => {
+  //   return (
+  //     <>
+  //       <View style={styles.container}>
+  //         <TextInput
+  //           placeholder={"Category Name*"}
+  //           value={name}
+  //           onChangeText={(text) => setName(text)}
+  //         />
+  //         <TextInput
+  //           placeholder={"Category Description*"}
+  //           value={desc}
+  //           onChangeText={(text) => setDesc(text)}
+  //         />
+  //         <View>
+  //           <TouchableOpacity
+  //             onPress={openImageLibrary}
+  //             style={styles.uploadBtnContainer}
+  //           >
+  //             {photo ? (
+  //               <Image
+  //                 source={{ uri: photo }}
+  //                 style={{ width: "100%", height: "100%" }}
+  //               />
+  //             ) : (
+  //               <Text style={styles.uploadBtn}>Upload Category Image</Text>
+  //             )}
+  //           </TouchableOpacity>
 
-            <Text style={styles.skip}>Skip</Text>
-            {photo && name ? (
-              <Text
-                onPress={uploadPhoto}
-                style={[
-                  styles.skip,
-                  { backgroundColor: "green", color: "white", borderRadius: 8 },
-                ]}
-              >
-                Upload Category
-              </Text>
-            ) : null}
-          </View>
-        </View>
-      </>
-    );
-  };
+  //           <Text style={styles.skip}>Skip</Text>
+  //           {photo && name ? (
+  //             <Text
+  //               onPress={uploadPhoto}
+  //               style={[
+  //                 styles.skip,
+  //                 { backgroundColor: "green", color: "white", borderRadius: 8 },
+  //               ]}
+  //             >
+  //               Upload Category
+  //             </Text>
+  //           ) : null}
+  //         </View>
+  //       </View>
+  //     </>
+  //   );
+  // };
 
   const renderData = (item) => {
     return (

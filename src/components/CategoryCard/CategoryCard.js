@@ -2,6 +2,8 @@ import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { Card } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
+import Icon from "react-native-vector-icons/MaterialIcons";
+
 
 const CategoryCard = ({ item, onPress }) => {
   return (
@@ -14,6 +16,22 @@ const CategoryCard = ({ item, onPress }) => {
           />
           <Text style={styles.fontStyle}>{item.categoryName}</Text>
         </TouchableOpacity>
+        <View style={styles.flexing}>
+           
+          <Icon 
+          name={"edit"} 
+          size={20}
+          color={"black"}
+          />
+           
+          <Icon
+          name={"delete"} 
+          size={20}
+          color={"black"}
+          />
+           
+        </View>
+
       </Card>
     </View>
   );
@@ -36,7 +54,7 @@ const styles = StyleSheet.create({
     elevation: 10,
     padding: 10,
     marginVertical: 15,
-    borderRadius: 20,
+    borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: COLORS.white,
@@ -63,6 +81,10 @@ const styles = StyleSheet.create({
     paddingLeft: "4%",
     // backgroundColor: "orange"
   },
+  flexing: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  }
 });
 
 export default CategoryCard;
