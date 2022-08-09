@@ -4,7 +4,6 @@ import { Card } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-
 const CategoryCard = ({ item, onPress }) => {
   return (
     <View style={styles.cardsContainer}>
@@ -16,22 +15,6 @@ const CategoryCard = ({ item, onPress }) => {
           />
           <Text style={styles.fontStyle}>{item.categoryName}</Text>
         </TouchableOpacity>
-        <View style={styles.flexing}>
-           
-          <Icon 
-          name={"edit"} 
-          size={20}
-          color={"black"}
-          />
-           
-          <Icon
-          name={"delete"} 
-          size={20}
-          color={"black"}
-          />
-           
-        </View>
-
       </Card>
     </View>
   );
@@ -40,7 +23,7 @@ const CategoryCard = ({ item, onPress }) => {
 const styles = StyleSheet.create({
   cardsContainer: {
     width: WIDTH.screenWidth / 2,
-    position: "relative",
+    // position: "relative",
     marginTop: "2%",
     alignItems: "center",
     justifyContent: "center",
@@ -64,8 +47,6 @@ const styles = StyleSheet.create({
     display: "flex",
     width: WIDTH.imageWidth,
     height: HEIGHT.imageHeight,
-    // width: '100%', 
-    // height: '50%',
     borderRadius: 10,
     margin: "4%",
     alignItems: "center",
@@ -81,10 +62,6 @@ const styles = StyleSheet.create({
     paddingLeft: "4%",
     // backgroundColor: "orange"
   },
-  flexing: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  }
 });
 
 export default CategoryCard;

@@ -10,7 +10,7 @@ const AddressCard = ({ item, onPress }) => {
         <Text style={styles.nameText}>{item.name}</Text>
         <Text style={styles.fontStyle}>{item.address1}</Text>
         <Text style={styles.fontStyle}>{item.address2}</Text>
-        <Text style={styles.fontStyle}>{item.city}, Madhya Pradesh</Text>
+        <Text style={styles.fontStyle}>{item.city}, {item.state}</Text>
         <Text style={styles.fontStyle}>PIN - {item.pinCode}</Text>
         <Text style={styles.fontStyle}>Landmark: {item.landmark}</Text>
         <Text style={[styles.fontStyle, {color:"red"}]}>Mobile: {item.mobile}</Text>
