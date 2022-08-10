@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  View,
   Text,
   SafeAreaView,
   ScrollView,
@@ -14,6 +15,7 @@ import { clearCookie } from "../../data/Cokkie";
 import { COLORS } from "../../constants/theme";
 import AppStatusBar from "../../components/AppStatusBar/AppStatusBar";
 import Header from "../../components/Header/Header";
+
 
 const AdminHomescreen = ({ navigation }) => {
   useFocusEffect(
@@ -43,9 +45,9 @@ const AdminHomescreen = ({ navigation }) => {
     navigation.navigate("MyComponent");
   }
 
-  function goToImageUpload() {
-    navigation.navigate("ImageUpload");
-  }
+  // function goToImageUpload() {
+  //   navigation.navigate("ImageUpload");
+  // }
 
   function goToCategoryUpdate() {
     navigation.navigate("CategoryUpdate");
@@ -57,10 +59,11 @@ const AdminHomescreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.deco}>
+    <SafeAreaView >
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header title={"ADMIN HOME"} name2={"logout"} onPress2={logout} />
-      <ScrollView>
+      <ScrollView >
+        <View style={styles.deco}> 
         <Card elevation={4} style={styles.crdStyling}>
           <Card elevation={4} style={styles.cardStyle}>
             <TouchableOpacity activeOpacity={0.2} onPress={goToMyComponent}>
@@ -75,19 +78,23 @@ const AdminHomescreen = ({ navigation }) => {
               <Text style={styles.txtStyle}>Add/Edit Category</Text>
             </TouchableOpacity>
           </Card>
-          <Card elevation={4} style={styles.cardStyle}>
+          {/* <Card elevation={4} style={styles.cardStyle}>
             <TouchableOpacity activeOpacity={0.2} onPress={goToImageUpload}>
               <Text style={styles.txtStyle}>
                 Add/Edit Products to Existing Category
               </Text>
             </TouchableOpacity>
-          </Card>
+          </Card> */}
         </Card>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
+  deco: {
+    padding: '3%'
+  },
   iconStyle: {
     alignItems: "flex-end",
     padding: "3%",
@@ -96,8 +103,8 @@ const styles = StyleSheet.create({
     // height: 400,
     padding: "3%",
     backgroundColor: "#faf0e8",
-    marginTop: "3%",
-    borderRadius: 25,
+    marginTop: "2%",
+    borderRadius: 35,
   },
   cardStyle: {
     width: "100%",
