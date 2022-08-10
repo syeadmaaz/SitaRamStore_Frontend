@@ -4,12 +4,11 @@ import { Card } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-
-const CategoryCard = ({ item, onPress }) => {
+const EditCategory = ({ item, onPressNavigate }) => {
   return (
     <View style={styles.cardsContainer}>
       <Card style={styles.cardStyle}>
-        <TouchableOpacity activeOpacity={0.2} onPress={onPress}>
+        <TouchableOpacity activeOpacity={0.2} onPress={onPressNavigate}>
           <Image
             source={{ uri: item.categoryImage }}
             style={styles.imgStyling}
@@ -17,21 +16,14 @@ const CategoryCard = ({ item, onPress }) => {
           <Text style={styles.fontStyle}>{item.categoryName}</Text>
         </TouchableOpacity>
         <View style={styles.flexing}>
-           
-          {/* <Icon 
-          name={"edit"} 
-          size={20}
-          color={"black"}
-          />
-           
-          <Icon
-          name={"delete"} 
-          size={20}
-          color={"black"}
-          /> */}
-           
-        </View>
+          <TouchableOpacity activeOpacity={0.2}>
+            <Icon name={"edit"} size={25} color={"black"} />
+          </TouchableOpacity>
 
+          <TouchableOpacity activeOpacity={0.2}>
+            <Icon name={"delete"} size={25} color={"black"} />
+          </TouchableOpacity>
+        </View>
       </Card>
     </View>
   );
@@ -49,7 +41,7 @@ const styles = StyleSheet.create({
 
   cardStyle: {
     flexDirection: "column",
-    height: HEIGHT.cardHeight,
+    height: HEIGHT.cardHeight + 7,
     width: WIDTH.cardWidth,
     elevation: 10,
     padding: 10,
@@ -64,7 +56,7 @@ const styles = StyleSheet.create({
     display: "flex",
     width: WIDTH.imageWidth,
     height: HEIGHT.imageHeight,
-    // width: '100%', 
+    // width: '100%',
     // height: '50%',
     borderRadius: 10,
     margin: "4%",
@@ -82,9 +74,9 @@ const styles = StyleSheet.create({
     // backgroundColor: "orange"
   },
   flexing: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  }
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 });
 
-export default CategoryCard;
+export default EditCategory;

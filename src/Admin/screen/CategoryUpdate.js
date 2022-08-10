@@ -19,13 +19,14 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import AppStatusBar from "../../components/AppStatusBar/AppStatusBar";
 import Header from "../../components/Header/Header";
 import SearchHeader from "../../components/Header/SearchHeader";
-import CategoryCard from "../../components/CategoryCard/CategoryCard";
+// import CategoryCard from "../../components/CategoryCard/CategoryCard";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 
 import axios from "../../../axios.automate";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import EditCategory from "./EditCategory";
 
-const CategoryUpdate = ({navigation}) => {
+const CategoryUpdate = ({ navigation }) => {
   const [photo, setPhoto] = React.useState(null);
 
   const [name, setName] = React.useState("");
@@ -44,19 +45,19 @@ const CategoryUpdate = ({navigation}) => {
         {/* <Text style={styles.categoryText}>Categories</Text> */}
 
         <View>
-          <TouchableOpacity activeOpacity={0.1} onPress={()=>(navigation.navigate("newCategoryUpload"))}>
-        <Card elevation={27} style={styles.addCard}>
-          
-            <Icon
-              name={"add"}
-              size={70}
-              color={"black"}
-              // onPress={navigation.navigate("ImageUpload")}
-              
-            />
-          
-        </Card>
-        </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.1}
+            onPress={() => navigation.navigate("newCategoryUpload")}
+          >
+            <Card elevation={27} style={styles.addCard}>
+              <Icon
+                name={"add"}
+                size={70}
+                color={"black"}
+                // onPress={navigation.navigate("ImageUpload")}
+              />
+            </Card>
+          </TouchableOpacity>
         </View>
         {/* <Button
           title="Add Category"
@@ -117,9 +118,18 @@ const CategoryUpdate = ({navigation}) => {
   //   );
   // };
 
+  // function goToEditScreen() {
+  //   navigation.navigate("EditCategory");
+  // }
+
   const renderData = (item) => {
     return (
-      <CategoryCard item={item} onPress={() => goToProductsScreen(item)} />
+      <EditCategory
+        item={item}
+        onPressNavigate={() => {
+          navigation.navigate("AdminStackScreen", { screen: "ImageUpload" });
+        }}
+      />
     );
   };
 
@@ -203,7 +213,7 @@ const CategoryUpdate = ({navigation}) => {
       <Header
         title={"Add/Edit Category"}
         // onPressMenu={logout}
-        onPressCart={() => navigation.navigate("CartScreen")}
+        // onPressCart={() => navigation.navigate("CartScreen")}
       />
       <View style={styles.content}>
         {loading ? (
@@ -299,11 +309,11 @@ const styles = StyleSheet.create({
     // backgroundColor: COLORS.orange,
   },
   addCard: {
-    alignItems:"center",
+    alignItems: "center",
     justifyContent: "center",
     // width: WIDTH.screenWidth,
     marginHorizontal: "5%",
-    marginTop: "2%"
+    marginTop: "2%",
   },
   categoryText: {
     fontSize: 25,
@@ -319,36 +329,36 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     // backgroundColor: COLORS.white,
   },
-    container: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-    },
-    uploadBtnContainer: {
-      height: 125,
-      width: 125,
-      borderRadius: 125 / 2,
-      justifyContent: "center",
-      alignItems: "center",
-      borderStyle: "dashed",
-      borderWidth: 1,
-      overflow: "hidden",
-    },
-    uploadBtn: {
-      textAlign: "center",
-      fontSize: 16,
-      opacity: 0.3,
-      fontWeight: "bold",
-    },
-    skip: {
-      textAlign: "center",
-      padding: 10,
-      fontSize: 16,
-      fontWeight: "bold",
-      textTransform: "uppercase",
-      letterSpacing: 2,
-      opacity: 0.5,
-    },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  uploadBtnContainer: {
+    height: 125,
+    width: 125,
+    borderRadius: 125 / 2,
+    justifyContent: "center",
+    alignItems: "center",
+    borderStyle: "dashed",
+    borderWidth: 1,
+    overflow: "hidden",
+  },
+  uploadBtn: {
+    textAlign: "center",
+    fontSize: 16,
+    opacity: 0.3,
+    fontWeight: "bold",
+  },
+  skip: {
+    textAlign: "center",
+    padding: 10,
+    fontSize: 16,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    letterSpacing: 2,
+    opacity: 0.5,
+  },
 });
 
 export default CategoryUpdate;

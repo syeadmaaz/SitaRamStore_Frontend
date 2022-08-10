@@ -14,8 +14,7 @@ import Header from "../../components/Header/Header";
 import axios from "../../../axios.automate";
 import { COLORS } from "../../constants/theme";
 
-const App = () => {
-
+const ImageUpload = ({ navigation }) => {
   const [photo, setPhoto] = React.useState(null);
   const [name, setName] = React.useState("");
   const [desc, setDesc] = React.useState("");
@@ -27,28 +26,29 @@ const App = () => {
   const [price, setPrice] = React.useState("");
   const [mrp, setMrp] = React.useState("");
 
-
-  const UploadCategory = () =>{
-    if (name && desc && mrp && price && photo){
-      return <View style={{backgroundColor: COLORS.orange, borderRadius: 10}}>
-        <TouchableOpacity >
-            <Text style={{color: 'white', textAlign:'center', fontSize: 30}}>
-            Upload
+  const UploadCategory = () => {
+    if (name && desc && mrp && price && photo) {
+      return (
+        <View style={{ backgroundColor: COLORS.orange, borderRadius: 10 }}>
+          <TouchableOpacity>
+            <Text style={{ color: "white", textAlign: "center", fontSize: 30 }}>
+              Upload
             </Text>
-        </TouchableOpacity>
-      </View>
-    } 
-    else {
-      return <View style={{backgroundColor: 'silver', borderRadius: 10}}>
-            <TouchableOpacity disabled={true} >
-            <Text style={{color: 'black', textAlign:'center', fontSize: 30}}>
-            Upload
-            </Text>
-            </TouchableOpacity>      
+          </TouchableOpacity>
         </View>
+      );
+    } else {
+      return (
+        <View style={{ backgroundColor: "silver", borderRadius: 10 }}>
+          <TouchableOpacity disabled={true}>
+            <Text style={{ color: "black", textAlign: "center", fontSize: 30 }}>
+              Upload
+            </Text>
+          </TouchableOpacity>
+        </View>
+      );
     }
   };
-
 
   React.useEffect(() => {
     setLoading(true);
@@ -167,42 +167,47 @@ const App = () => {
     <View style={styles.container}>
       <Header title={"ADD PRODUCT"} />
       <View style={styles.alignText}>
-      <TextInput style={styles.deco}
-        placeholder={"NAME*"}
-        placeholderTextColor={"grey"}
-        keyboardType="default"
-        autoCapitalize={"none"}
-        value={name}
-        onChangeText={(text) => setName(text)}
-      />
-      <TextInput style={styles.deco}
-       placeholder={"DESCRIPTION*"}
-       placeholderTextColor={"grey"}
-       keyboardType="default"
-       autoCapitalize={"none"}
-        value={desc}
-        onChangeText={(text) => setDesc(text)}
-      />
-      <TextInput style={styles.deco}
-        placeholder={"MRP*"}
-        placeholderTextColor={"grey"}
-        keyboardType="default"
-        autoCapitalize={"none"}
-        value={mrp}
-        onChangeText={(text) => setMrp(text)}
-      />
-      <TextInput style={styles.deco}
-        placeholder={"PRICE*"}
-        placeholderTextColor={"grey"}
-        keyboardType="default"
-        autoCapitalize={"none"}
-        value={price}
-        onChangeText={(text) => setPrice(text)}
-      />
+        <TextInput
+          style={styles.deco}
+          placeholder={"NAME*"}
+          placeholderTextColor={"grey"}
+          keyboardType="default"
+          autoCapitalize={"none"}
+          value={name}
+          onChangeText={(text) => setName(text)}
+        />
+        <TextInput
+          style={styles.deco}
+          placeholder={"DESCRIPTION*"}
+          placeholderTextColor={"grey"}
+          keyboardType="default"
+          autoCapitalize={"none"}
+          value={desc}
+          onChangeText={(text) => setDesc(text)}
+        />
+        <TextInput
+          style={styles.deco}
+          placeholder={"MRP*"}
+          placeholderTextColor={"grey"}
+          keyboardType="default"
+          autoCapitalize={"none"}
+          value={mrp}
+          onChangeText={(text) => setMrp(text)}
+        />
+        <TextInput
+          style={styles.deco}
+          placeholder={"PRICE*"}
+          placeholderTextColor={"grey"}
+          keyboardType="default"
+          autoCapitalize={"none"}
+          value={price}
+          onChangeText={(text) => setPrice(text)}
+        />
       </View>
-      <SelectDropdown style={styles.deco}
-      keyboardType="default"
-      autoCapitalize={"none"}
+      <SelectDropdown
+        style={styles.deco}
+        keyboardType="default"
+        autoCapitalize={"none"}
         data={category}
         onSelect={(selectedItem, index) => {
           console.log(selectedItem, index);
@@ -253,10 +258,9 @@ const App = () => {
             Upload Product
           </Text>
         ) : null} */}
-
       </View>
       <View style={styles.alignbtn}>
-           <UploadCategory />
+        <UploadCategory />
       </View>
     </View>
   );
@@ -273,14 +277,14 @@ const styles = StyleSheet.create({
     padding: 15,
     marginTop: 20,
     color: "black",
-    },
-    alignText: {
-      padding: 5,
-    },
+  },
+  alignText: {
+    padding: 5,
+  },
   container: {
     // justifyContent: "center",
     // alignItems: "center",
-    marginTop: '6%',
+    marginTop: "6%",
   },
   uploadBtnContainer: {
     height: 125,
@@ -310,12 +314,12 @@ const styles = StyleSheet.create({
   },
   alignImage: {
     // justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '4%'
+    alignItems: "center",
+    marginTop: "4%",
   },
   alignbtn: {
-    padding: '5%',
+    padding: "5%",
   },
 });
 
-export default App;
+export default ImageUpload;
