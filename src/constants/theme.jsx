@@ -48,7 +48,7 @@ export const HEIGHT = {
   productCardHeight: height / 5,
   productImageHeight: height / 5.4,
   imageHeight: height / 7,
-  billCardHeight: height / 2,
+  billCardHeight: height / 2.06,
   adressCardHeight: height / 4,
   buttonHeight: height / 15,
 };
