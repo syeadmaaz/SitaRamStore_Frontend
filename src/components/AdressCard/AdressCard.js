@@ -8,9 +8,22 @@ import {
 } from "react-native";
 import { Card } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT, FONT } from "../../constants/theme";
+import {
+  MaterialIcons,
+  MaterialCommunityIcons,
+  FontAwesome,
+} from "@expo/vector-icons";
 
-function selectAddress(){
-  console.log("first")
+function selectAddress() {
+  console.log("selected");
+}
+
+function editAddress() {
+  console.log("edit");
+}
+
+function deleteAddress() {
+  console.log("Delete");
 }
 
 const AddressCard = ({ item, onPress }) => {
@@ -19,7 +32,7 @@ const AddressCard = ({ item, onPress }) => {
       <Card style={styles.cardStyle}>
         <View style={styles.content}>
           <Text style={styles.nameText}>{item.name}</Text>
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <Text style={styles.fontStyle}>{item.address1}</Text>
             <Text style={styles.fontStyle}>{item.address2}</Text>
             <Text style={styles.fontStyle}>
@@ -49,6 +62,20 @@ const AddressCard = ({ item, onPress }) => {
           </TouchableOpacity>
         </View>
       </Card>
+      <TouchableOpacity
+        activeOpacity={0.5}
+        onPress={() => editAddress()}
+        style={styles.editButton}
+      >
+        <FontAwesome name="edit" size={20} color="red" bold />
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.5}
+        onPress={() => deleteAddress()}
+        style={styles.deleteButton}
+      >
+        <MaterialIcons name="delete" size={25} color="red" bold />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -57,7 +84,7 @@ const styles = StyleSheet.create({
   cardsContainer: {
     width: WIDTH.screenWidth,
     alignItems: "center",
-    justifyContent: "center",
+    // justifyContent: "center",
     // backgroundColor: COLORS.red,
   },
   cardStyle: {
@@ -65,7 +92,7 @@ const styles = StyleSheet.create({
     height: HEIGHT.adressCardHeight,
     width: WIDTH.productCardWidth,
     elevation: 10,
-    marginVertical: "4%",
+    marginVertical: "3%",
     paddingVertical: "3%",
     paddingHorizontal: "6%",
     borderRadius: 20,
@@ -109,6 +136,17 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
     color: COLORS.dark,
+  },
+  editButton: {
+    top: "12%",
+    right: "9%",
+    position: "absolute",
+    // backgroundColor: "green",
+  },
+  deleteButton: {
+    top: "30%",
+    right: "9%",
+    position: "absolute",
   },
 });
 

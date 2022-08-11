@@ -16,7 +16,7 @@ const ADDRESS = [
     name: "Amrit Shukla",
     mobile: 9876543210,
     pinCode: 800004,
-    address1: "Shukla House, Sita Ram Path, Lokhandwala",
+    address1: "Shukla House, Sita Ram Path",
     address2: "Patel Nagar",
     landmark: "Opposite Super Market",
     city: "Patna",

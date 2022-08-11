@@ -37,7 +37,7 @@ const CheckOutScreen = ({ navigation }) => {
   });
 
   const renderData = (item) => {
-    console.log(item);
+    // console.log(item);
     return (
       <AddressCard
         item={item}
