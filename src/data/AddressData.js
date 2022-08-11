@@ -9,17 +9,19 @@ const ADDRESS = [
     landmark: "Opposite MED-CARE",
     city: "Gaya",
     state: "Bihar",
+    selected: true
   },
   {
     // id: 2,
     name: "Amrit Shukla",
     mobile: 9876543210,
     pinCode: 800004,
-    address1: "Shukla House, Sita Ram Path",
+    address1: "Shukla House, Sita Ram Path, Lokhandwala",
     address2: "Patel Nagar",
     landmark: "Opposite Super Market",
     city: "Patna",
     state: "Bihar",
+    selected: false
   },
   {
     // id: 3,
@@ -29,8 +31,9 @@ const ADDRESS = [
     address1: "Sutta Gali",
     address2: "G.B Road",
     landmark: "Opposite Super Market",
-    city: "East Delhi",
-    state: "Delhi",
+    city: "Chattarpur",
+    state: "Madhya Pradesh",
+    selected: false
   },
 ];
 
