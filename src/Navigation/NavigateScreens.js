@@ -1,7 +1,9 @@
 import React from "react";
 import { View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
+// App Start
 import SplashScreen from "../screen/SplashScreen";
 import WelcomeScreen from "../screen/WelcomeScreen";
 
@@ -12,6 +14,7 @@ import HomeScreen from "../screen/HomeScreen";
 import ProductsScreen from "../screen/ProductsScreen";
 import CartScreen from "../screen/CartScreen";
 import CheckOutScreen from "../screen/CheckOutScreen";
+import AccountScreen from "../screen/AccountScreen";
 
 // Admin Side
 import AdminHomescreen from "../Admin/screen/AdminHomescreen";
@@ -26,6 +29,7 @@ const MainStack = createNativeStackNavigator();
 const ProductStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
 const AdminStack = createNativeStackNavigator();
+const DrawerStack = createDrawerNavigator();
 
 function MainStackScreen() {
   return (
@@ -95,6 +99,16 @@ function AdminStackScreen() {
   );
 }
 
+function DrawerStackScreen() {
+  return (
+    <DrawerStack.Navigator initialRouteName="HomeScreen">
+      <DrawerStack.Screen name="HomeScreen" component={HomeScreen} />
+      <DrawerStack.Screen name="AccountScreen" component={AccountScreen} />
+      {/* <DrawerStack.Screen name="Notifications" component={NotificationsScreen} /> */}
+    </DrawerStack.Navigator>
+  );
+}
+
 const NavigateScreens = () => {
   return (
     <View style={{ width: "100%", background: "white", height: "100%" }}>
@@ -108,6 +122,10 @@ const NavigateScreens = () => {
         <RootStack.Screen
           name="AdminStackScreen"
           component={AdminStackScreen}
+        />
+        <RootStack.Screen
+          name="DrawerStackScreen"
+          component={DrawerStackScreen}
         />
       </RootStack.Navigator>
     </View>

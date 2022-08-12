@@ -29,22 +29,26 @@ const App = () => {
     if (name && photo){
       return <View style={{backgroundColor: COLORS.orange, borderRadius: 10}}>
         <TouchableOpacity >
-            <Text style={{color: 'white', textAlign:'center', fontSize: 30}} 
-            onPress={uploadPhoto}>
+            <Text style={{color: 'white', textAlign:'center', fontSize: 30}}>
             Upload
             </Text>
-        </TouchableOpacity>
-      </View>
+          </TouchableOpacity>
+        </View>
+      );
     } 
     else {
-      return <View style={{backgroundColor: 'silver', borderRadius: 10}}>
-            <TouchableOpacity disabled={true} >
-            <Text style={{color: 'black', textAlign:'center', fontSize: 30}}>
-            Upload
+      return (
+        <View style={{ backgroundColor: "silver", borderRadius: 10 }}>
+          <TouchableOpacity disabled={true}>
+            <Text
+              style={{ color: "black", textAlign: "center", fontSize: 30 }}
+            >
+              Upload
             </Text>
-            </TouchableOpacity>      
+          </TouchableOpacity>
         </View>
-    }
+      );
+      }
   };
 
   React.useEffect(() => {

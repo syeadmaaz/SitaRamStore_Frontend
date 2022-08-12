@@ -9,6 +9,7 @@ const ADDRESS = [
     landmark: "Opposite MED-CARE",
     city: "Gaya",
     state: "Bihar",
+    selected: true
   },
   {
     // id: 2,
@@ -20,6 +21,7 @@ const ADDRESS = [
     landmark: "Opposite Super Market",
     city: "Patna",
     state: "Bihar",
+    selected: false
   },
   {
     // id: 3,
@@ -29,8 +31,9 @@ const ADDRESS = [
     address1: "Sutta Gali",
     address2: "G.B Road",
     landmark: "Opposite Super Market",
-    city: "East Delhi",
-    state: "Delhi",
+    city: "Chattarpur",
+    state: "Madhya Pradesh",
+    selected: false
   },
 ];
 

@@ -14,7 +14,7 @@ const AddAddressCard = ({ onPress }) => {
               name={"add"}
               size={70}
               color={"black"}
-              onPress={console.log("ADD ADDRESS")}
+              onPress={onPress}
             />
           </View>
         </TouchableOpacity>

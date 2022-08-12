@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  SafeAreaView,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { StyleSheet, View, Text, SafeAreaView, FlatList } from "react-native";
 import { COLORS, FONT, HEIGHT, WIDTH } from "../constants/theme";
 import { useSelector } from "react-redux";
 import {
@@ -36,8 +29,9 @@ const CheckOutScreen = ({ navigation }) => {
     setAddresses(getAddresses());
   });
 
-  const renderData = (item) => {
+  const renderData = (item,index) => {
     console.log(item);
+    console.log(index);
     return (
       <AddressCard
         item={item}
@@ -45,14 +39,23 @@ const CheckOutScreen = ({ navigation }) => {
           console.log(item);
           //   dispatch(addToCart(item)), showToast();
         }}
+        index={index}
       />
     );
   };
 
+  function addAddress() {
+    console.log("Add Address");
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
-      <Header title={"CHECK-OUT"} />
+      <Header
+        title={"CHECK-OUT"}
+        // name1={"keyboard-backspace"}
+        // name2={"cart-outline"}
+      />
       <View style={styles.billView}>
         <BillCard
           title={"ORDER BILL"}
@@ -71,13 +74,13 @@ const CheckOutScreen = ({ navigation }) => {
           <FlatList
             data={addresses}
             horizontal
-            renderItem={({ item }) => {
-              return renderData(item);
+            renderItem={({ item,index }) => {
+              return renderData(item,index);
             }}
             scrollEnabled={true}
           />
         ) : (
-          <AddAddressCard />
+          <AddAddressCard onPress={() => addAddress()} />
         )}
       </View>
       <View style={styles.buttonView}>
