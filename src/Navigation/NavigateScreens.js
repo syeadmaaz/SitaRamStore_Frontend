@@ -21,7 +21,7 @@ import AdminHomescreen from "../Admin/screen/AdminHomescreen";
 import MyComponent from "../Admin/screen/NewOrder";
 import CategoryUpdate from "../Admin/screen/CategoryUpdate";
 import newCategoryUpload from '../Admin/screen/newCategoryUpload';
-import ImageUpload from "../Admin/screen/ImageUpload";
+import newProductUpload from "../Admin/screen/newProductUpload";
 import AddProduct from "../Admin/components/AddProduct";
 
 const RootStack = createNativeStackNavigator();
@@ -91,10 +91,15 @@ function AdminStackScreen() {
       <AdminStack.Screen name="AdminHomescreen" component={AdminHomescreen} />
       <AdminStack.Screen name="MyComponent" component={MyComponent} />
       <AdminStack.Screen name="CategoryUpdate" component={CategoryUpdate} />
-      <AdminStack.Screen name="newCategoryUpload" component={newCategoryUpload} />
-      <AdminStack.Screen name="ImageUpload" component={ImageUpload} />
+      <AdminStack.Screen
+        name="newCategoryUpload"
+        component={newCategoryUpload}
+      />
+      <AdminStack.Screen
+        name="newProductUpload"
+        component={newProductUpload}
+      />
       <AdminStack.Screen name="AddProduct" component={AddProduct} />
-      
     </AdminStack.Navigator>
   );
 }

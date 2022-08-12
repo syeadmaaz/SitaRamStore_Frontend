@@ -91,7 +91,7 @@ const AddProduct = ({ navigation }) => {
   function AddIcon() {
     return (
       <View style={styles.iconSetting}>
-        <TouchableOpacity onPress={() => navigation.navigate("ImageUpload")}>
+        <TouchableOpacity onPress={() => navigation.navigate("newProductUpload")}>
           <Card elevation={5} style={styles.addCarding}>
             <Icon name={"add"} size={70} color={"black"} />
           </Card>
