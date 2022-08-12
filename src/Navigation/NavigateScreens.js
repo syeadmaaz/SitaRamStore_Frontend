@@ -1,7 +1,9 @@
 import React from "react";
 import { View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
+// App Start
 import SplashScreen from "../screen/SplashScreen";
 import WelcomeScreen from "../screen/WelcomeScreen";
 
@@ -12,19 +14,21 @@ import HomeScreen from "../screen/HomeScreen";
 import ProductsScreen from "../screen/ProductsScreen";
 import CartScreen from "../screen/CartScreen";
 import CheckOutScreen from "../screen/CheckOutScreen";
+import AccountScreen from "../screen/AccountScreen";
 
 // Admin Side
 import AdminHomescreen from "../Admin/screen/AdminHomescreen";
 import MyComponent from "../Admin/screen/NewOrder";
 import ImageUpload from "../Admin/screen/ImageUpload";
 import CategoryUpdate from "../Admin/screen/CategoryUpdate";
-import newCategoryUpload from '../Admin/screen/newCategoryUpload';
+import newCategoryUpload from "../Admin/screen/newCategoryUpload";
 
 const RootStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
 const ProductStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
 const AdminStack = createNativeStackNavigator();
+const DrawerStack = createDrawerNavigator();
 
 function MainStackScreen() {
   return (
@@ -87,8 +91,21 @@ function AdminStackScreen() {
       <AdminStack.Screen name="MyComponent" component={MyComponent} />
       <AdminStack.Screen name="CategoryUpdate" component={CategoryUpdate} />
       <AdminStack.Screen name="ImageUpload" component={ImageUpload} />
-      <AdminStack.Screen name="newCategoryUpload" component={newCategoryUpload} />
+      <AdminStack.Screen
+        name="newCategoryUpload"
+        component={newCategoryUpload}
+      />
     </AdminStack.Navigator>
+  );
+}
+
+function DrawerStackScreen() {
+  return (
+    <DrawerStack.Navigator initialRouteName="HomeScreen">
+      <DrawerStack.Screen name="HomeScreen" component={HomeScreen} />
+      <DrawerStack.Screen name="AccountScreen" component={AccountScreen} />
+      {/* <DrawerStack.Screen name="Notifications" component={NotificationsScreen} /> */}
+    </DrawerStack.Navigator>
   );
 }
 
@@ -105,6 +122,10 @@ const NavigateScreens = () => {
         <RootStack.Screen
           name="AdminStackScreen"
           component={AdminStackScreen}
+        />
+        <RootStack.Screen
+          name="DrawerStackScreen"
+          component={DrawerStackScreen}
         />
       </RootStack.Navigator>
     </View>

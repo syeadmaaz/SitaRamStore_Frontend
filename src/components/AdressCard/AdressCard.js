@@ -8,22 +8,21 @@ import {
 } from "react-native";
 import { Card } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT, FONT } from "../../constants/theme";
-import {
-  MaterialIcons,
-  MaterialCommunityIcons,
-  FontAwesome,
-} from "@expo/vector-icons";
+import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 
-function selectAddress() {
+function selectAddress(item) {
   console.log("selected");
+  // console.log(item);
 }
 
-function editAddress() {
+function editAddress(item) {
   console.log("edit");
+  console.log(item)
 }
 
-function deleteAddress() {
+function deleteAddress(item) {
   console.log("Delete");
+  console.log(item)
 }
 
 const AddressCard = ({ item, onPress }) => {
@@ -54,7 +53,7 @@ const AddressCard = ({ item, onPress }) => {
               { backgroundColor: item.selected ? COLORS.grey : COLORS.yellow },
             ]}
             disabled={item.selected}
-            onPress={() => selectAddress()}
+            onPress={() => selectAddress(item)}
           >
             <Text style={styles.btnText}>
               {item.selected ? "SELECTED" : "SELECT"}
@@ -64,14 +63,14 @@ const AddressCard = ({ item, onPress }) => {
       </Card>
       <TouchableOpacity
         activeOpacity={0.5}
-        onPress={() => editAddress()}
+        onPress={() => editAddress(item)}
         style={styles.editButton}
       >
         <FontAwesome name="edit" size={20} color="red" bold />
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.5}
-        onPress={() => deleteAddress()}
+        onPress={() => deleteAddress(item)}
         style={styles.deleteButton}
       >
         <MaterialIcons name="delete" size={25} color="red" bold />

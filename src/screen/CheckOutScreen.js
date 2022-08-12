@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  SafeAreaView,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { StyleSheet, View, Text, SafeAreaView, FlatList } from "react-native";
 import { COLORS, FONT, HEIGHT, WIDTH } from "../constants/theme";
 import { useSelector } from "react-redux";
 import {
@@ -49,10 +42,18 @@ const CheckOutScreen = ({ navigation }) => {
     );
   };
 
+  function addAddress() {
+    console.log("Add Address");
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
-      <Header title={"CHECK-OUT"} />
+      <Header
+        title={"CHECK-OUT"}
+        // name1={"keyboard-backspace"}
+        // name2={"cart-outline"}
+      />
       <View style={styles.billView}>
         <BillCard
           title={"ORDER BILL"}
@@ -77,7 +78,7 @@ const CheckOutScreen = ({ navigation }) => {
             scrollEnabled={true}
           />
         ) : (
-          <AddAddressCard />
+          <AddAddressCard onPress={() => addAddress()} />
         )}
       </View>
       <View style={styles.buttonView}>
