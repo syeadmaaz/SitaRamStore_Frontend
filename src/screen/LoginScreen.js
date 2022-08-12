@@ -91,6 +91,7 @@ const LoginScreen = ({ navigation }) => {
             screen: "AdminHomescreen",
           });
         } else {
+          console.log("error");
           alert(response.data.error);
         }
       })

@@ -25,7 +25,7 @@ function deleteAddress(item) {
   console.log(item)
 }
 
-const AddressCard = ({ item, onPress }) => {
+const AddressCard = ({ item, index, onPress }) => {
   return (
     <View style={styles.cardsContainer}>
       <Card style={styles.cardStyle}>

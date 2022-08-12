@@ -4,7 +4,7 @@ import { Button, Card } from "react-native-paper";
 
 export default function Accept(props) {
   return (
-    <View>
+    <View style={{ padding: '3%'}}>
       <Card>
         <Card.Actions style={{ flex: 1 }}>
           <Button onPress = {props.onPressAccept}

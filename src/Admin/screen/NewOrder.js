@@ -149,8 +149,8 @@ const MyComponent = ({ navigation }) => {
 
   const renderData = (item, index) => {
     return (
-      <>
-        <Card elevation={4} style={{ marginTop: "5%" }}>
+      <View style={{padding: '2%'}}>
+        <Card elevation={4} style={{ marginTop: "5%", borderRadius: 20 }}>
           <Card.Content
             style={{ flex: 1, display: "flex", flexDirection: "row" }}
           >
@@ -191,7 +191,7 @@ const MyComponent = ({ navigation }) => {
             />
           )}
         </Card>
-      </>
+      </View>
     );
   };
 

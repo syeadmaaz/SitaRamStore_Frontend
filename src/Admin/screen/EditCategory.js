@@ -1,0 +1,82 @@
+import React from "react";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+import { Card } from "react-native-paper";
+import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
+import Icon from "react-native-vector-icons/MaterialIcons";
+
+const EditCategory = ({ item, onPressNavigate }) => {
+  return (
+    <View style={styles.cardsContainer}>
+      <Card style={styles.cardStyle}>
+        <TouchableOpacity activeOpacity={0.2} onPress={onPressNavigate}>
+          <Image
+            source={{ uri: item.categoryImage }}
+            style={styles.imgStyling}
+          />
+          <Text style={styles.fontStyle}>{item.categoryName}</Text>
+        </TouchableOpacity>
+        <View style={styles.flexing}>
+          <TouchableOpacity activeOpacity={0.2}>
+            <Icon name={"edit"} size={25} color={"black"} />
+          </TouchableOpacity>
+
+          <TouchableOpacity activeOpacity={0.2}>
+            <Icon name={"delete"} size={25} color={"black"} />
+          </TouchableOpacity>
+        </View>
+      </Card>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  cardsContainer: {
+    width: WIDTH.screenWidth / 2,
+    position: "relative",
+    marginTop: "2%",
+    alignItems: "center",
+    justifyContent: "center",
+    // backgroundColor: COLORS.orange,
+  },
+
+  cardStyle: {
+    flexDirection: "column",
+    height: HEIGHT.cardHeight + 7,
+    width: WIDTH.cardWidth,
+    elevation: 10,
+    padding: 10,
+    marginVertical: 15,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: COLORS.white,
+  },
+
+  imgStyling: {
+    display: "flex",
+    width: WIDTH.imageWidth,
+    height: HEIGHT.imageHeight,
+    // width: '100%',
+    // height: '50%',
+    borderRadius: 10,
+    margin: "4%",
+    alignItems: "center",
+    // backgroundColor: "orange",
+  },
+
+  fontStyle: {
+    fontSize: 15,
+    fontWeight: "bold",
+    width: WIDTH.imageWidth + 5,
+    height: WIDTH.cardWidth / 3 - 2,
+    paddingTop: "5%",
+    paddingLeft: "4%",
+    // backgroundColor: "orange"
+  },
+  flexing: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+});
+
+export default EditCategory;

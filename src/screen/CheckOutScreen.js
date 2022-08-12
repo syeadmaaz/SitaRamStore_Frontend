@@ -29,8 +29,9 @@ const CheckOutScreen = ({ navigation }) => {
     setAddresses(getAddresses());
   });
 
-  const renderData = (item) => {
-    // console.log(item);
+  const renderData = (item,index) => {
+    console.log(item);
+    console.log(index);
     return (
       <AddressCard
         item={item}
@@ -38,6 +39,7 @@ const CheckOutScreen = ({ navigation }) => {
           console.log(item);
           //   dispatch(addToCart(item)), showToast();
         }}
+        index={index}
       />
     );
   };
@@ -72,8 +74,8 @@ const CheckOutScreen = ({ navigation }) => {
           <FlatList
             data={addresses}
             horizontal
-            renderItem={({ item }) => {
-              return renderData(item);
+            renderItem={({ item,index }) => {
+              return renderData(item,index);
             }}
             scrollEnabled={true}
           />
