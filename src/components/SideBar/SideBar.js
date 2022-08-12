@@ -15,7 +15,7 @@ import { clearCookie } from "../../data/Cokkie";
 import { useDispatch } from "react-redux";
 import { clear } from "../../redux/features/cart/cartSlice";
 
-const SideBar = (props) => {
+const SideBar = ({props, navigation}) => {
   const dispatch = useDispatch();
 
   const logout = async () => {
@@ -99,9 +99,7 @@ const SideBar = (props) => {
       <Drawer.Section style={styles.bottomDrawerSection}>
         <Drawer.Item
           label="Sign Out"
-          onPress={() => {
-            logout;
-          }}
+          onPress={logout}
         ></Drawer.Item>
       </Drawer.Section>
     </View>

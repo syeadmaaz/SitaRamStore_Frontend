@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
+//SideBar
 import SideBar from "../components/SideBar/SideBar";
 
 // App Start
@@ -119,19 +120,6 @@ function RootStackScreen() {
 const NavigateScreens = () => {
   return (
     <View style={{ width: "100%", background: "white", height: "100%" }}>
-      {/* <RootStack.Navigator screenOptions={{ headerShown: false }}>
-        <RootStack.Screen name="MainStackScreen" component={MainStackScreen} />
-        <RootStack.Screen name="AuthStackScreen" component={AuthStackScreen} />
-        <RootStack.Screen
-          name="ProductStackScreen"
-          component={ProductStackScreen}
-        />
-        <RootStack.Screen
-          name="AdminStackScreen"
-          component={AdminStackScreen}
-        />
-      </RootStack.Navigator> */}
-
       <DrawerStack.Navigator
         screenOptions={{ headerShown: false }}
         drawerContent={(props) => <SideBar {...props} />}

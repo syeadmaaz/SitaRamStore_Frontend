@@ -69,7 +69,7 @@ const HomeScreen = ({ navigation }) => {
       });
   }, []);
 
-  const logout = () => {
+  const sideBar = () => {
     navigation.dispatch(DrawerActions.openDrawer());
     // await clearCookie();
     // dispatch(clear());
@@ -77,7 +77,7 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const goToProductsScreen = (item) => {
-    console.log(item.categoryID);
+    console.log(item.categoryName);
     // setLoading(true);
     axios
       .get("getProduct", {
@@ -92,7 +92,7 @@ const HomeScreen = ({ navigation }) => {
           setProducts(res.data.productItems);
 
           navigation.navigate("ProductStackScreen", {
-            screen: "ProductsScreen",
+            screen: "ProductsScreen", params: item.categoryName,
           });
         }
       })
@@ -124,7 +124,7 @@ const HomeScreen = ({ navigation }) => {
         title={"HOME"}
         name1={"sort-variant"}
         name2={"cart-outline"}
-        onPress1={(logout)}
+        onPress1={(sideBar)}
         onPress2={() => navigation.navigate("CartScreen")}
       />
 
