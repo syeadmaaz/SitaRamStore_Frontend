@@ -94,18 +94,22 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     width: WIDTH.screenWidth,
-    height: HEIGHT.screenHeight,
+    height: "100%",
     // backgroundColor: COLORS.red,
   },
   billView: {
-    height: "52.5%",
-    // backgroundColor: "red",
-  },
-  deliveryView: {
-    height: "4%",
+    height: "50%",
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: COLORS.green,
+    // backgroundColor: "green",
+  },
+  deliveryView: {
+    // paddingVertical: "1%",
+    // top: ".5%",
+    height: "3%",
+    justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: COLORS.yellow,
   },
   deliveryText: {
     fontSize: 18,
@@ -115,11 +119,12 @@ const styles = StyleSheet.create({
   },
   adressView: {
     height: "28%",
-    // backgroundColor: COLORS.dark,
+    justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: COLORS.blue,
   },
   buttonView: {
     height: "6%",
-    marginVertical: "2%",
     justifyContent: "center",
     alignItems: "center",
     // backgroundColor: "black",

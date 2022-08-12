@@ -60,7 +60,7 @@ const AddressCard = ({ item, index, onPress }) => {
             </Text>
           </TouchableOpacity>
         </View>
-        
+
       </Card>
       <TouchableOpacity
         activeOpacity={0.5}
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   cardsContainer: {
     width: WIDTH.screenWidth,
     alignItems: "center",
-    // justifyContent: "center",
+    justifyContent: "center",
     // backgroundColor: COLORS.red,
   },
   cardStyle: {

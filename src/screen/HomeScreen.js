@@ -9,7 +9,7 @@ import {
   Alert,
   BackHandler,
 } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, DrawerActions } from "@react-navigation/native";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
 import { clearCookie } from "../data/Cokkie";
 import { setProducts } from "../data/ProductsData";
@@ -69,10 +69,11 @@ const HomeScreen = ({ navigation }) => {
       });
   }, []);
 
-  const logout = async () => {
-    await clearCookie();
-    dispatch(clear());
-    navigation.navigate("AuthStackScreen", { screen: "LoginScreen" });
+  const logout = () => {
+    navigation.dispatch(DrawerActions.openDrawer());
+    // await clearCookie();
+    // dispatch(clear());
+    // navigation.navigate("AuthStackScreen", { screen: "LoginScreen" });
   };
 
   const goToProductsScreen = (item) => {
@@ -123,7 +124,7 @@ const HomeScreen = ({ navigation }) => {
         title={"HOME"}
         name1={"sort-variant"}
         name2={"cart-outline"}
-        onPress1={logout}
+        onPress1={(logout)}
         onPress2={() => navigation.navigate("CartScreen")}
       />
 
