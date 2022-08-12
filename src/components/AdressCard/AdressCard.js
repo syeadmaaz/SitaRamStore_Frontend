@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { Card } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT, FONT } from "../../constants/theme";
 
-const AddressCard = ({ item, onPress }) => {
+const AddressCard = ({ item, index, onPress }) => {
   return (
     <View style={styles.cardsContainer}>
       <Card style={styles.cardStyle}>
