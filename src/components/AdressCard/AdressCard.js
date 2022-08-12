@@ -60,6 +60,7 @@ const AddressCard = ({ item, index, onPress }) => {
             </Text>
           </TouchableOpacity>
         </View>
+        
       </Card>
       <TouchableOpacity
         activeOpacity={0.5}
