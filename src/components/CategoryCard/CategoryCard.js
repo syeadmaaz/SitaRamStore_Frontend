@@ -16,26 +16,12 @@ const CategoryCard = ({ item, onPress }) => {
           />
           <Text style={styles.fontStyle}>{item.categoryName}</Text>
         </TouchableOpacity>
-        <View style={styles.flexing}>
-           
-          {/* <Icon 
-          name={"edit"} 
-          size={20}
-          color={"black"}
-          />
-           
-          <Icon
-          name={"delete"} 
-          size={20}
-          color={"black"}
-          /> */}
-           
-        </View>
 
       </Card>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   cardsContainer: {

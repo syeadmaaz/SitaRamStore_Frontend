@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -22,6 +22,7 @@ import SearchHeader from "../../components/Header/SearchHeader";
 // import CategoryCard from "../../components/CategoryCard/CategoryCard";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
+import { setProducts } from "../../data/ProductsData";
 
 import axios from "../../../axios.automate";
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -33,7 +34,7 @@ const CategoryUpdate = ({ navigation }) => {
   const [name, setName] = React.useState("");
   const [desc, setDesc] = React.useState("");
 
-  const [category, setCategory] = React.useState(null);
+  const [category, setCategory] = React.useState();
   const [message, setMessage] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -123,13 +124,54 @@ const CategoryUpdate = ({ navigation }) => {
   //   navigation.navigate("EditCategory");
   // }
 
+  // useEffect(() => {
+  //   setLoading(true);
+  //   axios
+  //     .get("getCategory", { params: {} })
+  //     .then((res) => {
+  //       setLoading(false);
+  //       // console.log(res.data.categoryItems);
+  //       if (res.data.success) setCategory(res.data.categoryItems);
+  //     })
+  //     .catch((err) => {
+  //       setLoading(true);
+  //       setError("Connection Failed !!");
+  //       console.log(err);
+  //     });
+  // }, []);
+
+
+  const goToProductsScreen = (item) => {
+    console.log(item.categoryID);
+    // setLoading(true);
+    axios
+      .get("getProduct", {
+        params: {
+          categoryID: item.categoryID,
+        },
+      })
+      .then((res) => {
+        // setLoading(false);
+        if (res.data.success) {
+          console.log(res.data.productItems);
+          setProducts(res.data.productItems);
+
+          navigation.navigate("AdminStackScreen", {
+            screen: "AddProduct",
+          });
+        }
+      })
+      .catch((err) => {
+        // setLoading(false);
+        console.log(err);
+      });
+  };
+
   const renderData = (item) => {
     return (
       <EditCategory
         item={item}
-        onPressNavigate={() => {
-          navigation.navigate("AdminStackScreen", { screen: "ImageUpload" });
-        }}
+        onPressNavigate={()=>goToProductsScreen(item)}
       />
     );
   };
