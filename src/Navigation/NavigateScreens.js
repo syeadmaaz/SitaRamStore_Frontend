@@ -121,13 +121,38 @@ const NavigateScreens = () => {
   return (
     <View style={{ width: "100%", background: "white", height: "100%" }}>
       <DrawerStack.Navigator
-        screenOptions={{ headerShown: false }}
         drawerContent={(props) => <SideBar {...props} />}
+        screenOptions={{
+          headerShown: false,
+          // drawerActiveBackgroundColor: "#aa18ea",
+          // drawerActiveTintColor: "#fff",
+          // drawerLabelStyle: {
+          //   marginLeft: -25,
+          //   fontFamily: "Roboto-Medium",
+          //   fontSize: 15,
+          // },
+        }}
       >
         <DrawerStack.Screen
           name="RootStackScreen"
           component={RootStackScreen}
         />
+        {/* <DrawerStack.Screen
+          name="MainStackScreen"
+          component={MainStackScreen}
+        />
+        // <DrawerStack.Screen
+        //   name="AuthStackScreen"
+        //   component={AuthStackScreen}
+        // />
+        <DrawerStack.Screen
+          name="ProductStackScreen"
+          component={ProductStackScreen}
+        />
+        <DrawerStack.Screen
+          name="AdminStackScreen"
+          component={AdminStackScreen}
+        /> */}
         <DrawerStack.Screen name="AccountScreen" component={AccountScreen} />
       </DrawerStack.Navigator>
     </View>
