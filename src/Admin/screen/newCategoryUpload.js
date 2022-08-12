@@ -27,9 +27,10 @@ const App = () => {
 
   const UploadCategory = () =>{
     if (name && photo){
-      return <View style={{backgroundColor: COLORS.orange, borderRadius: 10}}>
+      return ( 
+        <View style={{backgroundColor: COLORS.orange, borderRadius: 10}}>
         <TouchableOpacity >
-            <Text style={{color: 'white', textAlign:'center', fontSize: 30}}>
+            <Text style={{color: 'white', textAlign:'center', fontSize: 30}} onPress={uploadPhoto}>
             Upload
             </Text>
           </TouchableOpacity>
