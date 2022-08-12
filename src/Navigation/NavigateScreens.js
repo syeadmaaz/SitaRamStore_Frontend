@@ -22,6 +22,7 @@ import MyComponent from "../Admin/screen/NewOrder";
 import CategoryUpdate from "../Admin/screen/CategoryUpdate";
 import newCategoryUpload from '../Admin/screen/newCategoryUpload';
 import ImageUpload from "../Admin/screen/ImageUpload";
+import AddProduct from "../Admin/components/AddProduct";
 
 const RootStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
@@ -92,6 +93,7 @@ function AdminStackScreen() {
       <AdminStack.Screen name="CategoryUpdate" component={CategoryUpdate} />
       <AdminStack.Screen name="newCategoryUpload" component={newCategoryUpload} />
       <AdminStack.Screen name="ImageUpload" component={ImageUpload} />
+      <AdminStack.Screen name="AddProduct" component={AddProduct} />
       
     </AdminStack.Navigator>
   );

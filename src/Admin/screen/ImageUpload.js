@@ -14,7 +14,7 @@ import Header from "../../components/Header/Header";
 import axios from "../../../axios.automate";
 import { COLORS } from "../../constants/theme";
 
-const ImageUpload = ({ navigation }) => {
+const ImageUpload = () => {
   const [photo, setPhoto] = React.useState(null);
   const [name, setName] = React.useState("");
   const [desc, setDesc] = React.useState("");
@@ -27,11 +27,12 @@ const ImageUpload = ({ navigation }) => {
   const [mrp, setMrp] = React.useState("");
 
   const UploadCategory = () => {
-    if (name && desc && mrp && price && photo) {
+    if (name && desc && mrp && price && categoryID && photo) {
       return (
         <View style={{ backgroundColor: COLORS.orange, borderRadius: 10 }}>
           <TouchableOpacity>
-            <Text style={{ color: "white", textAlign: "center", fontSize: 30 }}>
+            <Text style={{ color: "white", textAlign: "center", fontSize: 30 }}
+            onPress={uploadPhoto1}>
               Upload
             </Text>
           </TouchableOpacity>
