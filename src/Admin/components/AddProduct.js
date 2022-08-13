@@ -30,7 +30,7 @@ const AddProduct = ({ navigation }) => {
     console.log(response)
   });
 
-  
+
 
   //   function showToast() {
   //     ToastAndroid.showWithGravityAndOffset(
@@ -72,18 +72,15 @@ const AddProduct = ({ navigation }) => {
       );
     };
 
-    const Footer = () => {
-      return <></>;
-    };
+    // const Footer = () => {
+    //   return <></>;
+    // };
 
   const renderData = (item) => {
     // console.log(item)
     return (
       <EditProduct
         item={item}
-        // onPress={() => {
-        //   dispatch(addToCart(item)), showToast();
-        // }}
       />
     );
   };

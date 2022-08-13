@@ -27,6 +27,7 @@ import EditCategory from "./EditCategory";
 
 const CategoryUpdate = ({ navigation }) => {
   const [category, setCategory] = React.useState();
+  const [refreshFlatlist, setRefreshFlatList] = useState(false);
   const [message, setMessage] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -41,11 +42,7 @@ const CategoryUpdate = ({ navigation }) => {
             onPress={() => navigation.navigate("newCategoryUpload")}
           >
             <Card elevation={27} style={styles.addCard}>
-              <Icon
-                name={"add"}
-                size={70}
-                color={"black"}
-              />
+              <Icon name={"add"} size={70} color={"black"} />
             </Card>
           </TouchableOpacity>
         </View>
@@ -80,11 +77,30 @@ const CategoryUpdate = ({ navigation }) => {
       });
   };
 
+  
+  const deleteCategory = (item) => {
+    // console.log(loginData);
+    setLoading(true);
+    axios
+      .post("/deleteCategory", {
+       categoryID: item.categoryID,
+      })
+      .then((res) => {
+        setLoading(false);
+        console.log(res.data)
+        if (res.data.success) {
+          setCategory(res.data.categoryItems);
+        }
+    })
+      
+    }
+
   const renderData = (item) => {
     return (
       <EditCategory
         item={item}
-        onPressNavigate={()=>goToProductsScreen(item)}
+        onPressNavigate={() => goToProductsScreen(item)}
+        onPressDelete={() => deleteCategory(item)}
       />
     );
   };
@@ -110,9 +126,7 @@ const CategoryUpdate = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
-      <Header
-        title={"Add/Edit Category"}
-      />
+      <Header title={"Add/Edit Category"} />
       <View style={styles.content}>
         {loading ? (
           error ? (
@@ -151,6 +165,7 @@ const CategoryUpdate = ({ navigation }) => {
               scrollEnabled={true}
               ListHeaderComponent={<LowerHeader />}
               ListFooterComponent={<Footer />}
+              extraData={category}
             />
           </>
         )}

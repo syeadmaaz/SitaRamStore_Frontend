@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 const EditProduct = ({ item }) => {
 
   return (
@@ -50,6 +52,15 @@ const EditProduct = ({ item }) => {
           >
             <Text style={styles.btnText}>Add To Cart</Text>
           </TouchableOpacity> */}
+          <View style={styles.flexing}>
+          <TouchableOpacity activeOpacity={0.2}>
+            <FontAwesome name={"edit"} size={25} color={COLORS.orange} />
+          </TouchableOpacity>
+
+          <TouchableOpacity activeOpacity={0.2}>
+            <MaterialIcons name={"delete"} size={25} color={COLORS.orange} />
+          </TouchableOpacity>
+        </View>
         </View>
       </View>
     </View>
@@ -133,6 +144,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "bold",
     color: COLORS.white,
+  },
+  flexing: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 
