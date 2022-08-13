@@ -94,7 +94,7 @@ const SideBar = (props) => {
         <TouchableRipple>
           <View style={styles.darkModeView}>
             <Text style={styles.darkText}>Dark Mode</Text>
-            <Switch style={{ top: -13 }} />
+            <Switch style={{ top: "-5%" }} />
           </View>
         </TouchableRipple>
       </Drawer.Section>
@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
     borderBottomStartRadius: 35,
     borderBottomEndRadius: 35,
     borderColor: COLORS.white,
+    // backgroundColor: COLORS.white
   },
   avatarRightView: {
     marginTop: "1%",
@@ -202,7 +203,7 @@ const styles = StyleSheet.create({
   darkText: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#595959",
+    color: COLORS.gray,
   },
   bottomDrawerSection: {
     marginBottom: "4%",
