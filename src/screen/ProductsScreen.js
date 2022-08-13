@@ -17,7 +17,8 @@ import SearchBar from "../components/SearchBar/SearchBar";
 import ProductCard from "../components/ProductCard/ProductCard";
 import MessageCard from "../components/MessageCard/MessageCard";
 
-const ProductsScreen = ({ navigation }) => {
+const ProductsScreen = ({ navigation, route }) => {
+  // console.log(route.params)
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
 
@@ -36,7 +37,7 @@ const ProductsScreen = ({ navigation }) => {
   }
 
   const renderData = (item) => {
-    // console.log(item)
+    console.log(item)
     return (
       <ProductCard
         item={item}
@@ -51,7 +52,7 @@ const ProductsScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header
-        title={"PRODUCTS"}
+        title={route.params.toUpperCase()}
         name1={"keyboard-backspace"}
         name2={"cart-outline"}
         onPress1={() => navigation.goBack()}

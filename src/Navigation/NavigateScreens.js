@@ -3,6 +3,9 @@ import { View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
+//SideBar
+import SideBar from "../components/SideBar/SideBar";
+
 // App Start
 import SplashScreen from "../screen/SplashScreen";
 import WelcomeScreen from "../screen/WelcomeScreen";
@@ -20,9 +23,8 @@ import AccountScreen from "../screen/AccountScreen";
 import AdminHomescreen from "../Admin/screen/AdminHomescreen";
 import MyComponent from "../Admin/screen/NewOrder";
 import CategoryUpdate from "../Admin/screen/CategoryUpdate";
-import newCategoryUpload from '../Admin/screen/newCategoryUpload';
-import newProductUpload from "../Admin/screen/newProductUpload";
-import AddProduct from "../Admin/components/AddProduct";
+import newCategoryUpload from "../Admin/screen/newCategoryUpload";
+import ImageUpload from "../Admin/screen/ImageUpload";
 
 const RootStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
@@ -79,6 +81,7 @@ function ProductStackScreen() {
     </ProductStack.Navigator>
   );
 }
+
 function AdminStackScreen() {
   return (
     <AdminStack.Navigator
@@ -95,44 +98,63 @@ function AdminStackScreen() {
         name="newCategoryUpload"
         component={newCategoryUpload}
       />
-      <AdminStack.Screen
-        name="newProductUpload"
-        component={newProductUpload}
-      />
-      <AdminStack.Screen name="AddProduct" component={AddProduct} />
+      <AdminStack.Screen name="ImageUpload" component={ImageUpload} />
     </AdminStack.Navigator>
   );
 }
 
-function DrawerStackScreen() {
+function RootStackScreen() {
   return (
-    <DrawerStack.Navigator initialRouteName="HomeScreen">
-      <DrawerStack.Screen name="HomeScreen" component={HomeScreen} />
-      <DrawerStack.Screen name="AccountScreen" component={AccountScreen} />
-      {/* <DrawerStack.Screen name="Notifications" component={NotificationsScreen} /> */}
-    </DrawerStack.Navigator>
+    <RootStack.Navigator screenOptions={{ headerShown: false }}>
+      <RootStack.Screen name="MainStackScreen" component={MainStackScreen} />
+      <RootStack.Screen name="AuthStackScreen" component={AuthStackScreen} />
+      <RootStack.Screen
+        name="ProductStackScreen"
+        component={ProductStackScreen}
+      />
+      <RootStack.Screen name="AdminStackScreen" component={AdminStackScreen} />
+    </RootStack.Navigator>
   );
 }
 
 const NavigateScreens = () => {
   return (
     <View style={{ width: "100%", background: "white", height: "100%" }}>
-      <RootStack.Navigator screenOptions={{ headerShown: false }}>
-        <RootStack.Screen name="MainStackScreen" component={MainStackScreen} />
-        <RootStack.Screen name="AuthStackScreen" component={AuthStackScreen} />
-        <RootStack.Screen
+      <DrawerStack.Navigator
+        drawerContent={(props) => <SideBar {...props} />}
+        screenOptions={{
+          headerShown: false,
+          // drawerActiveBackgroundColor: "#aa18ea",
+          // drawerActiveTintColor: "#fff",
+          // drawerLabelStyle: {
+          //   marginLeft: -25,
+          //   fontFamily: "Roboto-Medium",
+          //   fontSize: 15,
+          // },
+        }}
+      >
+        <DrawerStack.Screen
+          name="RootStackScreen"
+          component={RootStackScreen}
+        />
+        {/* <DrawerStack.Screen
+          name="MainStackScreen"
+          component={MainStackScreen}
+        />
+        // <DrawerStack.Screen
+        //   name="AuthStackScreen"
+        //   component={AuthStackScreen}
+        // />
+        <DrawerStack.Screen
           name="ProductStackScreen"
           component={ProductStackScreen}
         />
-        <RootStack.Screen
+        <DrawerStack.Screen
           name="AdminStackScreen"
           component={AdminStackScreen}
-        />
-        <RootStack.Screen
-          name="DrawerStackScreen"
-          component={DrawerStackScreen}
-        />
-      </RootStack.Navigator>
+        /> */}
+        <DrawerStack.Screen name="AccountScreen" component={AccountScreen} />
+      </DrawerStack.Navigator>
     </View>
   );
 };

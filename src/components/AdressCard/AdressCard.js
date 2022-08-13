@@ -60,17 +60,17 @@ const AddressCard = ({ item, index, onPress }) => {
             </Text>
           </TouchableOpacity>
         </View>
-        
+
       </Card>
       <TouchableOpacity
-        activeOpacity={0.5}
+        activeOpacity={0.3}
         onPress={() => editAddress(item)}
         style={styles.editButton}
       >
         <FontAwesome name="edit" size={20} color="red" bold />
       </TouchableOpacity>
       <TouchableOpacity
-        activeOpacity={0.5}
+        activeOpacity={0.3}
         onPress={() => deleteAddress(item)}
         style={styles.deleteButton}
       >
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   cardsContainer: {
     width: WIDTH.screenWidth,
     alignItems: "center",
-    // justifyContent: "center",
+    justifyContent: "center",
     // backgroundColor: COLORS.red,
   },
   cardStyle: {
@@ -138,13 +138,13 @@ const styles = StyleSheet.create({
     color: COLORS.dark,
   },
   editButton: {
-    top: "12%",
+    top: "14%",
     right: "9%",
     position: "absolute",
     // backgroundColor: "green",
   },
   deleteButton: {
-    top: "30%",
+    top: "32%",
     right: "9%",
     position: "absolute",
   },
