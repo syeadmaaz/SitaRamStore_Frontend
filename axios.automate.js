@@ -8,7 +8,7 @@ const api = axios.create({
   // baseURL: "http://192.168.43.155:5000/",
 
   // Shashwat
-  baseURL: "http://192.168.197.142:5000/",
+  // baseURL: "http://192.168.197.142:5000/",
 });
 
 

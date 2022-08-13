@@ -10,12 +10,12 @@ import { DrawerActions } from "@react-navigation/native";
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
 
-const SettingScreen = ({navigation}) => {
+const ThankYouScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header
-        title={"SETTINGS"}
+        title={"ORDER PLACED"}
         name1={"keyboard-backspace"}
         // name2={"cart-outline"}
         onPress1={() => navigation.goBack()}
@@ -23,7 +23,7 @@ const SettingScreen = ({navigation}) => {
         //   [navigation.navigate("CartScreen"), console.log("CART")];
         // }}
       />
-      <Text>Hi This Is Setting Page</Text>
+      <Text>Hi This Is ThankYou Page</Text>
     </SafeAreaView>
   );
 };
@@ -34,4 +34,4 @@ const styles= StyleSheet.create({
   },
 })
 
-export default SettingScreen;
+export default ThankYouScreen;

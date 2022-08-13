@@ -20,10 +20,19 @@ import { COLORS, FONT, HEIGHT } from "../../constants/theme";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import Entypo from "react-native-vector-icons/Entypo";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+
 
 const SideBar = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+
+  const onToggleSwitch = () => {
+    setIsSwitchOn(!isSwitchOn);
+  };
 
   const logout = async () => {
     await clearCookie();
@@ -81,17 +90,47 @@ const SideBar = (props) => {
           <Ionicons name="settings-outline" size={22} />
           <Text style={styles.itemsText}>Settings</Text>
         </TouchableOpacity>
-        <TouchableRipple>
+        <TouchableOpacity
+          style={styles.drawerItems2}
+          activeOpacity={0.3}
+          onPress={() =>
+            navigation.navigate("ProductStackScreen", {
+              screen: "SupportScreen",
+            })
+          }
+        >
+          <MaterialIcons name="support-agent" size={22} />
+          <Text style={styles.itemsText}>Support</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.drawerItems2}
+          activeOpacity={0.3}
+          onPress={() =>
+            navigation.navigate("ProductStackScreen", {
+              screen: "DeveloperScreen",
+            })
+          }
+        >
+          <FontAwesome5 name="laptop-code" size={18} />
+          <Text style={styles.itemsText}>Developers</Text>
+        </TouchableOpacity>
+        {/* <TouchableRipple>
           <View style={styles.darkModeView}>
             <MaterialCommunityIcons name="theme-light-dark" size={22} />
             <Text style={styles.darkText}>Dark Mode</Text>
-            <Switch style={{ top: "-5%" }} />
+            <Switch
+              style={{ top: "-5%" }}
+              color={COLORS.orange}
+              theme={"dark"}
+              value={isSwitchOn}
+              onValueChange={onToggleSwitch}
+            />
           </View>
-        </TouchableRipple>
+        </TouchableRipple> */}
       </View>
       <View style={styles.bottomDrawerSection}>
         <TouchableOpacity
-          style={styles.drawerItems2}
+          style={styles.signOutView}
           activeOpacity={0.3}
           onPress={logout}
         >
@@ -105,23 +144,25 @@ const SideBar = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexDirection: "column",
     height: "100%",
     width: "100%",
-    flexDirection: "column",
-    // backgroundColor: COLORS.white
+    justifyContent: "center",
+    // backgroundColor: COLORS.yellow
   },
   contentContainerStyle: {
     height: "80%",
     paddingLeft: "6%",
     paddingRight: "6%",
-    marginTop: "6%",
+    top: "2%",
     justifyContent: "center",
     backgroundColor: COLORS.orange,
   },
   drawerContent: {
     flexDirection: "column",
     height: "100%",
+    justifyContent: "center",
+    // backgroundColor: COLORS.red
   },
   userInfoSection: {
     flexDirection: "row",
@@ -140,7 +181,6 @@ const styles = StyleSheet.create({
   avatarRightView: {
     marginTop: "1%",
     marginLeft: "5%",
-    // marginTop: 15,
   },
   separator: {
     width: "100%",
@@ -163,13 +203,12 @@ const styles = StyleSheet.create({
     color: COLORS.white,
   },
   drawerView1: {
-    height: "64%",
-    marginVertical: "3%",
+    height: "65%",
+    justifyContent: "center",
     // backgroundColor: "black",
   },
   drawerView2: {
-    height: "26%",
-    bottom: "8%",
+    bottom: "9%",
     justifyContent: "center",
     marginHorizontal: "6%",
     // backgroundColor: COLORS.blue,
@@ -177,9 +216,8 @@ const styles = StyleSheet.create({
   drawerItems2: {
     flexDirection: "row",
     paddingLeft: "7%",
-    marginBottom: "15%",
-    // bottom: "10%",
-    // backgroundColor: "red",
+    paddingVertical: "6%",
+    // backgroundColor: "green",
   },
   itemsText: {
     fontSize: 16,
@@ -203,12 +241,16 @@ const styles = StyleSheet.create({
   },
   bottomDrawerSection: {
     justifyContent: "center",
-    top: "3%",
-    paddingTop: "5%",
+    paddingVertical: "4%",
     marginHorizontal: "6%",
     borderTopWidth: 1,
     borderTopColor: "#f4f4f4",
     // backgroundColor: COLORS.red,
+  },
+  signOutView: {
+    flexDirection: "row",
+    paddingLeft: "7%",
+    // backgroundColor: "green",
   },
 });
 

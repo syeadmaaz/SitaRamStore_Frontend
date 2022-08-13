@@ -25,6 +25,8 @@ import OrdersScreen from "../screen/OrdersScreen";
 import AddressScreen from "../screen/AddressScreen";
 import NotificationScreen from "../screen/NotificationScreen";
 import SettingScreen from "../screen/SettingScreen";
+import SupportScreen from "../screen/SupportScreen";
+import DeveloperScreen from "../screen/DeveloperScreen";
 
 // Admin Side
 import AdminHomescreen from "../Admin/screen/AdminHomescreen";
@@ -33,6 +35,7 @@ import CategoryUpdate from "../Admin/screen/CategoryUpdate";
 import newCategoryUpload from "../Admin/screen/newCategoryUpload";
 import ImageUpload from "../Admin/screen/ImageUpload";
 import AddProduct from "../Admin/components/AddProduct";
+import ThankYouScreen from "../screen/ThankYouScreen";
 
 const RootStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
@@ -83,14 +86,14 @@ function ProductStackScreen() {
       <ProductStack.Screen name="ProductsScreen" component={ProductsScreen} />
       <ProductStack.Screen name="CartScreen" component={CartScreen} />
       <ProductStack.Screen name="CheckOutScreen" component={CheckOutScreen} />
+      <ProductStack.Screen name="ThankYouScreen" component={ThankYouScreen} />
       <ProductStack.Screen
         name="NotificationScreen"
         component={NotificationScreen}
       />
       <ProductStack.Screen name="SettingScreen" component={SettingScreen} />
-      {/* <ProductStack.Screen name="AddressScreen" component={AddressScreen} /> */}
-      {/* <ProductStack.Screen name="PlaceOrder" component={PlaceOrder} /> */}
-      {/* <ProductStack.Screen name="ThankYou" component={ThankYou} /> */}
+      <ProductStack.Screen name="SupportScreen" component={SupportScreen} />
+      <ProductStack.Screen name="DeveloperScreen" component={DeveloperScreen} />
     </ProductStack.Navigator>
   );
 }

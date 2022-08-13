@@ -16,9 +16,9 @@ const NotificationScreen = ({navigation}) => {
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header
         title={"NOTIFICATIONS"}
-        // name1={"sort-variant"}
+        name1={"keyboard-backspace"}
         // name2={"cart-outline"}
-        // onPress1={() => navigation.dispatch(DrawerActions.openDrawer())}
+        onPress1={() => navigation.goBack()}
         // onPress2={() => {
         //   [navigation.navigate("CartScreen"), console.log("CART")];
         // }}
