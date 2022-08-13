@@ -7,24 +7,23 @@ import {
 import { COLORS } from "../constants/theme";
 import { DrawerActions } from "@react-navigation/native";
 
-
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
 
-const AccountScreen = ({navigation}) => {
+const NotificationScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header
-        title={"ACCOUNT"}
-        name1={"sort-variant"}
+        title={"NOTIFICATIONS"}
+        // name1={"sort-variant"}
         // name2={"cart-outline"}
-        onPress1={() => navigation.dispatch(DrawerActions.openDrawer())}
+        // onPress1={() => navigation.dispatch(DrawerActions.openDrawer())}
         // onPress2={() => {
         //   [navigation.navigate("CartScreen"), console.log("CART")];
         // }}
       />
-      <Text>Hi This Is Account Page</Text>
+      <Text>Hi This Is Notification Page</Text>
     </SafeAreaView>
   );
 };
@@ -35,4 +34,4 @@ const styles= StyleSheet.create({
   },
 })
 
-export default AccountScreen;
+export default NotificationScreen;
