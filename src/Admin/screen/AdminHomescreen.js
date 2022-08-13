@@ -45,8 +45,8 @@ const AdminHomescreen = ({ navigation }) => {
     navigation.navigate("MyComponent");
   }
 
-  // function goToImageUpload() {
-  //   navigation.navigate("ImageUpload");
+  // function goToProductUpload() {
+  //   navigation.navigate("newProductUpload");
   // }
 
   function goToCategoryUpdate() {
@@ -79,7 +79,7 @@ const AdminHomescreen = ({ navigation }) => {
             </TouchableOpacity>
           </Card>
           {/* <Card elevation={4} style={styles.cardStyle}>
-            <TouchableOpacity activeOpacity={0.2} onPress={goToImageUpload}>
+            <TouchableOpacity activeOpacity={0.2} onPress={goToProductUpload}>
               <Text style={styles.txtStyle}>
                 Add/Edit Products to Existing Category
               </Text>

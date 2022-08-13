@@ -2,9 +2,39 @@ import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { Card } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import axios from '../../../axios.automate';
 
-const EditCategory = ({ item, onPressNavigate }) => {
+
+// const goToProductsScreen = (item) => {
+//     console.log(item.categoryID);
+//     axios
+//       .get("getProduct", {
+//         params: {
+//           categoryID: item.categoryID,
+//         },
+//       })
+//       .then((res) => {
+//         if (res.data.success) {
+//           console.log(res.data.productItems);
+//           setProducts(res.data.productItems);
+
+//           navigation.navigate("AdminStackScreen", {
+//             screen: "AddProduct",
+//           });
+//         }
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   };
+
+
+
+
+
+const EditCategory = ({ item, onPressNavigate, onPressDelete }) => {
   return (
     <View style={styles.cardsContainer}>
       <Card style={styles.cardStyle}>
@@ -17,11 +47,11 @@ const EditCategory = ({ item, onPressNavigate }) => {
         </TouchableOpacity>
         <View style={styles.flexing}>
           <TouchableOpacity activeOpacity={0.2}>
-            <Icon name={"edit"} size={25} color={"black"} />
+            <FontAwesome name={"edit"} size={25} color={COLORS.orange} />
           </TouchableOpacity>
 
-          <TouchableOpacity activeOpacity={0.2}>
-            <Icon name={"delete"} size={25} color={"black"} />
+          <TouchableOpacity activeOpacity={0.2} onPress={onPressDelete}>
+            <MaterialIcons name={"delete"} size={25} color={COLORS.orange} />
           </TouchableOpacity>
         </View>
       </Card>
