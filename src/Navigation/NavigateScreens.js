@@ -2,6 +2,9 @@ import React from "react";
 import { View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { COLORS, FONT } from "../constants/theme";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import Feather from "react-native-vector-icons/Feather";
 
 //SideBar
 import SideBar from "../components/SideBar/SideBar";
@@ -18,6 +21,7 @@ import ProductsScreen from "../screen/ProductsScreen";
 import CartScreen from "../screen/CartScreen";
 import CheckOutScreen from "../screen/CheckOutScreen";
 import AccountScreen from "../screen/AccountScreen";
+import OrdersScreen from "../screen/OrdersScreen";
 
 // Admin Side
 import AdminHomescreen from "../Admin/screen/AdminHomescreen";
@@ -25,6 +29,9 @@ import MyComponent from "../Admin/screen/NewOrder";
 import CategoryUpdate from "../Admin/screen/CategoryUpdate";
 import newCategoryUpload from "../Admin/screen/newCategoryUpload";
 import ImageUpload from "../Admin/screen/ImageUpload";
+import AddressScreen from "../screen/AddressScreen";
+import NotificationScreen from "../screen/NotificationScreen";
+import SettingScreen from "../screen/SettingScreen";
 
 const RootStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
@@ -75,9 +82,14 @@ function ProductStackScreen() {
       <ProductStack.Screen name="ProductsScreen" component={ProductsScreen} />
       <ProductStack.Screen name="CartScreen" component={CartScreen} />
       <ProductStack.Screen name="CheckOutScreen" component={CheckOutScreen} />
-      {/* <ProductStack.Screen name="Address" component={AddressScreen} />
-      <ProductStack.Screen name="PlaceOrder" component={PlaceOrder} />
-      <ProductStack.Screen name="ThankYou" component={ThankYou} /> */}
+      <ProductStack.Screen
+        name="NotificationScreen"
+        component={NotificationScreen}
+      />
+      <ProductStack.Screen name="SettingScreen" component={SettingScreen} />
+      {/* <ProductStack.Screen name="AddressScreen" component={AddressScreen} /> */}
+      {/* <ProductStack.Screen name="PlaceOrder" component={PlaceOrder} /> */}
+      {/* <ProductStack.Screen name="ThankYou" component={ThankYou} /> */}
     </ProductStack.Navigator>
   );
 }
@@ -124,36 +136,53 @@ const NavigateScreens = () => {
         drawerContent={(props) => <SideBar {...props} />}
         screenOptions={{
           headerShown: false,
-          // drawerActiveBackgroundColor: "#aa18ea",
-          // drawerActiveTintColor: "#fff",
-          // drawerLabelStyle: {
-          //   marginLeft: -25,
-          //   fontFamily: "Roboto-Medium",
-          //   fontSize: 15,
-          // },
+          drawerActiveBackgroundColor: COLORS.white,
+          drawerActiveTintColor: COLORS.dark,
+          drawerInactiveTintColor: COLORS.white,
+          drawerLabelStyle: {
+            marginLeft: "-12%",
+            fontFamily: FONT.f9,
+            fontSize: 16,
+            fontWeight: "bold",
+          },
         }}
       >
         <DrawerStack.Screen
-          name="RootStackScreen"
+          name="Home"
           component={RootStackScreen}
-        />
-        {/* <DrawerStack.Screen
-          name="MainStackScreen"
-          component={MainStackScreen}
-        />
-        // <DrawerStack.Screen
-        //   name="AuthStackScreen"
-        //   component={AuthStackScreen}
-        // />
-        <DrawerStack.Screen
-          name="ProductStackScreen"
-          component={ProductStackScreen}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="home-outline" size={22} color={color} />
+            ),
+          }}
         />
         <DrawerStack.Screen
-          name="AdminStackScreen"
-          component={AdminStackScreen}
-        /> */}
-        <DrawerStack.Screen name="AccountScreen" component={AccountScreen} />
+          name="Account"
+          component={AccountScreen}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="person-outline" size={22} color={color} />
+            ),
+          }}
+        />
+        <DrawerStack.Screen
+          name="Orders"
+          component={OrdersScreen}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Feather name="shopping-bag" size={22} color={color} />
+            ),
+          }}
+        />
+        <DrawerStack.Screen
+          name="Address"
+          component={AddressScreen}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Ionicons name="location-outline" size={22} color={color} />
+            ),
+          }}
+        />
       </DrawerStack.Navigator>
     </View>
   );

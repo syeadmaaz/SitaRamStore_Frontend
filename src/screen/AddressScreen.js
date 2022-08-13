@@ -7,16 +7,15 @@ import {
 import { COLORS } from "../constants/theme";
 import { DrawerActions } from "@react-navigation/native";
 
-
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
 
-const AccountScreen = ({navigation}) => {
+const AddressScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header
-        title={"ACCOUNT"}
+        title={"ADDRESS"}
         name1={"sort-variant"}
         // name2={"cart-outline"}
         onPress1={() => navigation.dispatch(DrawerActions.openDrawer())}
@@ -24,7 +23,7 @@ const AccountScreen = ({navigation}) => {
         //   [navigation.navigate("CartScreen"), console.log("CART")];
         // }}
       />
-      <Text>Hi This Is Account Page</Text>
+      <Text>Hi This Is Address Page</Text>
     </SafeAreaView>
   );
 };
@@ -35,4 +34,4 @@ const styles= StyleSheet.create({
   },
 })
 
-export default AccountScreen;
+export default AddressScreen;

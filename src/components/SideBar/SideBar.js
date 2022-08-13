@@ -1,12 +1,14 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
+import {
+  DrawerContentScrollView,
+  DrawerItemList,
+} from "@react-navigation/drawer";
 import {
   Avatar,
   Title,
   Caption,
-  Drawer,
   Text,
   TouchableRipple,
   Switch,
@@ -17,7 +19,7 @@ import { clear } from "../../redux/features/cart/cartSlice";
 import { COLORS, FONT, HEIGHT } from "../../constants/theme";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const SideBar = (props) => {
   const dispatch = useDispatch();
@@ -48,68 +50,55 @@ const SideBar = (props) => {
             </View>
           </View>
           <View style={styles.separator}></View>
-          <Drawer.Section style={styles.drawerView1}>
-            <DrawerItem
-              labelStyle={styles.drawerItems1}
-              label="Home"
-              onPress={() => {
-                props.navigation.navigate("HomeScreen");
-              }}
-            />
-            <DrawerItem
-              labelStyle={styles.drawerItems1}
-              label="Account"
-              onPress={() => {
-                props.navigation.navigate("AccountScreen");
-              }}
-            />
-            <DrawerItem
-              labelStyle={styles.drawerItems1}
-              label="Orders"
-              onPress={() => {
-                // props.navigation.navigate("OrdersScreen");
-                console.log("ORDERS SCREEN");
-              }}
-            />
-            <DrawerItem
-              labelStyle={styles.drawerItems1}
-              label="Address"
-              onPress={() => {
-                // props.navigation.navigate("AddressScreen");
-                console.log("ADDRESS SCREEN");
-              }}
-            />
-          </Drawer.Section>
+          <View style={styles.drawerView1}>
+            <DrawerItemList {...props} />
+          </View>
         </View>
       </DrawerContentScrollView>
-      <Drawer.Section title="Preferences" style={styles.drawerView2}>
-        <DrawerItem
-          labelStyle={styles.drawerItems2}
-          label="Settings"
-          onPress={() => {
-            // props.navigation.navigate("SettingsScreen");
-            console.log("SETTINGS SCREEN");
-          }}
-        />
+      <View style={styles.drawerView2}>
+        <TouchableOpacity
+          style={styles.drawerItems2}
+          activeOpacity={0.3}
+          // onPress={goToNotification}
+          onPress={() =>
+            navigation.navigate("ProductStackScreen", {
+              screen: "NotificationScreen",
+            })
+          }
+        >
+          <Ionicons name="notifications-outline" size={22} />
+          <Text style={styles.itemsText}>Notifications</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.drawerItems2}
+          activeOpacity={0.3}
+          onPress={() =>
+            navigation.navigate("ProductStackScreen", {
+              screen: "SettingScreen",
+            })
+          }
+        >
+          <Ionicons name="settings-outline" size={22} />
+          <Text style={styles.itemsText}>Settings</Text>
+        </TouchableOpacity>
         <TouchableRipple>
           <View style={styles.darkModeView}>
+            <MaterialCommunityIcons name="theme-light-dark" size={22} />
             <Text style={styles.darkText}>Dark Mode</Text>
-            <Switch style={{ top: -13 }} />
+            <Switch style={{ top: "-5%" }} />
           </View>
         </TouchableRipple>
-      </Drawer.Section>
-      <Drawer.Section style={styles.bottomDrawerSection}>
-        <DrawerItem
-          label="Sign Out"
-          labelStyle={{
-            fontSize: 16,
-            fontWeight: "bold",
-            fontFamily: FONT.f9,
-            color: COLORS.gray,
-          }}
+      </View>
+      <View style={styles.bottomDrawerSection}>
+        <TouchableOpacity
+          style={styles.drawerItems2}
+          activeOpacity={0.3}
           onPress={logout}
-        ></DrawerItem>
-      </Drawer.Section>
+        >
+          <MaterialCommunityIcons name="logout-variant" size={22} />
+          <Text style={styles.itemsText}>Sign Out</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -123,7 +112,7 @@ const styles = StyleSheet.create({
     // backgroundColor: COLORS.white
   },
   contentContainerStyle: {
-    height: "73%",
+    height: "80%",
     paddingLeft: "6%",
     paddingRight: "6%",
     marginTop: "6%",
@@ -146,6 +135,7 @@ const styles = StyleSheet.create({
     borderBottomStartRadius: 35,
     borderBottomEndRadius: 35,
     borderColor: COLORS.white,
+    // backgroundColor: COLORS.white
   },
   avatarRightView: {
     marginTop: "1%",
@@ -154,6 +144,7 @@ const styles = StyleSheet.create({
   },
   separator: {
     width: "100%",
+    top: "2%",
     marginTop: "6%",
     marginBottom: "6%",
     borderBottomWidth: 1,
@@ -172,26 +163,30 @@ const styles = StyleSheet.create({
     color: COLORS.white,
   },
   drawerView1: {
-    // backgroundColor: "red",
+    height: "64%",
+    marginVertical: "3%",
+    // backgroundColor: "black",
   },
   drawerView2: {
-    bottom: "16%",
+    height: "26%",
+    bottom: "8%",
+    justifyContent: "center",
     marginHorizontal: "6%",
-    // backgroundColor: COLORS.green,
-  },
-  drawerItems1: {
-    fontSize: 16,
-    fontFamily: FONT.f9,
-    color: COLORS.white,
-    fontWeight: "bold",
+    // backgroundColor: COLORS.blue,
   },
   drawerItems2: {
-    marginBottom: "5%",
+    flexDirection: "row",
+    paddingLeft: "7%",
+    marginBottom: "15%",
+    // bottom: "10%",
+    // backgroundColor: "red",
+  },
+  itemsText: {
     fontSize: 16,
     fontFamily: FONT.f9,
-    color: COLORS.gray,
     fontWeight: "bold",
-    // backgroundColor: "red",
+    marginLeft: "6%",
+    color: COLORS.gray,
   },
   darkModeView: {
     flexDirection: "row",
@@ -201,14 +196,18 @@ const styles = StyleSheet.create({
   },
   darkText: {
     fontSize: 16,
+    fontFamily: FONT.f9,
     fontWeight: "bold",
-    color: "#595959",
+    marginLeft: "-23%",
+    color: COLORS.gray,
   },
   bottomDrawerSection: {
-    marginBottom: "4%",
+    justifyContent: "center",
+    top: "3%",
+    paddingTop: "5%",
     marginHorizontal: "6%",
-    borderTopColor: "#f4f4f4",
     borderTopWidth: 1,
+    borderTopColor: "#f4f4f4",
     // backgroundColor: COLORS.red,
   },
 });

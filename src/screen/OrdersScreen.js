@@ -1,22 +1,17 @@
 import React from "react";
-import {
-  Text,
-  SafeAreaView,
-  StyleSheet
-} from "react-native";
-import { COLORS } from "../constants/theme";
+import { Text, SafeAreaView, StyleSheet } from "react-native";
+import { COLORS, HEIGHT } from "../constants/theme";
 import { DrawerActions } from "@react-navigation/native";
-
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
 
-const AccountScreen = ({navigation}) => {
+const OrdersScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header
-        title={"ACCOUNT"}
+        title={"ORDERS"}
         name1={"sort-variant"}
         // name2={"cart-outline"}
         onPress1={() => navigation.dispatch(DrawerActions.openDrawer())}
@@ -24,15 +19,15 @@ const AccountScreen = ({navigation}) => {
         //   [navigation.navigate("CartScreen"), console.log("CART")];
         // }}
       />
-      <Text>Hi This Is Account Page</Text>
+      <Text>Hi This Is Orders Page</Text>
     </SafeAreaView>
   );
 };
 
-const styles= StyleSheet.create({
-  container :{
-    alignItems: "center"
+const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
   },
-})
+});
 
-export default AccountScreen;
+export default OrdersScreen;
