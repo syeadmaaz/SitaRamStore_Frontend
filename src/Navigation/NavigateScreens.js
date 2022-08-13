@@ -22,6 +22,9 @@ import CartScreen from "../screen/CartScreen";
 import CheckOutScreen from "../screen/CheckOutScreen";
 import AccountScreen from "../screen/AccountScreen";
 import OrdersScreen from "../screen/OrdersScreen";
+import AddressScreen from "../screen/AddressScreen";
+import NotificationScreen from "../screen/NotificationScreen";
+import SettingScreen from "../screen/SettingScreen";
 
 // Admin Side
 import AdminHomescreen from "../Admin/screen/AdminHomescreen";
@@ -29,9 +32,7 @@ import MyComponent from "../Admin/screen/NewOrder";
 import CategoryUpdate from "../Admin/screen/CategoryUpdate";
 import newCategoryUpload from "../Admin/screen/newCategoryUpload";
 import ImageUpload from "../Admin/screen/ImageUpload";
-import AddressScreen from "../screen/AddressScreen";
-import NotificationScreen from "../screen/NotificationScreen";
-import SettingScreen from "../screen/SettingScreen";
+import AddProduct from "../Admin/components/AddProduct";
 
 const RootStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
@@ -111,6 +112,7 @@ function AdminStackScreen() {
         component={newCategoryUpload}
       />
       <AdminStack.Screen name="ImageUpload" component={ImageUpload} />
+      <AdminStack.Screen name="AddProduct" component={AddProduct} />
     </AdminStack.Navigator>
   );
 }
