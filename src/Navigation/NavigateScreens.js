@@ -33,6 +33,7 @@ import AdminHomescreen from "../Admin/screen/AdminHomescreen";
 import MyComponent from "../Admin/screen/NewOrder";
 import CategoryUpdate from "../Admin/screen/CategoryUpdate";
 import newCategoryUpload from "../Admin/screen/newCategoryUpload";
+import newProductUpload from "../Admin/screen/newProductUpload"
 import ImageUpload from "../Admin/screen/ImageUpload";
 import AddProduct from "../Admin/components/AddProduct";
 import ThankYouScreen from "../screen/ThankYouScreen";
@@ -114,7 +115,11 @@ function AdminStackScreen() {
         name="newCategoryUpload"
         component={newCategoryUpload}
       />
-      <AdminStack.Screen name="ImageUpload" component={ImageUpload} />
+      <AdminStack.Screen
+        name="newProductUpload"
+        component={newProductUpload}
+      />
+      {/* <AdminStack.Screen name="ImageUpload" component={ImageUpload} /> */}
       <AdminStack.Screen name="AddProduct" component={AddProduct} />
     </AdminStack.Navigator>
   );
