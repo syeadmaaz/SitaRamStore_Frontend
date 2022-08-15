@@ -124,7 +124,7 @@ const HomeScreen = ({ navigation }) => {
         title={"HOME"}
         name1={"sort-variant"}
         name2={"cart-outline"}
-        onPress1={(sideBar)}
+        onPress1={sideBar}
         onPress2={() => navigation.navigate("CartScreen")}
       />
 

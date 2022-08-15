@@ -36,16 +36,16 @@ const CategoryUpdate = ({ navigation }) => {
     return (
       <>
         <SearchBar />
-        <View>
-          <TouchableOpacity
-            activeOpacity={0.1}
-            onPress={() => navigation.navigate("newCategoryUpload")}
-          >
-            <Card elevation={27} style={styles.addCard}>
-              <Icon name={"add"} size={70} color={"black"} />
-            </Card>
-          </TouchableOpacity>
-        </View>
+          <Card elevation={27} style={styles.addCard}>
+            <TouchableOpacity
+              activeOpacity={0.3}
+              onPress={() => navigation.navigate("newCategoryUpload")}
+            >
+              <View style={styles.addView}>
+                <Icon name={"add"} size={60} color={"black"} />
+              </View>
+            </TouchableOpacity>
+          </Card>
       </>
     );
   };
@@ -77,23 +77,21 @@ const CategoryUpdate = ({ navigation }) => {
       });
   };
 
-  
   const deleteCategory = (item) => {
     // console.log(loginData);
     setLoading(true);
     axios
       .post("/deleteCategory", {
-       categoryID: item.categoryID,
+        categoryID: item.categoryID,
       })
       .then((res) => {
         setLoading(false);
-        console.log(res.data)
+        console.log(res.data);
         if (res.data.success) {
           setCategory(res.data.categoryItems);
         }
-    })
-      
-    }
+      });
+  };
 
   const renderData = (item) => {
     return (
@@ -182,11 +180,20 @@ const styles = StyleSheet.create({
     // backgroundColor: COLORS.orange,
   },
   addCard: {
+    width: WIDTH.productCardWidth,
+    height: HEIGHT.addButton,
     alignItems: "center",
     justifyContent: "center",
-    // width: WIDTH.screenWidth,
     marginHorizontal: "5%",
     marginTop: "2%",
+    // backgroundColor: COLORS.red
+  },
+  addView: {
+    width: WIDTH.productCardWidth,
+    height: HEIGHT.addButton,
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    // backgroundColor: COLORS.green
   },
   categoryText: {
     fontSize: 25,
@@ -201,11 +208,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     // backgroundColor: COLORS.white,
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
   uploadBtnContainer: {
     height: 125,

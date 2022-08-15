@@ -16,7 +16,6 @@ import { COLORS } from "../../constants/theme";
 import AppStatusBar from "../../components/AppStatusBar/AppStatusBar";
 import Header from "../../components/Header/Header";
 
-
 const AdminHomescreen = ({ navigation }) => {
   useFocusEffect(
     React.useCallback(() => {
@@ -59,33 +58,36 @@ const AdminHomescreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView >
+    <SafeAreaView>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header title={"ADMIN HOME"} name2={"logout"} onPress2={logout} />
-      <ScrollView >
-        <View style={styles.deco}> 
-        <Card elevation={4} style={styles.crdStyling}>
-          <Card elevation={4} style={styles.cardStyle}>
-            <TouchableOpacity activeOpacity={0.2} onPress={goToMyComponent}>
-              <Text style={styles.txtStyle}>New Order</Text>
-            </TouchableOpacity>
-          </Card>
-          <Card elevation={4} style={styles.cardStyle}>
-            <Text style={styles.txtStyle}>Order Status</Text>
-          </Card>
-          <Card elevation={4} style={styles.cardStyle}>
-            <TouchableOpacity activeOpacity={0.2} onPress={goToCategoryUpdate}>
-              <Text style={styles.txtStyle}>Add/Edit Category</Text>
-            </TouchableOpacity>
-          </Card>
-          {/* <Card elevation={4} style={styles.cardStyle}>
+      <ScrollView>
+        <View style={styles.deco}>
+          <Card elevation={4} style={styles.crdStyling}>
+            <Card elevation={4} style={styles.cardStyle}>
+              <TouchableOpacity activeOpacity={0.2} onPress={goToMyComponent}>
+                <Text style={styles.txtStyle}>New Order</Text>
+              </TouchableOpacity>
+            </Card>
+            <Card elevation={4} style={styles.cardStyle}>
+              <Text style={styles.txtStyle}>Order Status</Text>
+            </Card>
+            <Card elevation={4} style={styles.cardStyle}>
+              <TouchableOpacity
+                activeOpacity={0.2}
+                onPress={goToCategoryUpdate}
+              >
+                <Text style={styles.txtStyle}>Add/Edit Category</Text>
+              </TouchableOpacity>
+            </Card>
+            {/* <Card elevation={4} style={styles.cardStyle}>
             <TouchableOpacity activeOpacity={0.2} onPress={goToProductUpload}>
               <Text style={styles.txtStyle}>
                 Add/Edit Products to Existing Category
               </Text>
             </TouchableOpacity>
           </Card> */}
-        </Card>
+          </Card>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -93,7 +95,7 @@ const AdminHomescreen = ({ navigation }) => {
 };
 const styles = StyleSheet.create({
   deco: {
-    padding: '3%'
+    padding: "3%",
   },
   iconStyle: {
     alignItems: "flex-end",

@@ -4,8 +4,7 @@ import { Card } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import axios from '../../../axios.automate';
-
+import axios from "../../../axios.automate";
 
 // const goToProductsScreen = (item) => {
 //     console.log(item.categoryID);
@@ -29,10 +28,6 @@ import axios from '../../../axios.automate';
 //         console.log(err);
 //       });
 //   };
-
-
-
-
 
 const EditCategory = ({ item, onPressNavigate, onPressDelete }) => {
   return (
@@ -71,11 +66,10 @@ const styles = StyleSheet.create({
 
   cardStyle: {
     flexDirection: "column",
-    height: HEIGHT.cardHeight + 7,
+    height: HEIGHT.adminCategoryCardHeight,
     width: WIDTH.cardWidth,
     elevation: 10,
-    padding: 10,
-    marginVertical: 15,
+    marginVertical: "9%",
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
@@ -86,26 +80,26 @@ const styles = StyleSheet.create({
     display: "flex",
     width: WIDTH.imageWidth,
     height: HEIGHT.imageHeight,
-    // width: '100%',
-    // height: '50%',
     borderRadius: 10,
-    margin: "4%",
+    top: "10%",
+    marginHorizontal: "4%",
     alignItems: "center",
     // backgroundColor: "orange",
   },
-
   fontStyle: {
     fontSize: 15,
     fontWeight: "bold",
-    width: WIDTH.imageWidth + 5,
-    height: WIDTH.cardWidth / 3 - 2,
-    paddingTop: "5%",
+    height: HEIGHT.imageHeight / 2.5,
+    top: "15%",
     paddingLeft: "4%",
     // backgroundColor: "orange"
   },
   flexing: {
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingLeft: "3%",
+    top: "17%",
+    // backgroundColor: "grey"
   },
 });
 

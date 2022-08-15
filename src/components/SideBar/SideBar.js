@@ -21,9 +21,7 @@ import { COLORS, FONT, HEIGHT } from "../../constants/theme";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Entypo from "react-native-vector-icons/Entypo";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-
 
 const SideBar = (props) => {
   const dispatch = useDispatch();
