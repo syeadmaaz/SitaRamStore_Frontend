@@ -16,40 +16,38 @@ import { COLORS, WIDTH } from "../../constants/theme";
 import Header from "../../components/Header/Header";
 
 const App = () => {
-
   const [photo, setPhoto] = React.useState(null);
   const [name, setName] = React.useState("");
   const [desc, setDesc] = React.useState("");
   const [category, setCategory] = React.useState(null);
   const [message, setMessage] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
-  
 
-  const UploadCategory = () =>{
-    if (name && photo){
-      return ( 
-        <View style={{backgroundColor: COLORS.orange, borderRadius: 10}}>
-        <TouchableOpacity >
-            <Text style={{color: 'white', textAlign:'center', fontSize: 30}} onPress={uploadPhoto}>
-            Upload
-            </Text>
-          </TouchableOpacity>
-        </View>
-      );
-    } 
-    else {
+  const UploadCategory = () => {
+    if (name && photo) {
       return (
-        <View style={{ backgroundColor: "silver", borderRadius: 10 }}>
-          <TouchableOpacity disabled={true}>
+        <View style={{ backgroundColor: COLORS.orange, borderRadius: 10 }}>
+          <TouchableOpacity>
             <Text
-              style={{ color: "black", textAlign: "center", fontSize: 30 }}
+              style={{ color: "white", textAlign: "center", fontSize: 30 }}
+              onPress={uploadPhoto}
             >
               Upload
             </Text>
           </TouchableOpacity>
         </View>
       );
-      }
+    } else {
+      return (
+        <View style={{ backgroundColor: "silver", borderRadius: 10 }}>
+          <TouchableOpacity disabled={true}>
+            <Text style={{ color: "black", textAlign: "center", fontSize: 30 }}>
+              Upload
+            </Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
   };
 
   React.useEffect(() => {
@@ -106,7 +104,6 @@ const App = () => {
     }
   };
 
-  
   const openImageLibrary = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -126,29 +123,30 @@ const App = () => {
     }
   };
 
-  return ( 
+  return (
+    <View style={styles.container}>
+      <Header title={"ADD CATEGORY"} />
 
-    <View style={styles.container}>   
-        <Header title={"ADD CATEGORY"} />
-  
       <View style={styles.styling}>
-      <View style={styles.align}>
-      <TextInput style={styles.deco}
-        placeholder={"Name*"}
-        placeholderTextColor={"grey"}
-        keyboardType="default"
-        autoCapitalize={"none"}
-        value={name}
-        onChangeText={(text) => setName(text)}
-      />
-      </View>
-      <View style={styles.align}>
-      <TextInput style={styles.deco}
-        placeholder={"Description"}
-        value={desc}
-        onChangeText={(text) => setDesc(text)}
-      />
-      </View>
+        <View style={styles.align}>
+          <TextInput
+            style={styles.deco}
+            placeholder={"Name*"}
+            placeholderTextColor={"grey"}
+            keyboardType="default"
+            autoCapitalize={"none"}
+            value={name}
+            onChangeText={(text) => setName(text)}
+          />
+        </View>
+        <View style={styles.align}>
+          <TextInput
+            style={styles.deco}
+            placeholder={"Description"}
+            value={desc}
+            onChangeText={(text) => setDesc(text)}
+          />
+        </View>
       </View>
       <View style={styles.alignImage}>
         <TouchableOpacity
@@ -166,9 +164,7 @@ const App = () => {
         </TouchableOpacity>
 
         {/* <Text style={styles.skip}>Skip</Text> */}
-        
-           
-          
+
         {/* {photo && name ? (
           <Text
             onPress={uploadPhoto}
@@ -182,22 +178,21 @@ const App = () => {
         ) : null} */}
       </View>
       <View style={styles.alignbtn}>
-           <UploadCategory />
+        <UploadCategory />
       </View>
     </View>
-   
   );
 };
 
 const styles = StyleSheet.create({
-    styling: {
-      width: WIDTH.screenWidth,
-        padding: 5,
-    },
-    align: {
-        padding: 5,
-    },
-    deco: {
+  styling: {
+    width: WIDTH.screenWidth,
+    padding: 5,
+  },
+  align: {
+    padding: 5,
+  },
+  deco: {
     width: "100%",
     borderWidth: 1.5,
     fontWeight: "bold",
@@ -207,24 +202,23 @@ const styles = StyleSheet.create({
     padding: 15,
     marginTop: 20,
     color: "black",
-    },
+  },
   container: {
     // flex: 1,
-    marginTop: '6%',
+    marginTop: "6%",
     // justifyContent: "center",
     // alignItems: "center",
-
   },
   uploadBtnContainer: {
     height: 125,
     width: 125,
     borderRadius: 125 / 6,
-    justifyContent: 'center',
+    justifyContent: "center",
     // alignItems: "center",
     borderStyle: "dashed",
     borderWidth: 1.5,
     overflow: "hidden",
-    borderColor: 'orange',
+    borderColor: "orange",
   },
   uploadBtn: {
     textAlign: "center",
@@ -233,22 +227,22 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   alignbtn: {
-    padding: '5%',
+    padding: "5%",
   },
   alignImage: {
     // justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '4%'
+    alignItems: "center",
+    marginTop: "4%",
   },
-//   skip: {
-//     textAlign: "center",
-//     padding: 10,
-//     fontSize: 16,
-//     fontWeight: "bold",
-//     textTransform: "uppercase",
-//     letterSpacing: 2,
-//     opacity: 0.5,
-//   },
+  //   skip: {
+  //     textAlign: "center",
+  //     padding: 10,
+  //     fontSize: 16,
+  //     fontWeight: "bold",
+  //     textTransform: "uppercase",
+  //     letterSpacing: 2,
+  //     opacity: 0.5,
+  //   },
 });
 
 export default App;

@@ -186,6 +186,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginHorizontal: "5%",
     marginTop: "2%",
+    borderRadius: 10,
     // backgroundColor: COLORS.red
   },
   addView: {

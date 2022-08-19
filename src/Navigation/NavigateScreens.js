@@ -23,6 +23,7 @@ import CheckOutScreen from "../screen/CheckOutScreen";
 import AccountScreen from "../screen/AccountScreen";
 import OrdersScreen from "../screen/OrdersScreen";
 import AddressScreen from "../screen/AddressScreen";
+import AddAddressScreen from "../screen/AddAddressScreen";
 import NotificationScreen from "../screen/NotificationScreen";
 import SettingScreen from "../screen/SettingScreen";
 import SupportScreen from "../screen/SupportScreen";
@@ -33,7 +34,7 @@ import AdminHomescreen from "../Admin/screen/AdminHomescreen";
 import MyComponent from "../Admin/screen/NewOrder";
 import CategoryUpdate from "../Admin/screen/CategoryUpdate";
 import newCategoryUpload from "../Admin/screen/newCategoryUpload";
-import newProductUpload from "../Admin/screen/newProductUpload"
+import newProductUpload from "../Admin/screen/newProductUpload";
 import AddProduct from "../Admin/components/AddProduct";
 import ThankYouScreen from "../screen/ThankYouScreen";
 
@@ -41,6 +42,7 @@ const RootStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
 const ProductStack = createNativeStackNavigator();
 const AuthStack = createNativeStackNavigator();
+const AddressStack = createNativeStackNavigator();
 const AdminStack = createNativeStackNavigator();
 const DrawerStack = createDrawerNavigator();
 
@@ -98,6 +100,21 @@ function ProductStackScreen() {
   );
 }
 
+function AddressStackScreen() {
+  return (
+    <AddressStack.Navigator
+      initialRouteName="AddressScreen"
+      screenOptions={{ 
+        headerShown: false, 
+        animationEnabled: false 
+      }}
+    >
+      <AddressStack.Screen name="AddressScreen" component={AddressScreen}/>
+      <AddressStack.Screen name="AddAddressScreen" component={AddAddressScreen}/>
+    </AddressStack.Navigator>
+  );
+}
+
 function AdminStackScreen() {
   return (
     <AdminStack.Navigator
@@ -114,10 +131,7 @@ function AdminStackScreen() {
         name="newCategoryUpload"
         component={newCategoryUpload}
       />
-      <AdminStack.Screen
-        name="newProductUpload"
-        component={newProductUpload}
-      />
+      <AdminStack.Screen name="newProductUpload" component={newProductUpload} />
       <AdminStack.Screen name="AddProduct" component={AddProduct} />
     </AdminStack.Navigator>
   );
@@ -184,7 +198,7 @@ const NavigateScreens = () => {
         />
         <DrawerStack.Screen
           name="Address"
-          component={AddressScreen}
+          component={AddressStackScreen}
           options={{
             drawerIcon: ({ color }) => (
               <Ionicons name="location-outline" size={22} color={color} />

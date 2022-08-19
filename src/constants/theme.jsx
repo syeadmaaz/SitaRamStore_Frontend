@@ -45,6 +45,7 @@ export const WIDTH = {
 
 export const HEIGHT = {
   screenHeight: height,
+  headerHeight: height / 14,
   cardHeight: height / 4,
   adminCategoryCardHeight: height / 3.5,
   productCardHeight: height / 5,

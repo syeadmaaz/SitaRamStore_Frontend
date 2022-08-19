@@ -9,8 +9,13 @@ import { DrawerActions } from "@react-navigation/native";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
+import AddButton from "../components/AddButton/AddButton";
 
 const AddressScreen = ({navigation}) => {
+  function add(){
+    navigation.navigate("AddAddressScreen");
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
@@ -23,7 +28,8 @@ const AddressScreen = ({navigation}) => {
         //   [navigation.navigate("CartScreen"), console.log("CART")];
         // }}
       />
-      <Text>Hi This Is Address Page</Text>
+      {/* <Text>Hi This Is Address Page</Text> */}
+      <AddButton onPress={add}/>
     </SafeAreaView>
   );
 };

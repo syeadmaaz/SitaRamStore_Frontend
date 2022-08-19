@@ -13,7 +13,7 @@ const SearchHeader = () => {
   return (
     <View style={styles.lowerHeader}>
       <View style={{ flex: 1 }}>
-        <Text style={styles.headerTitle}>Ready To Buy The Quality</Text>
+        <Text style={styles.headerTitle}>Ready To Buy The Qulity</Text>
         <Text style={styles.headerTitle}>Products</Text>
       </View>
 
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     maxWidth: WIDTH.screenWidth,
     top: "25%",
     height: HEIGHT.screenHeight / 13,
-    marginHorizontal: "5%",
+    marginHorizontal: "4%",
     // backgroundColor: COLORS.dark,
   },
 

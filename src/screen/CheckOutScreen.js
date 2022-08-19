@@ -84,7 +84,7 @@ const CheckOutScreen = ({ navigation }) => {
         )}
       </View>
       <View style={styles.buttonView}>
-        <Button />
+        <Button title="PLACE ORDER"/>
       </View>
     </SafeAreaView>
   );

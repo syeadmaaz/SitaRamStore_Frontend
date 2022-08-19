@@ -2,11 +2,11 @@ import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { COLORS, HEIGHT, WIDTH } from "../../constants/theme";
 
-const Button = ({ onPress }) => {
+const Button = ({onPress, title}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity activeOpacity={0.5} style={styles.button} onPress={onPress}>
-        <Text style={styles.btnText}>PLACE ORDER</Text>
+        <Text style={styles.btnText}>{title}</Text>
       </TouchableOpacity>
     </View>
   );
