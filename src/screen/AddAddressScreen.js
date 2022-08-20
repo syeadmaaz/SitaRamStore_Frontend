@@ -1,10 +1,16 @@
 import { React, useState } from "react";
-import { View, Text, SafeAreaView, StyleSheet, ScrollView } from "react-native";
-// import Checkbox from 'expo-checkbox';
-// import CheckBox from "@react-native-community/checkbox";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
+import { Checkbox } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
 import Button from "../components/Button/Button";
-
 import TextField from "../components/TextField/TextField";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
@@ -20,12 +26,15 @@ const AddAddressScreen = ({ navigation }) => {
     landmark: null,
     pinCode: null,
     mobile: null,
-    default: null,
+    default: false,
   });
   const [isSelected, setSelected] = useState(false);
 
   const add = () => {
     let temp = { ...addressData };
+    if(isSelected){
+        temp.default = true;
+    }
     console.log(temp);
   };
 
@@ -52,79 +61,103 @@ const AddAddressScreen = ({ navigation }) => {
         //   [navigation.navigate("CartScreen"), console.log("CART")];
         // }}
       />
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        enabled
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <ScrollView
+          contentContainerStyle={styles.formView}
+          showsVerticalScrollIndicator={true}
+        >
+          <TextField
+            placeholder={"Address Line 1 *"}
+            keyType={"default"}
+            title={"address1"}
+            addressData={addressData.address1}
+            titleColor={COLORS.dark}
+            textColor={COLORS.dark}
+            onPress={textFieldHandler}
+          />
+          <TextField
+            placeholder={"Address Line 2"}
+            keyType={"default"}
+            title={"address2"}
+            addressData={addressData.address2}
+            titleColor={COLORS.dark}
+            textColor={COLORS.dark}
+            onPress={textFieldHandler}
+          />
+          <TextField
+            placeholder={"City *"}
+            keyType={"default"}
+            title={"city"}
+            addressData={addressData.city}
+            titleColor={COLORS.dark}
+            textColor={COLORS.dark}
+            onPress={textFieldHandler}
+          />
+          <TextField
+            placeholder={"District *"}
+            keyType={"default"}
+            title={"district"}
+            addressData={addressData.district}
+            titleColor={COLORS.dark}
+            textColor={COLORS.dark}
+            onPress={textFieldHandler}
+          />
+          <TextField
+            placeholder={"State *"}
+            keyType={"default"}
+            title={"state"}
+            addressData={addressData.state}
+            titleColor={COLORS.dark}
+            textColor={COLORS.dark}
+            onPress={textFieldHandler}
+          />
+          <TextField
+            placeholder={"Landmark *"}
+            keyType={"default"}
+            title={"landmark"}
+            addressData={addressData.landmark}
+            titleColor={COLORS.dark}
+            textColor={COLORS.dark}
+            onPress={textFieldHandler}
+          />
+          <TextField
+            placeholder={"PinCode *"}
+            keyType={"numeric"}
+            title={"pinCode"}
+            addressData={addressData.pinCode}
+            titleColor={COLORS.dark}
+            textColor={COLORS.dark}
+            onPress={textFieldHandler}
+          />
+          <TextField
+            placeholder={"Mobile *"}
+            keyType={"numeric"}
+            title="mobile"
+            addressData={addressData.mobile}
+            titleColor={COLORS.dark}
+            textColor={COLORS.dark}
+            onPress={textFieldHandler}
+          />
 
-      <ScrollView contentContainerStyle={styles.formView}>
-        <TextField
-          placeholder={"Address Line 1 *"}
-          keyType={"default"}
-          key={"address1"}
-          addressData={addressData.address1}
-          onPress={textFieldHandler}
-        />
-        <TextField
-          placeholder={"Address Line 2"}
-          keyType={"default"}
-          key={"address2"}
-          addressData={addressData.address2}
-          onPress={textFieldHandler}
-        />
-        <TextField
-          placeholder={"City *"}
-          keyType={"default"}
-          key={"city"}
-          addressData={addressData.city}
-          onPress={textFieldHandler}
-        />
-        <TextField
-          placeholder={"District *"}
-          keyType={"default"}
-          key={"district"}
-          addressData={addressData.district}
-          onPress={textFieldHandler}
-        />
-        <TextField
-          placeholder={"State *"}
-          keyType={"default"}
-          key={"state"}
-          addressData={addressData.state}
-          onPress={textFieldHandler}
-        />
-        <TextField
-          placeholder={"Landmark *"}
-          keyType={"default"}
-          key={"landmark"}
-          addressData={addressData.landmark}
-          onPress={textFieldHandler}
-        />
-        <TextField
-          placeholder={"PinCode *"}
-          keyType={"numeric"}
-          key={"pinCode"}
-          addressData={addressData.pinCode}
-          onPress={textFieldHandler}
-        />
-        <TextField
-          placeholder={"mobile *"}
-          keyType={"numeric"}
-          key={"mobile"}
-          addressData={addressData.mobile}
-          onPress={textFieldHandler}
-        />
-        {/* <Checkbox
-          style={styles.checkbox}
-          disabled={false}
-          value={isSelected}
-          onValueChange={setSelected}
-          color={isSelected ? "#4630EB" : undefined}
-        /> */}
-        {/* <CheckBox
-          value={isSelected}
-          onChange={() => setSelected(!isSelected)}
-        /> */}
-        <View style={styles.buttonView}>
-          <Button title="ADD" onPress={add} />
-        </View>
-      </ScrollView>
+          <View style={styles.checkbox}>
+            <Checkbox
+              status={isSelected ? "checked" : "unchecked"}
+              onPress={() => {
+                setSelected(!isSelected);
+              }}
+              color={isSelected ? COLORS.orange : null}
+            />
+            <Text style={styles.defaultFont}>Set As Default Address</Text>
+          </View>
+          <View style={styles.buttonView}>
+            <Button title="ADD" onPress={add} />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
@@ -136,17 +169,24 @@ const styles = StyleSheet.create({
     // backgroundColor: COLORS.primary
   },
   formView: {
-    // position: "relative",
-    flex: 1,
-    paddingVertical: "3%",
-    height: "100%",
+    flexDirection: "column",
+    paddingVertical: "2%",
     // backgroundColor: COLORS.blue,
   },
   checkbox: {
+    flexDirection: "row",
+    paddingHorizontal: "4%",
+    // backgroundColor: "red"
+  },
+  defaultFont: {
     alignSelf: "center",
+    paddingLeft: "1%",
+    fontWeight: "bold",
+    color: COLORS.dark,
   },
   buttonView: {
-    top: "5%",
+    top: "1.5%",
+    paddingBottom: "3%",
     // backgroundColor: "red"
   },
 });

@@ -2,16 +2,17 @@ import { React } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 import { WIDTH, HEIGHT, COLORS } from "../../constants/theme";
 const TextField = (props) => {
+  // console.log(props)
   return (
     <View style={styles.container}>
       <TextInput
         placeholder={props.placeholder}
-        placeholderTextColor={COLORS.dark}
+        placeholderTextColor={props.titleColor}
         keyboardType={props.keyType}
-        // autoCapitalize={"none"}
         style={styles.textInput}
-        // value={addressData.key}
-        onChangeText={(text) => textFieldHandler(text, props.key)}
+        color={props.textColor}
+        value={props.addressData}
+        onChangeText={(text) => props.onPress(text, props.title)}
       />    
     </View>
   );
@@ -31,9 +32,9 @@ const styles = StyleSheet.create({
     height: HEIGHT.screenHeight / 15,
     paddingLeft: "5%",
     borderWidth: 2,
-    fontWeight: "bold",
+    // fontWeight: "bold",
     borderRadius: 10,
-    color: COLORS.dark,
+    // color: COLORS.dark,
     borderColor: COLORS.orange,
   }
 });
