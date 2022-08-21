@@ -29,7 +29,7 @@ const CheckOutScreen = ({ navigation }) => {
     setAddresses(getAddresses());
   });
 
-  const renderData = (item,index) => {
+  const renderData = (item, index) => {
     console.log(item);
     console.log(index);
     return (
@@ -74,8 +74,8 @@ const CheckOutScreen = ({ navigation }) => {
           <FlatList
             data={addresses}
             horizontal
-            renderItem={({ item,index }) => {
-              return renderData(item,index);
+            renderItem={({ item, index }) => {
+              return renderData(item, index);
             }}
             scrollEnabled={true}
           />
@@ -84,7 +84,7 @@ const CheckOutScreen = ({ navigation }) => {
         )}
       </View>
       <View style={styles.buttonView}>
-        <Button title="PLACE ORDER"/>
+        <Button title="PLACE ORDER" />
       </View>
     </SafeAreaView>
   );

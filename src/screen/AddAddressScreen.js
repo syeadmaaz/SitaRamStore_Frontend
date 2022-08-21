@@ -34,10 +34,10 @@ const AddAddressScreen = ({ navigation }) => {
   });
   const [isSelected, setSelected] = useState(false);
 
-  const add = async() => {
+  const add = async () => {
     let temp = { ...addressData };
-    if(isSelected){
-        temp.default = true;
+    if (isSelected) {
+      temp.default = true;
     }
     const cookie = await getCookie();
     console.log(temp);

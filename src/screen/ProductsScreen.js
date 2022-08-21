@@ -37,7 +37,7 @@ const ProductsScreen = ({ navigation, route }) => {
   }
 
   const renderData = (item) => {
-    console.log(item)
+    console.log(item);
     return (
       <ProductCard
         item={item}
