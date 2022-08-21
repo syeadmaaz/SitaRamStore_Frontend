@@ -24,27 +24,6 @@ const SplashScreen = ({ navigation }) => {
     async function fetchData() {
       const cookie = await getCookie();
       if (cookie) {
-        // console.log(cookie);
-
-        axios
-          .get("fetchCart", {
-            params: {
-              userName: cookie.userName,
-            },
-          })
-          .then((res) => {
-            if (res.data.success) {
-              console.log("Fetching Cart");
-              // console.log(res.data.cartDetails);
-
-              dispatch(fetchCart(res.data.cartDetails));
-            }
-          })
-          .catch((err) => {
-            setError("Connection Failed !!");
-            console.log(err);
-          });
-
         setTimeout(() => {
           cookie.userType == 1
             ? navigation.navigate("ProductStackScreen", {

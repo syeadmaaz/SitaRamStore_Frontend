@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { Card } from "react-native-paper";
-import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
+import { COLORS, WIDTH, HEIGHT } from "../../../constants/theme";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import axios from "../../../axios.automate";
+import axios from "../../../../axios.automate";
 
 // const goToProductsScreen = (item) => {
 //     console.log(item.categoryID);
@@ -29,7 +29,7 @@ import axios from "../../../axios.automate";
 //       });
 //   };
 
-const EditCategory = ({ item, onPressNavigate, onPressDelete }) => {
+const CategoryCard = ({ item, onPressNavigate, onPressDelete }) => {
   return (
     <View style={styles.cardsContainer}>
       <Card style={styles.cardStyle}>
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditCategory;
+export default CategoryCard;

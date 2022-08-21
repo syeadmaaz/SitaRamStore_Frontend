@@ -1,6 +1,7 @@
 import React from "react";
 import {
   View,
+  SafeAreaView,
   StyleSheet,
   TouchableOpacity,
   Text,
@@ -8,14 +9,13 @@ import {
   TextInput,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import SelectDropdown from "react-native-select-dropdown";
-
 import axios from "../../../axios.automate";
-import { Button } from "react-native-paper";
 import { COLORS, WIDTH } from "../../constants/theme";
-import Header from "../../components/Header/Header";
 
-const App = () => {
+import Header from "../../components/Header/Header";
+import AppStatusBar from "../../components/AppStatusBar/AppStatusBar";
+
+const AddCategoryScreen = () => {
   const [photo, setPhoto] = React.useState(null);
   const [name, setName] = React.useState("");
   const [desc, setDesc] = React.useState("");
@@ -124,48 +124,49 @@ const App = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header title={"ADD CATEGORY"} />
-
-      <View style={styles.styling}>
-        <View style={styles.align}>
-          <TextInput
-            style={styles.deco}
-            placeholder={"Name*"}
-            placeholderTextColor={"grey"}
-            keyboardType="default"
-            autoCapitalize={"none"}
-            value={name}
-            onChangeText={(text) => setName(text)}
-          />
-        </View>
-        <View style={styles.align}>
-          <TextInput
-            style={styles.deco}
-            placeholder={"Description"}
-            value={desc}
-            onChangeText={(text) => setDesc(text)}
-          />
-        </View>
-      </View>
-      <View style={styles.alignImage}>
-        <TouchableOpacity
-          onPress={openImageLibrary}
-          style={styles.uploadBtnContainer}
-        >
-          {photo ? (
-            <Image
-              source={{ uri: photo }}
-              style={{ width: "100%", height: "100%" }}
+      <View style={styles.content}>
+        <View style={styles.styling}>
+          <View style={styles.align}>
+            <TextInput
+              style={styles.deco}
+              placeholder={"Name*"}
+              placeholderTextColor={"grey"}
+              keyboardType="default"
+              autoCapitalize={"none"}
+              value={name}
+              onChangeText={(text) => setName(text)}
             />
-          ) : (
-            <Text style={styles.uploadBtn}>Upload Image*</Text>
-          )}
-        </TouchableOpacity>
+          </View>
+          <View style={styles.align}>
+            <TextInput
+              style={styles.deco}
+              placeholder={"Description"}
+              value={desc}
+              onChangeText={(text) => setDesc(text)}
+            />
+          </View>
+        </View>
+        <View style={styles.alignImage}>
+          <TouchableOpacity
+            onPress={openImageLibrary}
+            style={styles.uploadBtnContainer}
+          >
+            {photo ? (
+              <Image
+                source={{ uri: photo }}
+                style={{ width: "100%", height: "100%" }}
+              />
+            ) : (
+              <Text style={styles.uploadBtn}>Upload Image*</Text>
+            )}
+          </TouchableOpacity>
 
-        {/* <Text style={styles.skip}>Skip</Text> */}
+          {/* <Text style={styles.skip}>Skip</Text> */}
 
-        {/* {photo && name ? (
+          {/* {photo && name ? (
           <Text
             onPress={uploadPhoto}
             style={[
@@ -176,21 +177,33 @@ const App = () => {
             Upload Category
           </Text>
         ) : null} */}
+        </View>
+        <View style={styles.alignbtn}>
+          <UploadCategory />
+        </View>
       </View>
-      <View style={styles.alignbtn}>
-        <UploadCategory />
-      </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    width: WIDTH.screenWidth,
+    // backgroundColor: COLORS.blue,
+  },
+  content: {
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: COLORS.white,
+  },
   styling: {
     width: WIDTH.screenWidth,
-    padding: 5,
+    paddingHorizontal: "6%",
   },
   align: {
-    padding: 5,
+    // padding: 5,
   },
   deco: {
     width: "100%",
@@ -203,12 +216,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     color: "black",
   },
-  container: {
-    // flex: 1,
-    marginTop: "6%",
-    // justifyContent: "center",
-    // alignItems: "center",
-  },
+
   uploadBtnContainer: {
     height: 125,
     width: 125,
@@ -245,4 +253,4 @@ const styles = StyleSheet.create({
   //   },
 });
 
-export default App;
+export default AddCategoryScreen;

@@ -13,49 +13,62 @@ import {
   Alert,
 } from "react-native";
 import { Card } from "react-native-paper";
-import * as ImagePicker from "expo-image-picker";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
+import { setProducts } from "../../data/ProductsData";
+import axios from "../../../axios.automate";
 
 import AppStatusBar from "../../components/AppStatusBar/AppStatusBar";
 import Header from "../../components/Header/Header";
-import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
-import { setProducts } from "../../data/ProductsData";
-
-import axios from "../../../axios.automate";
+import AddButton from "../../components/AddButton/AddButton";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import EditCategory from "./EditCategory";
+import CategoryCard from "../components/CategoryCard/CategoryCard";
 
-const CategoryUpdate = ({ navigation }) => {
+const AdminCategoryScreen = ({ navigation }) => {
   const [category, setCategory] = React.useState();
-  const [refreshFlatlist, setRefreshFlatList] = useState(false);
   const [message, setMessage] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
+  const [refresh, setRefresh] = React.useState(false);
 
-  const LowerHeader = () => {
-    return (
-      <>
-        <SearchBar />
-          <Card elevation={27} style={styles.addCard}>
-            <TouchableOpacity
-              activeOpacity={0.3}
-              onPress={() => navigation.navigate("newCategoryUpload")}
-            >
-              <View style={styles.addView}>
-                <Icon name={"add"} size={60} color={"black"} />
-              </View>
-            </TouchableOpacity>
-          </Card>
-      </>
-    );
-  };
+  React.useEffect(() => {
+    setLoading(true);
+    axios
+      .get("getCategory", { params: {} })
+      .then((res) => {
+        setLoading(false);
+        console.log(res);
+        if (res.data.success) {
+          setCategory(res.data.categoryItems);
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError("Connection Failed !!");
+        console.log(err);
+      });
+  }, []);
 
-  const Footer = () => {
-    return <></>;
-  };
+  function handleRefresh() {
+    setLoading(true);
+    axios
+      .get("getCategory", { params: {} })
+      .then((res) => {
+        setLoading(false);
+        console.log(res);
+        if (res.data.success) {
+          setCategory(res.data.categoryItems);
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError("Connection Failed !!");
+        console.log(err);
+      });
+  }
 
   const goToProductsScreen = (item) => {
-    console.log(item.categoryID);
+    // console.log(item.categoryID);
     axios
       .get("getProduct", {
         params: {
@@ -68,7 +81,8 @@ const CategoryUpdate = ({ navigation }) => {
           setProducts(res.data.productItems);
 
           navigation.navigate("AdminStackScreen", {
-            screen: "AddProduct",
+            screen: "AdminProductScreen",
+            params: item.categoryID,
           });
         }
       })
@@ -93,9 +107,18 @@ const CategoryUpdate = ({ navigation }) => {
       });
   };
 
+  const LowerHeader = () => {
+    return (
+      <>
+        <SearchBar />
+        <AddButton onPress={() => navigation.navigate("AddCategoryScreen")}/>
+      </>
+    );
+  };
+
   const renderData = (item) => {
     return (
-      <EditCategory
+      <CategoryCard
         item={item}
         onPressNavigate={() => goToProductsScreen(item)}
         onPressDelete={() => deleteCategory(item)}
@@ -103,28 +126,17 @@ const CategoryUpdate = ({ navigation }) => {
     );
   };
 
-  React.useEffect(() => {
-    setLoading(true);
-    axios
-      .get("getCategory", { params: {} })
-      .then((res) => {
-        setLoading(false);
-        console.log(res);
-        if (res.data.success) {
-          setCategory(res.data.categoryItems);
-        }
-      })
-      .catch((err) => {
-        setLoading(false);
-        setError("Connection Failed !!");
-        console.log(err);
-      });
-  }, []);
+  const Footer = () => {
+    return <></>;
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
-      <Header title={"Add/Edit Category"} />
+      <Header 
+        title={"CATEGORY"} 
+      
+      />
       <View style={styles.content}>
         {loading ? (
           error ? (
@@ -164,6 +176,8 @@ const CategoryUpdate = ({ navigation }) => {
               ListHeaderComponent={<LowerHeader />}
               ListFooterComponent={<Footer />}
               extraData={category}
+              refreshing={refresh}
+              onRefresh={handleRefresh}
             />
           </>
         )}
@@ -178,6 +192,11 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: WIDTH.screenWidth,
     // backgroundColor: COLORS.orange,
+  },
+  content: {
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: COLORS.white,
   },
   addCard: {
     width: WIDTH.productCardWidth,
@@ -204,11 +223,6 @@ const styles = StyleSheet.create({
     paddingVertical: "5%",
     color: COLORS.dark,
     // backgroundColor: "white",
-  },
-  content: {
-    flex: 1,
-    flexDirection: "column",
-    // backgroundColor: COLORS.white,
   },
   uploadBtnContainer: {
     height: 125,
@@ -237,4 +251,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CategoryUpdate;
+export default AdminCategoryScreen;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
-import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
+import { COLORS, WIDTH, HEIGHT } from "../../../constants/theme";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-const EditProduct = ({ item }) => {
+const ProductCard = ({ item }) => {
 
   return (
     <View style={styles.categoriesContainer}>
@@ -151,4 +151,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditProduct;
+export default ProductCard;

@@ -9,12 +9,13 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import SelectDropdown from "react-native-select-dropdown";
-import Header from "../../components/Header/Header";
-
 import axios from "../../../axios.automate";
-import { COLORS } from "../../constants/theme";
+import { COLORS, WIDTH } from "../../constants/theme";
 
-const App = () => {
+import Header from "../../components/Header/Header";
+import AppStatusBar from "../../components/AppStatusBar/AppStatusBar";
+
+const AddProductScreen = () => {
   const [photo, setPhoto] = React.useState(null);
   const [name, setName] = React.useState("");
   const [desc, setDesc] = React.useState("");
@@ -95,7 +96,7 @@ const App = () => {
         },
       });
 
-      console.log(res.data);
+      // console.log(res.data);
 
       if (res.data.success) {
         // props.navigation.dispatch(StackActions.replace("UserProfile"));
@@ -130,84 +131,98 @@ const App = () => {
 
   return (
     <View style={styles.container}>
+      <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header title={"ADD PRODUCT"} />
-      <View style={styles.alignText}>
-        <TextInput
+      <View style={styles.content}>
+        <View style={styles.alignText}>
+          <TextInput
+            style={styles.deco}
+            placeholder={"NAME*"}
+            placeholderTextColor={"grey"}
+            keyboardType="default"
+            autoCapitalize={"none"}
+            value={name}
+            onChangeText={(text) => setName(text)}
+          />
+          <TextInput
+            style={styles.deco}
+            placeholder={"DESCRIPTION*"}
+            placeholderTextColor={"grey"}
+            keyboardType="default"
+            autoCapitalize={"none"}
+            value={desc}
+            onChangeText={(text) => setDesc(text)}
+          />
+          <TextInput
+            style={styles.deco}
+            placeholder={"MRP*"}
+            placeholderTextColor={"grey"}
+            keyboardType="default"
+            autoCapitalize={"none"}
+            value={mrp}
+            onChangeText={(text) => setMrp(text)}
+          />
+          <TextInput
+            style={styles.deco}
+            placeholder={"PRICE*"}
+            placeholderTextColor={"grey"}
+            keyboardType="default"
+            autoCapitalize={"none"}
+            value={price}
+            onChangeText={(text) => setPrice(text)}
+          />
+        </View>
+        <SelectDropdown
           style={styles.deco}
-          placeholder={"NAME*"}
-          placeholderTextColor={"grey"}
           keyboardType="default"
           autoCapitalize={"none"}
-          value={name}
-          onChangeText={(text) => setName(text)}
+          data={category}
+          onSelect={(selectedItem, index) => {
+            console.log(selectedItem, index);
+            setCategoryID(selectedItem.categoryID);
+          }}
+          buttonTextAfterSelection={(selectedItem) => {
+            return selectedItem.categoryName;
+          }}
+          rowTextForSelection={(item) => {
+            return item.categoryName;
+          }}
         />
-        <TextInput
-          style={styles.deco}
-          placeholder={"DESCRIPTION*"}
-          placeholderTextColor={"grey"}
-          keyboardType="default"
-          autoCapitalize={"none"}
-          value={desc}
-          onChangeText={(text) => setDesc(text)}
-        />
-        <TextInput
-          style={styles.deco}
-          placeholder={"MRP*"}
-          placeholderTextColor={"grey"}
-          keyboardType="default"
-          autoCapitalize={"none"}
-          value={mrp}
-          onChangeText={(text) => setMrp(text)}
-        />
-        <TextInput
-          style={styles.deco}
-          placeholder={"PRICE*"}
-          placeholderTextColor={"grey"}
-          keyboardType="default"
-          autoCapitalize={"none"}
-          value={price}
-          onChangeText={(text) => setPrice(text)}
-        />
-      </View>
-      <SelectDropdown
-        style={styles.deco}
-        keyboardType="default"
-        autoCapitalize={"none"}
-        data={category}
-        onSelect={(selectedItem, index) => {
-          console.log(selectedItem, index);
-          setCategoryID(selectedItem.categoryID);
-        }}
-        buttonTextAfterSelection={(selectedItem) => {
-          return selectedItem.categoryName;
-        }}
-        rowTextForSelection={(item) => {
-          return item.categoryName;
-        }}
-      />
-      <View style={styles.alignImage}>
-        <TouchableOpacity
-          onPress={openImageLibrary}
-          style={styles.uploadBtnContainer}
-        >
-          {photo ? (
-            <Image
-              source={{ uri: photo }}
-              style={{ width: "100%", height: "100%" }}
-            />
-          ) : (
-            <Text style={styles.uploadBtn}>Upload Image</Text>
-          )}
-        </TouchableOpacity>
-      </View>
-      <View style={styles.alignbtn}>
-        <UploadProduct />
+        <View style={styles.alignImage}>
+          <TouchableOpacity
+            onPress={openImageLibrary}
+            style={styles.uploadBtnContainer}
+          >
+            {photo ? (
+              <Image
+                source={{ uri: photo }}
+                style={{ width: "100%", height: "100%" }}
+              />
+            ) : (
+              <Text style={styles.uploadBtn}>Upload Image</Text>
+            )}
+          </TouchableOpacity>
+        </View>
+        <View style={styles.alignbtn}>
+          <UploadProduct />
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    width: WIDTH.screenWidth,
+  },
+  content: {
+    flex: 1,
+    flexDirection: "column",
+    paddingHorizontal: "6%",
+    backgroundColor: COLORS.white,
+  },
   deco: {
     width: "100%",
     borderWidth: 1.5,
@@ -220,13 +235,9 @@ const styles = StyleSheet.create({
     color: "black",
   },
   alignText: {
-    padding: 5,
+    // padding: 5,
   },
-  container: {
-    // justifyContent: "center",
-    // alignItems: "center",
-    marginTop: "6%",
-  },
+
   uploadBtnContainer: {
     height: 125,
     width: 125,
@@ -254,4 +265,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default AddProductScreen;

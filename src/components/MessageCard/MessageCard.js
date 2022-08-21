@@ -1,11 +1,7 @@
 import React from "react";
 import {
   StyleSheet,
-  View,
   Text,
-  TouchableOpacity,
-  Image,
-  ScrollView,
   SafeAreaView,
 } from "react-native";
 import { Card } from "react-native-paper";
@@ -25,10 +21,10 @@ const MessageCard = (props) => {
 const styles = StyleSheet.create({
   cardsContainer: {
     width: WIDTH.screenWidth,
-    height: HEIGHT.screenHeight / 1.08,
-    marginTop: "1%",
+    marginTop: "15%",
+    justifyContent: "center",
     alignItems: "center",
-    paddingTop: "20%",
+    paddingVertical: "6%",
     backgroundColor: COLORS.white,
   },
 

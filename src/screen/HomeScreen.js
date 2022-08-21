@@ -11,11 +11,11 @@ import {
 } from "react-native";
 import { useFocusEffect, DrawerActions } from "@react-navigation/native";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
-import { clearCookie } from "../data/Cokkie";
 import { setProducts } from "../data/ProductsData";
 import { useDispatch } from "react-redux";
-import { clear } from "../redux/features/cart/cartSlice";
 import axios from "../../axios.automate";
+import { getCookie } from "../data/Cokkie";
+import { fetchCart } from "../redux/features/cart/cartSlice";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
@@ -27,6 +27,9 @@ const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = React.useState(false);
+  const [cartLoading, setCartLoading] = React.useState(false);
+  const [refresh, setRefresh] = React.useState(false);
+  const [success, setSuccess] = React.useState(false);
   const [category, setCategory] = React.useState(null);
   const [error, setError] = React.useState(null);
 
@@ -63,17 +66,69 @@ const HomeScreen = ({ navigation }) => {
         if (res.data.success) setCategory(res.data.categoryItems);
       })
       .catch((err) => {
-        setLoading(true);
-        setError("Connection Failed !!");
+        // setLoading(true);
+        setTimeout(() => {
+          setError("Connection Failed !!");
+        }, 1500);
+        // setError("Connection Failed !!");
         console.log(err);
       });
   }, []);
 
+  useEffect(() => {
+    setCartLoading(true);
+    async function fetchData() {
+      const cookie = await getCookie();
+      if (cookie) {
+        console.log(cookie);
+        axios
+          .get("fetchCart", {
+            params: {
+              userName: cookie.userName,
+            },
+          })
+          .then((res) => {
+            if (res.data.success) {
+              setCartLoading(false);
+              console.log("Fetching Cart");
+              // console.log(res.data.cartDetails);
+              dispatch(fetchCart(res.data.cartDetails));
+            }
+          })
+          .catch((err) => {
+            // setCartLoading(true)
+            setTimeout(() => {
+              setError("Connection Failed !!");
+            }, 1500);
+            // setError("Connection Failed !!");
+            console.log(err);
+          });
+      }
+    }
+    fetchData();
+  }, []);
+
+  // function handleRefresh() {
+  //   setLoading(true);
+  //   axios
+  //     .get("getCategory", { params: {} })
+  //     .then((res) => {
+  //       setLoading(false);
+  //       // console.log(res.data.categoryItems);
+  //       if (res.data.success) setCategory(res.data.categoryItems);
+  //     })
+  //     .catch((err) => {
+  //       // setLoading(true);
+  //       setTimeout(() => {
+  //         setError("Connection Failed !!");
+  //       }, 1500);
+  //       // setError("Connection Failed !!");
+  //       console.log(err);
+  //     });
+  // }
+
   const sideBar = () => {
     navigation.dispatch(DrawerActions.openDrawer());
-    // await clearCookie();
-    // dispatch(clear());
-    // navigation.navigate("AuthStackScreen", { screen: "LoginScreen" });
   };
 
   const goToProductsScreen = (item) => {
@@ -92,7 +147,8 @@ const HomeScreen = ({ navigation }) => {
           setProducts(res.data.productItems);
 
           navigation.navigate("ProductStackScreen", {
-            screen: "ProductsScreen", params: item.categoryName,
+            screen: "ProductsScreen",
+            params: item.categoryName,
           });
         }
       })
@@ -129,15 +185,15 @@ const HomeScreen = ({ navigation }) => {
       />
 
       <View style={styles.content}>
-        {loading ? (
+        {loading || cartLoading ? (
           error ? (
             <MessageCard message={error} />
           ) : (
             <View
               style={{
+                flex: 1,
                 justifyContent: "center",
                 alignItems: "center",
-                flex: 1,
               }}
             >
               <ActivityIndicator size={80} color={COLORS.orange} />
@@ -155,6 +211,8 @@ const HomeScreen = ({ navigation }) => {
             scrollEnabled={true}
             ListHeaderComponent={<LowerHeader />}
             // ListFooterComponent={<Footer />}
+            // refreshing={refresh}
+            // onRefresh={handleRefresh}
           />
         )}
       </View>

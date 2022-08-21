@@ -8,6 +8,7 @@ const cartSlice = createSlice({
     fetchCart(state, { payload }) {
       console.log("Redux Page");
       console.log(payload);
+      state.length=0;
       var products = payload;
       products.map((item) => {
         state.push(item);

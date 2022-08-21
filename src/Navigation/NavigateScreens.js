@@ -20,6 +20,7 @@ import HomeScreen from "../screen/HomeScreen";
 import ProductsScreen from "../screen/ProductsScreen";
 import CartScreen from "../screen/CartScreen";
 import CheckOutScreen from "../screen/CheckOutScreen";
+import ThankYouScreen from "../screen/ThankYouScreen";
 import AccountScreen from "../screen/AccountScreen";
 import OrdersScreen from "../screen/OrdersScreen";
 import AddressScreen from "../screen/AddressScreen";
@@ -31,12 +32,11 @@ import DeveloperScreen from "../screen/DeveloperScreen";
 
 // Admin Side
 import AdminHomescreen from "../Admin/screen/AdminHomescreen";
-import MyComponent from "../Admin/screen/NewOrder";
-import CategoryUpdate from "../Admin/screen/CategoryUpdate";
-import newCategoryUpload from "../Admin/screen/newCategoryUpload";
-import newProductUpload from "../Admin/screen/newProductUpload";
-import AddProduct from "../Admin/components/AddProduct";
-import ThankYouScreen from "../screen/ThankYouScreen";
+import NewOrdersScreen from "../Admin/screen/NewOrdersScreen";
+import AdminCategoryScreen from "../Admin/screen/AdminCategoryScreen";
+import AddCategoryScreen from "../Admin/screen/AddCategoryScreen";
+import AddProductScreen from "../Admin/screen/AddProductScreen";
+import AdminProductScreen from "../Admin/screen/AdminProductScreen";
 
 const RootStack = createNativeStackNavigator();
 const MainStack = createNativeStackNavigator();
@@ -125,14 +125,14 @@ function AdminStackScreen() {
       }}
     >
       <AdminStack.Screen name="AdminHomescreen" component={AdminHomescreen} />
-      <AdminStack.Screen name="MyComponent" component={MyComponent} />
-      <AdminStack.Screen name="CategoryUpdate" component={CategoryUpdate} />
+      <AdminStack.Screen name="NewOrdersScreen" component={NewOrdersScreen} />
+      <AdminStack.Screen name="AdminCategoryScreen" component={AdminCategoryScreen} />
       <AdminStack.Screen
-        name="newCategoryUpload"
-        component={newCategoryUpload}
+        name="AddCategoryScreen"
+        component={AddCategoryScreen}
       />
-      <AdminStack.Screen name="newProductUpload" component={newProductUpload} />
-      <AdminStack.Screen name="AddProduct" component={AddProduct} />
+      <AdminStack.Screen name="AddProductScreen" component={AddProductScreen} />
+      <AdminStack.Screen name="AdminProductScreen" component={AdminProductScreen} />
     </AdminStack.Navigator>
   );
 }

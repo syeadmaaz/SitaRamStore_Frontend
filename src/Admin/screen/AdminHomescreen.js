@@ -13,6 +13,7 @@ import { Card } from "react-native-paper";
 import { useFocusEffect } from "@react-navigation/native";
 import { clearCookie } from "../../data/Cokkie";
 import { COLORS } from "../../constants/theme";
+
 import AppStatusBar from "../../components/AppStatusBar/AppStatusBar";
 import Header from "../../components/Header/Header";
 
@@ -40,16 +41,12 @@ const AdminHomescreen = ({ navigation }) => {
     }, [])
   );
 
-  function goToMyComponent() {
-    navigation.navigate("MyComponent");
+  function goToNewOrders() {
+    navigation.navigate("NewOrdersScreen");
   }
 
-  // function goToProductUpload() {
-  //   navigation.navigate("newProductUpload");
-  // }
-
-  function goToCategoryUpdate() {
-    navigation.navigate("CategoryUpdate");
+  function goToCategory() {
+    navigation.navigate("AdminCategoryScreen");
   }
 
   const logout = async () => {
@@ -65,8 +62,8 @@ const AdminHomescreen = ({ navigation }) => {
         <View style={styles.deco}>
           <Card elevation={4} style={styles.crdStyling}>
             <Card elevation={4} style={styles.cardStyle}>
-              <TouchableOpacity activeOpacity={0.2} onPress={goToMyComponent}>
-                <Text style={styles.txtStyle}>New Order</Text>
+              <TouchableOpacity activeOpacity={0.2} onPress={goToNewOrders}>
+                <Text style={styles.txtStyle}>New Orders</Text>
               </TouchableOpacity>
             </Card>
             <Card elevation={4} style={styles.cardStyle}>
@@ -75,18 +72,11 @@ const AdminHomescreen = ({ navigation }) => {
             <Card elevation={4} style={styles.cardStyle}>
               <TouchableOpacity
                 activeOpacity={0.2}
-                onPress={goToCategoryUpdate}
+                onPress={goToCategory}
               >
                 <Text style={styles.txtStyle}>Add/Edit Category</Text>
               </TouchableOpacity>
             </Card>
-            {/* <Card elevation={4} style={styles.cardStyle}>
-            <TouchableOpacity activeOpacity={0.2} onPress={goToProductUpload}>
-              <Text style={styles.txtStyle}>
-                Add/Edit Products to Existing Category
-              </Text>
-            </TouchableOpacity>
-          </Card> */}
           </Card>
         </View>
       </ScrollView>

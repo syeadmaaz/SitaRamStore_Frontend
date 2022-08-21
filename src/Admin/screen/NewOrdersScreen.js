@@ -18,12 +18,11 @@ import {
   Title,
 } from "react-native-paper";
 
-import ViewProduct from "./ViewProduct";
-import Delivered from "../components/Delivered";
-import Accept from "../components/Accept";
-import Select from "../components/Select";
+import ViewProduct from "../components/ViewProduct/ViewProduct";
+import Accept from "../components/Buttons/Accept";
+import Delivered from "../components/Buttons/Delivered";
+import Select from "../components/Buttons/Select";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import NewOrderList from "./NewOrderList";
 
 const orders = [
   {
@@ -108,7 +107,7 @@ const orders = [
   },
 ];
 
-const MyComponent = ({ navigation }) => {
+const NewOrdersScreen = ({ navigation }) => {
   const [NewOrders, setNewOrders] = useState(orders);
 
   const acceptHandler = (index) => {
@@ -149,7 +148,7 @@ const MyComponent = ({ navigation }) => {
 
   const renderData = (item, index) => {
     return (
-      <View style={{padding: '2%'}}>
+      <View style={{ padding: "2%" }}>
         <Card elevation={4} style={{ marginTop: "5%", borderRadius: 20 }}>
           <Card.Content
             style={{ flex: 1, display: "flex", flexDirection: "row" }}
@@ -212,4 +211,4 @@ const MyComponent = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-export default MyComponent;
+export default NewOrdersScreen;
