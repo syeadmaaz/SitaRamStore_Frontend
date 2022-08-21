@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
 
   imgStyling: {
     display: "flex",
+    resizeMode: "contain",
     width: WIDTH.imageWidth,
     height: HEIGHT.imageHeight,
     borderRadius: 10,
