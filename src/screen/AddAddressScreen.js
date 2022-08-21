@@ -16,6 +16,9 @@ import TextField from "../components/TextField/TextField";
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
 
+import axios from "../../axios.automate";
+import { getCookie } from "../data/Cokkie";
+
 const AddAddressScreen = ({ navigation }) => {
   const [addressData, setAddressData] = useState({
     address1: null,
@@ -30,12 +33,24 @@ const AddAddressScreen = ({ navigation }) => {
   });
   const [isSelected, setSelected] = useState(false);
 
-  const add = () => {
+  const add = async() => {
     let temp = { ...addressData };
     if(isSelected){
         temp.default = true;
     }
+    const cookie = await getCookie();
     console.log(temp);
+    axios
+      .post("/addAddress", {
+        userName: cookie.userName,
+        addressData: temp,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((e) => {
+        // console.log(e.response.data);
+      });
   };
 
   const textFieldHandler = (data, key) => {
