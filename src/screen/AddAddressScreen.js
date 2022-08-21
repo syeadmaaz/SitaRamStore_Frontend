@@ -21,6 +21,7 @@ import { getCookie } from "../data/Cokkie";
 
 const AddAddressScreen = ({ navigation }) => {
   const [addressData, setAddressData] = useState({
+    name: null,
     address1: null,
     address2: null,
     city: null,
@@ -85,6 +86,15 @@ const AddAddressScreen = ({ navigation }) => {
           contentContainerStyle={styles.formView}
           showsVerticalScrollIndicator={true}
         >
+          <TextField
+            placeholder={"Name *"}
+            keyType={"default"}
+            title={"name"}
+            addressData={addressData.name}
+            titleColor={COLORS.dark}
+            textColor={COLORS.dark}
+            onPress={textFieldHandler}
+          />
           <TextField
             placeholder={"Address Line 1 *"}
             keyType={"default"}
