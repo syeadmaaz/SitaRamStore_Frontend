@@ -4,9 +4,9 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 
 import { useSelector } from "react-redux";
-import { cartTotalSelector } from "../../redux/selectors";
-
+import { cartTotalSelector } from "../../redux/features/cart/selectors";
 import { Badge } from "react-native-paper";
+
 const Header = (props) => {
   const total = useSelector(cartTotalSelector);
 
@@ -20,9 +20,9 @@ const Header = (props) => {
           <Text
             style={[
               styles.title,
-              { 
+              {
                 paddingRight: !props.name2 ? "9%" : null,
-                paddingLeft: !props.name1 ? "9%" : null
+                paddingLeft: !props.name1 ? "9%" : null,
               },
             ]}
           >

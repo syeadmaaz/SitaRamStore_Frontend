@@ -36,7 +36,9 @@ const AddressScreen = ({navigation}) => {
 
 const styles= StyleSheet.create({
   container :{
-    alignItems: "center"
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: COLORS.white,
   },
 })
 

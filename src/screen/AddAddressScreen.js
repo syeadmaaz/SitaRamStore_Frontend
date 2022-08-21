@@ -164,14 +164,14 @@ const AddAddressScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
+    flex: 1,
     height: "100%",
-    // backgroundColor: COLORS.primary
+    backgroundColor: COLORS.white,
   },
   formView: {
     flexDirection: "column",
     paddingVertical: "2%",
-    // backgroundColor: COLORS.blue,
+    // backgroundColor: COLORS.white,
   },
   checkbox: {
     flexDirection: "row",

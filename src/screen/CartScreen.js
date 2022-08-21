@@ -16,7 +16,7 @@ import {
   clear,
   removeItem,
 } from "../redux/features/cart/cartSlice";
-import { cartTotalDiscountSelector, cartTotalPriceSelector, cartTotalSelector } from "../redux/selectors";
+import { cartTotalDiscountSelector, cartTotalPriceSelector, cartTotalSelector } from "../redux/features/cart/selectors";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
 import axios from "../../axios.automate";
 import { getCookie } from "../data/Cokkie";

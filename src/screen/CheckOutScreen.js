@@ -7,7 +7,7 @@ import {
   cartTotalSelector,
   cartTotalDiscountSelector,
   cartTotalMRPSelector,
-} from "../redux/selectors";
+} from "../redux/features/cart/selectors";
 import { getAddresses } from "../data/AddressData";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";

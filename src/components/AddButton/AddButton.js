@@ -8,7 +8,7 @@ const AddButton = ({ onPress }) => {
   return (
     <View style={styles.cardsContainer}>
       <Card style={styles.cardStyle}>
-        <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
+        <TouchableOpacity activeOpacity={0.2} onPress={onPress}>
           <View style={styles.addView}>
             <Icon name={"add"} size={60} color={"black"} />
           </View>
