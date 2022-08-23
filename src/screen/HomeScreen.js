@@ -14,9 +14,10 @@ import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
 import { setProducts } from "../data/ProductsData";
 import axios from "../../axios.automate";
 import { getCookie } from "../data/Cokkie";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../redux/features/cart/cartSlice";
 import { fetchAddress } from "../redux/features/address/addressSlice";
+import { fetchCategory } from "../redux/features/category/categorySlice";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
@@ -26,13 +27,17 @@ import MessageCard from "../components/MessageCard/MessageCard";
 
 const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
+  const category = useSelector((state) => state.category);
 
   const [loading, setLoading] = React.useState(false);
   const [cartLoading, setCartLoading] = React.useState(false);
-  const [refresh, setRefresh] = React.useState(false);
-  const [success, setSuccess] = React.useState(false);
-  const [category, setCategory] = React.useState(null);
   const [error, setError] = React.useState(null);
+  const [refresh, setRefresh] = React.useState(false);
+  // const [category, setCategory] = React.useState(null);
+
+  const sideBar = () => {
+    navigation.dispatch(DrawerActions.openDrawer());
+  };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -64,7 +69,9 @@ const HomeScreen = ({ navigation }) => {
       .then((res) => {
         setLoading(false);
         // console.log(res.data.categoryItems);
-        if (res.data.success) setCategory(res.data.categoryItems);
+        if (res.data.success) {
+          dispatch(fetchCategory(res.data.categoryItems));
+        }
       })
       .catch((err) => {
         // setLoading(true);
@@ -98,7 +105,7 @@ const HomeScreen = ({ navigation }) => {
             }
           })
           .catch((err) => {
-            // setCartLoading(true)
+            // setCartLoading(true);
             setTimeout(() => {
               setError("Connection Failed !!");
             }, 1500);
@@ -109,28 +116,26 @@ const HomeScreen = ({ navigation }) => {
     fetchData();
   }, []);
 
-  // function handleRefresh() {
-  //   setLoading(true);
-  //   axios
-  //     .get("getCategory", { params: {} })
-  //     .then((res) => {
-  //       setLoading(false);
-  //       // console.log(res.data.categoryItems);
-  //       if (res.data.success) setCategory(res.data.categoryItems);
-  //     })
-  //     .catch((err) => {
-  //       // setLoading(true);
-  //       setTimeout(() => {
-  //         setError("Connection Failed !!");
-  //       }, 1500);
-  //       // setError("Connection Failed !!");
-  //       console.log(err);
-  //     });
-  // }
-
-  const sideBar = () => {
-    navigation.dispatch(DrawerActions.openDrawer());
-  };
+  function handleRefresh() {
+    // setLoading(true);
+    axios
+      .get("getCategory", { params: {} })
+      .then((res) => {
+        // setLoading(false);
+        // console.log(res.data.categoryItems);
+        if (res.data.success) {
+          dispatch(fetchCategory(res.data.categoryItems));
+        }
+      })
+      .catch((err) => {
+        // setLoading(true);
+        // setTimeout(() => {
+        //   setError("Connection Failed !!");
+        // }, 1500);
+        setError("Connection Failed !!");
+        console.log(err);
+      });
+  }
 
   const goToProductsScreen = (item) => {
     console.log(item.categoryName);
@@ -210,10 +215,11 @@ const HomeScreen = ({ navigation }) => {
             }}
             keyExtractor={(item) => `${item.categoryID}`}
             scrollEnabled={true}
+            ListEmptyComponent={<Text>EMPTY CATEGORY</Text>}
             ListHeaderComponent={<LowerHeader />}
-            // ListFooterComponent={<Footer />}
-            // refreshing={refresh}
-            // onRefresh={handleRefresh}
+            ListFooterComponent={<></>}
+            refreshing={refresh}
+            onRefresh={handleRefresh}
           />
         )}
       </View>
