@@ -12,10 +12,11 @@ import {
 import { useFocusEffect, DrawerActions } from "@react-navigation/native";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
 import { setProducts } from "../data/ProductsData";
-import { useDispatch } from "react-redux";
 import axios from "../../axios.automate";
 import { getCookie } from "../data/Cokkie";
+import { useDispatch } from "react-redux";
 import { fetchCart } from "../redux/features/cart/cartSlice";
+import { fetchAddress } from "../redux/features/address/addressSlice";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
@@ -90,9 +91,10 @@ const HomeScreen = ({ navigation }) => {
           .then((res) => {
             if (res.data.success) {
               setCartLoading(false);
-              console.log("Fetching Cart");
+              console.log("Fetching Cart and Address");
               // console.log(res.data.cartDetails);
               dispatch(fetchCart(res.data.cartDetails));
+              dispatch(fetchAddress(res.data.address));
             }
           })
           .catch((err) => {
@@ -100,7 +102,6 @@ const HomeScreen = ({ navigation }) => {
             setTimeout(() => {
               setError("Connection Failed !!");
             }, 1500);
-            // setError("Connection Failed !!");
             console.log(err);
           });
       }

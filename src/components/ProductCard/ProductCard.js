@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
 const ProductCard = ({ item, onPress }) => {
-
   return (
     <View style={styles.categoriesContainer}>
       <View style={styles.cardStyle}>

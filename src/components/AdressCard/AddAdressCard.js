@@ -8,14 +8,9 @@ const AddAddressCard = ({ onPress }) => {
   return (
     <View style={styles.cardsContainer}>
       <Card style={styles.cardStyle}>
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity activeOpacity={0.2} onPress={onPress}>
           <View style={styles.addView}>
-            <Icon
-              name={"add"}
-              size={70}
-              color={"black"}
-              onPress={onPress}
-            />
+            <Icon name={"add"} size={70} color={"black"} />
           </View>
         </TouchableOpacity>
       </Card>

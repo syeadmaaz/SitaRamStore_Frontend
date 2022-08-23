@@ -96,7 +96,7 @@ const LoginScreen = ({ navigation }) => {
         }
       })
       .catch((e) => {
-        console.log(e.response.data);
+        // console.log(e.response.data);
         setLoading(false);
         alert(e.response.data.error);
       });

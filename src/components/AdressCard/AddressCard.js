@@ -17,12 +17,12 @@ function selectAddress(item) {
 
 function editAddress(item) {
   console.log("edit");
-  console.log(item)
+  console.log(item);
 }
 
 function deleteAddress(item) {
   console.log("Delete");
-  console.log(item)
+  console.log(item);
 }
 
 const AddressCard = ({ item, index, onPress }) => {
@@ -30,17 +30,17 @@ const AddressCard = ({ item, index, onPress }) => {
     <View style={styles.cardsContainer}>
       <Card style={styles.cardStyle}>
         <View style={styles.content}>
-          <Text style={styles.nameText}>{item.name}</Text>
+          <Text style={styles.nameText}>{item.name.value}</Text>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Text style={styles.fontStyle}>{item.address1}</Text>
-            <Text style={styles.fontStyle}>{item.address2}</Text>
+            <Text style={styles.fontStyle}>{item.address1.value}</Text>
+            <Text style={styles.fontStyle}>{item.address2.value}</Text>
             <Text style={styles.fontStyle}>
-              {item.city}, {item.state}
+              {item.city.value}, {item.state.value}
             </Text>
-            <Text style={styles.fontStyle}>PIN - {item.pinCode}</Text>
-            <Text style={styles.fontStyle}>Landmark: {item.landmark}</Text>
+            <Text style={styles.fontStyle}>PIN - {item.pinCode.value}</Text>
+            <Text style={styles.fontStyle}>Landmark: {item.landmark.value}</Text>
             <Text style={[styles.fontStyle, { color: "red" }]}>
-              Mobile: {item.mobile}
+              Mobile: {item.mobile.value}
             </Text>
           </ScrollView>
         </View>
@@ -60,7 +60,6 @@ const AddressCard = ({ item, index, onPress }) => {
             </Text>
           </TouchableOpacity>
         </View>
-
       </Card>
       <TouchableOpacity
         activeOpacity={0.3}
@@ -108,14 +107,14 @@ const styles = StyleSheet.create({
   nameText: {
     fontSize: 18,
     fontWeight: "bold",
-    fontFamily: FONT.f8,
+    fontFamily: FONT.f7,
     color: COLORS.green,
     // backgroundColor: "orange"
   },
   fontStyle: {
     alignSelf: "flex-start",
     fontSize: 15,
-    fontFamily: FONT.f7,
+    fontFamily: FONT.f8,
   },
   buttonView: {
     width: WIDTH.productCardWidth / 1.16,

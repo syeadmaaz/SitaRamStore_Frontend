@@ -146,6 +146,7 @@ function RootStackScreen() {
         name="ProductStackScreen"
         component={ProductStackScreen}
       />
+      <RootStack.Screen name="AddressStackScreen" component={AddressStackScreen} />
       <RootStack.Screen name="AdminStackScreen" component={AdminStackScreen} />
     </RootStack.Navigator>
   );

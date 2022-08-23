@@ -8,13 +8,12 @@ import {
   cartTotalDiscountSelector,
   cartTotalMRPSelector,
 } from "../redux/features/cart/selectors";
-import { getAddresses } from "../data/AddressData";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
 import BillCard from "../components/BillCard/BillCard";
 import Button from "../components/Button/Button";
-import AddressCard from "../components/AdressCard/AdressCard";
+import AddressCard from "../components/AdressCard/AddressCard";
 import AddAddressCard from "../components/AdressCard/AddAdressCard";
 
 const CheckOutScreen = ({ navigation }) => {
@@ -22,16 +21,10 @@ const CheckOutScreen = ({ navigation }) => {
   const totalItems = useSelector(cartTotalSelector);
   const totalMRP = useSelector(cartTotalMRPSelector);
   const totalDiscount = useSelector(cartTotalDiscountSelector);
-
-  const [addresses, setAddresses] = useState([]);
-
-  useEffect(() => {
-    setAddresses(getAddresses());
-  });
+  
+  const address = useSelector((state) => state.address);
 
   const renderData = (item, index) => {
-    console.log(item);
-    console.log(index);
     return (
       <AddressCard
         item={item}
@@ -45,7 +38,8 @@ const CheckOutScreen = ({ navigation }) => {
   };
 
   function addAddress() {
-    console.log("Add Address");
+    // console.log("Add Address");
+    navigation.navigate("AddressStackScreen", {screen: "AddAddressScreen"})
   }
 
   return (
@@ -70,18 +64,16 @@ const CheckOutScreen = ({ navigation }) => {
         <Text style={styles.deliveryText}>SELECT DELIVERY ADDRESS</Text>
       </View>
       <View style={styles.adressView}>
-        {addresses.length !== 0 ? (
           <FlatList
-            data={addresses}
+            data={address}
+            extraData={address}
             horizontal
+            ListEmptyComponent={<AddAddressCard onPress={addAddress} />}
             renderItem={({ item, index }) => {
               return renderData(item, index);
             }}
             scrollEnabled={true}
           />
-        ) : (
-          <AddAddressCard onPress={() => addAddress()} />
-        )}
       </View>
       <View style={styles.buttonView}>
         <Button title="PLACE ORDER" />

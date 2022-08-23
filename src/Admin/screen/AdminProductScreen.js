@@ -32,25 +32,25 @@ const AdminProductScreen = ({ navigation, route }) => {
     setProducts(getProducts());
   }, []);
 
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     axios
-  //       .get("getProduct", {
-  //         params: {
-  //           categoryID: categoryID,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         if (res.data.success) {
-  //           // console.log(res.data.productItems);
-  //           setProducts(res.data.productItems);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }, [])
-  // );
+  useFocusEffect(
+    React.useCallback(() => {
+      axios
+        .get("getProduct", {
+          params: {
+            categoryID: categoryID,
+          },
+        })
+        .then((res) => {
+          if (res.data.success) {
+            // console.log(res.data.productItems);
+            setProducts(res.data.productItems);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, [])
+  );
 
   function handleRefresh() {
     axios
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     flexDirection: "column",
-    // backgroundColor: COLORS.red
+    backgroundColor: COLORS.white
   },
 });
 

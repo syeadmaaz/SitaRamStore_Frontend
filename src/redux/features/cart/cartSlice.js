@@ -6,8 +6,8 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     fetchCart(state, { payload }) {
-      console.log("Redux Page");
-      console.log(payload);
+      console.log("CART STORED IN STATE");
+      // console.log(payload);
       state.length=0;
       var products = payload;
       products.map((item) => {

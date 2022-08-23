@@ -11,9 +11,17 @@ const TextField = (props) => {
         keyboardType={props.keyType}
         style={styles.textInput}
         color={props.textColor}
+        editable={
+          props.title == "city" ||
+          props.title == "district" ||
+          props.title == "state" ||
+          props.title == "pinCode"
+            ? false
+            : true
+        }
         value={props.addressData}
         onChangeText={(text) => props.onPress(text, props.title)}
-      />    
+      />
     </View>
   );
 };
@@ -36,7 +44,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     // color: COLORS.dark,
     borderColor: COLORS.orange,
-  }
+  },
 });
 
 export default TextField;

@@ -10,58 +10,129 @@ import {
 } from "react-native";
 import { Checkbox } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
-import Button from "../components/Button/Button";
-import TextField from "../components/TextField/TextField";
+import axios from "../../axios.automate";
+import { getCookie } from "../data/Cokkie";
+import { useDispatch } from "react-redux";
+import { fetchAddress } from "../redux/features/address/addressSlice";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
-
-import axios from "../../axios.automate";
-import { getCookie } from "../data/Cokkie";
+import Button from "../components/Button/Button";
+import TextField from "../components/TextField/TextField";
 
 const AddAddressScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   const [addressData, setAddressData] = useState({
-    name: null,
-    address1: null,
-    address2: null,
-    city: null,
-    district: null,
-    state: null,
-    landmark: null,
-    pinCode: null,
-    mobile: null,
-    default: false,
+    name: {
+      value: null,
+      valid: false,
+    },
+    address1: {
+      value: null,
+      valid: false,
+    },
+    address2: {
+      value: null,
+      valid: false,
+    },
+    city: {
+      value: "Chhatarpur",
+      valid: true,
+    },
+    district: {
+      value: "Chhatarpur",
+      valid: true,
+    },
+    state: {
+      value: "Madhya Pradesh",
+      valid: true,
+    },
+    landmark: {
+      value: null,
+      valid: false,
+    },
+    pinCode: {
+      value: "471001",
+      valid: true,
+    },
+    mobile: {
+      value: null,
+      valid: false,
+    },
+    default: {
+      value: false,
+      valid: true,
+    },
   });
+
   const [isSelected, setSelected] = useState(false);
+
+  const validateMobileNo = (mobile) => {
+    const re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+    return re.test(String(mobile));
+  };
 
   const add = async () => {
     let temp = { ...addressData };
     if (isSelected) {
-      temp.default = true;
+      temp["default"].value = true;
     }
-    const cookie = await getCookie();
-    console.log(temp);
-    axios
-      .post("/addAddress", {
-        userName: cookie.userName,
-        addressData: temp,
-      })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((e) => {
-        // console.log(e.response.data);
-      });
+
+    if (!validateMobileNo(temp["mobile"].value)) {
+      temp["mobile"].valid = false;
+    }
+
+    let isValid = true;
+    Object.keys(temp).some((item) => {
+      isValid = isValid && temp[item].valid;
+      // console.log(item, isValid);
+      if (!isValid) {
+        alert(`Please Fill ${item} Properly`);
+        return true;      
+      }
+      return false;
+    });
+    // console.log(isValid);
+
+    if (isValid) {
+      const cookie = await getCookie();
+      console.log(temp);
+      axios
+        .post("/addAddress", {
+          userName: cookie.userName,
+          addressData: temp,
+        })
+        .then((res) => {
+          if(res.data.success){
+            console.log(res.data.message);
+            dispatch(fetchAddress(res.data.address));
+            navigation.goBack();
+          }
+        })
+        .catch((e) => {
+          console.log(e.response.data);
+        });
+    }
   };
 
   const textFieldHandler = (data, key) => {
     let tempAddress = { ...addressData };
     if (data) {
-      tempAddress[key] = data;
+      tempAddress[key].value = data;
+      tempAddress[key].valid = true;
       setAddressData(tempAddress);
     } else {
-      tempAddress[key] = null;
-      setAddressData(tempAddress);
+      if (
+        key != "city" ||
+        key != "district" ||
+        key != "state" ||
+        key != "pinCode"
+      ) {
+        tempAddress[key].value = null;
+        tempAddress[key].valid = false;
+        setAddressData(tempAddress);
+      }
     }
   };
 
@@ -71,11 +142,7 @@ const AddAddressScreen = ({ navigation }) => {
       <Header
         title={"ADD ADDRESS"}
         name1={"keyboard-backspace"}
-        // name2={"cart-outline"}
         onPress1={() => navigation.goBack()}
-        // onPress2={() => {
-        //   [navigation.navigate("CartScreen"), console.log("CART")];
-        // }}
       />
       <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -90,7 +157,7 @@ const AddAddressScreen = ({ navigation }) => {
             placeholder={"Name *"}
             keyType={"default"}
             title={"name"}
-            addressData={addressData.name}
+            addressData={addressData.name.value}
             titleColor={COLORS.dark}
             textColor={COLORS.dark}
             onPress={textFieldHandler}
@@ -99,7 +166,7 @@ const AddAddressScreen = ({ navigation }) => {
             placeholder={"Address Line 1 *"}
             keyType={"default"}
             title={"address1"}
-            addressData={addressData.address1}
+            addressData={addressData.address1.value}
             titleColor={COLORS.dark}
             textColor={COLORS.dark}
             onPress={textFieldHandler}
@@ -108,7 +175,7 @@ const AddAddressScreen = ({ navigation }) => {
             placeholder={"Address Line 2"}
             keyType={"default"}
             title={"address2"}
-            addressData={addressData.address2}
+            addressData={addressData.address2.value}
             titleColor={COLORS.dark}
             textColor={COLORS.dark}
             onPress={textFieldHandler}
@@ -117,7 +184,7 @@ const AddAddressScreen = ({ navigation }) => {
             placeholder={"City *"}
             keyType={"default"}
             title={"city"}
-            addressData={addressData.city}
+            addressData={addressData.city.value}
             titleColor={COLORS.dark}
             textColor={COLORS.dark}
             onPress={textFieldHandler}
@@ -126,7 +193,7 @@ const AddAddressScreen = ({ navigation }) => {
             placeholder={"District *"}
             keyType={"default"}
             title={"district"}
-            addressData={addressData.district}
+            addressData={addressData.district.value}
             titleColor={COLORS.dark}
             textColor={COLORS.dark}
             onPress={textFieldHandler}
@@ -135,7 +202,7 @@ const AddAddressScreen = ({ navigation }) => {
             placeholder={"State *"}
             keyType={"default"}
             title={"state"}
-            addressData={addressData.state}
+            addressData={addressData.state.value}
             titleColor={COLORS.dark}
             textColor={COLORS.dark}
             onPress={textFieldHandler}
@@ -144,16 +211,16 @@ const AddAddressScreen = ({ navigation }) => {
             placeholder={"Landmark *"}
             keyType={"default"}
             title={"landmark"}
-            addressData={addressData.landmark}
+            addressData={addressData.landmark.value}
             titleColor={COLORS.dark}
             textColor={COLORS.dark}
             onPress={textFieldHandler}
           />
           <TextField
             placeholder={"PinCode *"}
-            keyType={"numeric"}
+            keyType={"default"}
             title={"pinCode"}
-            addressData={addressData.pinCode}
+            addressData={addressData.pinCode.value}
             titleColor={COLORS.dark}
             textColor={COLORS.dark}
             onPress={textFieldHandler}
@@ -162,7 +229,7 @@ const AddAddressScreen = ({ navigation }) => {
             placeholder={"Mobile *"}
             keyType={"numeric"}
             title="mobile"
-            addressData={addressData.mobile}
+            addressData={addressData.mobile.value}
             titleColor={COLORS.dark}
             textColor={COLORS.dark}
             onPress={textFieldHandler}

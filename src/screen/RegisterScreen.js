@@ -44,13 +44,12 @@ const RegisterScreen = ({ navigation }) => {
 
   const textFieldHandler = (data, key) => {
     // console.log(data, key);
+    let tempUserData = { ...userData };
     if (data) {
-      let tempUserData = { ...userData };
       tempUserData[key].value = data;
       tempUserData[key].isValid = true;
       setUserData(tempUserData);
     } else {
-      const tempUserData = { ...userData };
       tempUserData[key].value = null;
       tempUserData[key].isValid = false;
       setUserData(tempUserData);
