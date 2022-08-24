@@ -30,10 +30,9 @@ const HomeScreen = ({ navigation }) => {
   const category = useSelector((state) => state.category);
 
   const [loading, setLoading] = React.useState(false);
-  const [cartLoading, setCartLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const [refresh, setRefresh] = React.useState(false);
-  // const [category, setCategory] = React.useState(null);
+  const [cookie, setCookie] = useState(null);
 
   const sideBar = () => {
     navigation.dispatch(DrawerActions.openDrawer());
@@ -64,52 +63,30 @@ const HomeScreen = ({ navigation }) => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get("getCategory", { params: {} })
-      .then((res) => {
-        setLoading(false);
-        // console.log(res.data.categoryItems);
-        if (res.data.success) {
-          dispatch(fetchCategory(res.data.categoryItems));
-        }
-      })
-      .catch((err) => {
-        // setLoading(true);
-        setTimeout(() => {
-          setError("Connection Failed !!");
-        }, 1500);
-        // setError("Connection Failed !!");
-        console.log(err);
-      });
-  }, []);
-
-  useEffect(() => {
-    setCartLoading(true);
     async function fetchData() {
-      const cookie = await getCookie();
-      if (cookie) {
-        console.log(cookie);
+      const cooki = await getCookie();
+      setCookie(cooki);
+      if (cooki) {
+        // console.log(cooki);
         axios
           .get("fetchCart", {
             params: {
-              userName: cookie.userName,
+              userName: cooki.userName,
             },
           })
           .then((res) => {
             if (res.data.success) {
-              setCartLoading(false);
+              setLoading(false);
               console.log("Fetching Cart and Address");
               // console.log(res.data.cartDetails);
+              dispatch(fetchCategory(res.data.categoryItems));
               dispatch(fetchCart(res.data.cartDetails));
               dispatch(fetchAddress(res.data.address));
             }
           })
           .catch((err) => {
-            // setCartLoading(true);
-            setTimeout(() => {
-              setError("Connection Failed !!");
-            }, 1500);
-            console.log(err);
+            setLoading(false);
+            setError("Connection Failed !!");
           });
       }
     }
@@ -117,23 +94,26 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   function handleRefresh() {
-    // setLoading(true);
+    setLoading(true);
     axios
-      .get("getCategory", { params: {} })
+      .get("fetchCart", {
+        params: {
+          userName: cookie.userName,
+        },
+      })
       .then((res) => {
-        // setLoading(false);
-        // console.log(res.data.categoryItems);
         if (res.data.success) {
+          setLoading(false);
+          console.log("Fetching Cart and Address");
+          // console.log(res.data.cartDetails);
           dispatch(fetchCategory(res.data.categoryItems));
+          dispatch(fetchCart(res.data.cartDetails));
+          dispatch(fetchAddress(res.data.address));
         }
       })
       .catch((err) => {
-        // setLoading(true);
-        // setTimeout(() => {
-        //   setError("Connection Failed !!");
-        // }, 1500);
+        setLoading(false);
         setError("Connection Failed !!");
-        console.log(err);
       });
   }
 
@@ -191,20 +171,16 @@ const HomeScreen = ({ navigation }) => {
       />
 
       <View style={styles.content}>
-        {loading || cartLoading ? (
-          error ? (
-            <MessageCard message={error} />
-          ) : (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <ActivityIndicator size={80} color={COLORS.orange} />
-            </View>
-          )
+        {loading ? (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ActivityIndicator size={80} color={COLORS.orange} />
+          </View>
         ) : (
           <FlatList
             numColumns={2}
@@ -215,8 +191,8 @@ const HomeScreen = ({ navigation }) => {
             }}
             keyExtractor={(item) => `${item.categoryID}`}
             scrollEnabled={true}
-            ListEmptyComponent={<Text>EMPTY CATEGORY</Text>}
-            ListHeaderComponent={<LowerHeader />}
+            ListEmptyComponent={<MessageCard message={error} />}
+            ListHeaderComponent={category.length != 0 ? <LowerHeader /> : null}
             ListFooterComponent={<></>}
             refreshing={refresh}
             onRefresh={handleRefresh}
