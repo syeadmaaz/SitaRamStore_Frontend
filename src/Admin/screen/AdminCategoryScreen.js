@@ -83,30 +83,6 @@ const AdminCategoryScreen = ({ navigation }) => {
     });
   };
 
-  // const goToProductsScreen = (item) => {
-  //   // console.log(item.categoryID);
-
-  //   axios
-  //     .get("getProduct", {
-  //       params: {
-  //         categoryID: item.categoryID,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       if (res.data.success) {
-  //         console.log(res.data.productItems);
-  //         setProducts(res.data.productItems);
-
-  //         navigation.navigate("AdminStackScreen", {
-  //           screen: "AdminProductScreen",
-  //           params: item.categoryID,
-  //         });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
 
   const deleteCategory = (item) => {
     // console.log(loginData);
