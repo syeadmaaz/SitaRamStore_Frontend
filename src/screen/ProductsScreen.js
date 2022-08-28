@@ -5,26 +5,78 @@ import {
   SafeAreaView,
   FlatList,
   ToastAndroid,
+  ActivityIndicator,
 } from "react-native";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
-import { getProducts } from "../data/ProductsData";
+import axios from "../../axios.automate";
 import { addToCart } from "../redux/features/cart/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
 import SearchBar from "../components/SearchBar/SearchBar";
 import ProductCard from "../components/ProductCard/ProductCard";
 import MessageCard from "../components/MessageCard/MessageCard";
+import {
+  fetchProduct,
+  clearProduct,
+} from "../redux/features/products/productSlice";
 
 const ProductsScreen = ({ navigation, route }) => {
-  // console.log(route.params)
+  const categoryID = route.params.categoryID;
+  const categoryName = route.params.categoryName;
   const dispatch = useDispatch();
-  const [products, setProducts] = useState([]);
+  const products = useSelector((state) => state.product);
+
+  const [loading, setLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setProducts(getProducts());
-  });
+    setLoading(true);
+    dispatch(clearProduct());
+    axios
+      .get("getProduct", {
+        params: {
+          categoryID: categoryID,
+        },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          setLoading(false);
+          // console.log(res.data.productItems);
+          console.log("Fetching PRODUCTS");
+          dispatch(fetchProduct(res.data.productItems));
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError("Connection Failed !!");
+      });
+  }, []);
+
+  function handleRefresh() {
+    setLoading(true);
+    dispatch(clearProduct());
+    axios
+      .get("getProduct1", {
+        params: {
+          categoryID: categoryID,
+        },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          setLoading(false);
+          // console.log(res.data.productItems);
+          console.log("Fetching PRODUCTS");
+          dispatch(fetchProduct(res.data.productItems));
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError("Connection Failed !!");
+      });
+  }
 
   function showToast() {
     ToastAndroid.showWithGravityAndOffset(
@@ -52,7 +104,7 @@ const ProductsScreen = ({ navigation, route }) => {
     <SafeAreaView style={styles.container}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header
-        title={route.params.toUpperCase()}
+        title={categoryName.toUpperCase()}
         name1={"keyboard-backspace"}
         name2={"cart-outline"}
         onPress1={() => navigation.goBack()}
@@ -60,10 +112,19 @@ const ProductsScreen = ({ navigation, route }) => {
           [navigation.navigate("CartScreen"), console.log("CART")];
         }}
       />
-      {products.length == 0 ? (
-        <MessageCard message={"Products Not Available"} />
-      ) : (
-        <View style={styles.content}>
+
+      <View style={styles.content}>
+        {loading ? (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ActivityIndicator size={80} color={COLORS.orange} />
+          </View>
+        ) : (
           <FlatList
             data={products}
             showsVerticalScrollIndicator={false}
@@ -72,11 +133,20 @@ const ProductsScreen = ({ navigation, route }) => {
             }}
             keyExtractor={(item) => `${item.productID}`}
             scrollEnabled={true}
-            ListHeaderComponent={<SearchBar />}
-            // ListFooterComponent={<Footer />}
+            ListEmptyComponent={
+              products.length == 0 && error ? (
+                <MessageCard message={error} />
+              ) : (
+                <MessageCard message={"Products Not Available"} />
+              )
+            }
+            ListHeaderComponent={products.length != 0 ? <SearchBar /> : null}
+            // ListFooterComponent={<></>}
+            refreshing={refresh}
+            onRefresh={handleRefresh}
           />
-        </View>
-      )}
+        )}
+      </View>
     </SafeAreaView>
   );
 };
@@ -85,8 +155,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    // justifyContent: "center",
-    // alignItems: "center",
+    width: WIDTH.screenWidth,
     backgroundColor: COLORS.white,
   },
   content: {

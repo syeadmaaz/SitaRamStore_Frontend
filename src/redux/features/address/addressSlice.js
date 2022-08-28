@@ -15,10 +15,13 @@ const addressSlice = createSlice({
       });
       // console.log(state);
     },
+    clearAddress(state){
+      return [];
+    }
   },
 });
 
-export const { fetchAddress } = addressSlice.actions;
+export const { fetchAddress, clearAddress } = addressSlice.actions;
 const addressReducer = addressSlice.reducer;
 
 export default addressReducer;

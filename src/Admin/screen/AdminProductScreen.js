@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import {
-  Text,
   StyleSheet,
   View,
   SafeAreaView,
   FlatList,
-  TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
-import { Card } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
-import { getProducts } from "../../data/ProductsData";
-import { useDispatch } from "react-redux";
 import axios from "../../../axios.automate";
-import { useFocusEffect } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchProduct,
+  clearProduct,
+} from "../../redux/features/products/productSlice";
 
 import AppStatusBar from "../../components/AppStatusBar/AppStatusBar";
 import Header from "../../components/Header/Header";
@@ -22,37 +22,18 @@ import MessageCard from "../../components/MessageCard/MessageCard";
 import AddButton from "../../components/AddButton/AddButton";
 
 const AdminProductScreen = ({ navigation, route }) => {
-  //   const dispatch = useDispatch();
-  const categoryID = route.params;
+  const categoryID = route.params.categoryID;
+  const categoryName = route.params.categoryName;
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.product);
 
   const [refresh, setRefresh] = useState(false);
-  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setProducts(getProducts());
-  }, []);
-
-  useFocusEffect(
-    React.useCallback(() => {
-      axios
-        .get("getProduct", {
-          params: {
-            categoryID: categoryID,
-          },
-        })
-        .then((res) => {
-          if (res.data.success) {
-            // console.log(res.data.productItems);
-            setProducts(res.data.productItems);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }, [])
-  );
-
-  function handleRefresh() {
+    setLoading(true);
+    dispatch(clearProduct());
     axios
       .get("getProduct", {
         params: {
@@ -61,11 +42,39 @@ const AdminProductScreen = ({ navigation, route }) => {
       })
       .then((res) => {
         if (res.data.success) {
-          console.log(res.data.productItems);
-          setProducts(res.data.productItems);
+          setLoading(false);
+          setError(null);
+          // console.log(res.data.productItems);
+          console.log("Fetching PRODUCTS");
+          dispatch(fetchProduct(res.data.productItems));
         }
       })
       .catch((err) => {
+        setLoading(false);
+        setError("Connection Failed !!");
+      });
+  }, []);
+
+  function handleRefresh() {
+    setLoading(true);
+    dispatch(clearProduct());
+    axios
+      .get("getProduct", {
+        params: {
+          categoryID: categoryID,
+        },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          setLoading(false);
+          setError(null);
+          // console.log(res.data.productItems);
+          dispatch(fetchProduct(res.data.productItems));
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError("Connection Failed !!");
         console.log(err);
       });
   }
@@ -92,35 +101,45 @@ const AdminProductScreen = ({ navigation, route }) => {
     <SafeAreaView style={styles.container}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
       <Header
-        title={"PRODUCTS"}
+        title={categoryName.toUpperCase()}
         name1={"keyboard-backspace"}
         onPress1={() => navigation.goBack()}
       />
 
       <View style={styles.content}>
-        <FlatList
-          data={products}
-          showsVerticalScrollIndicator={false}
-          ListHeaderComponent={
-            products.length == 0 ? (
-              <>
-                <LowerHeader />
-                <MessageCard message={"Products Not Available"} />
-              </>
-            ) : (
-              <LowerHeader />
-            )
-          }
-          ListFooterComponent={<Footer />}
-          renderItem={({ item }) => {
-            return renderData(item);
-          }}
-          keyExtractor={(item) => `${item.productID}`}
-          extraData={products}
-          scrollEnabled={true}
-          refreshing={refresh}
-          onRefresh={handleRefresh}
-        />
+        {loading ? (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ActivityIndicator size={80} color={COLORS.orange} />
+          </View>
+        ) : (
+          <FlatList
+            data={products}
+            extraData={products}
+            scrollEnabled={true}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item) => `${item.productID}`}
+            ListEmptyComponent={
+              products.length == 0 && error ? (
+                <MessageCard message={error} />
+              ) : (
+                <MessageCard message={"Category Not Available"} />
+              )
+            }
+            ListHeaderComponent={!error ? <LowerHeader /> : null}
+            ListFooterComponent={<Footer />}
+            renderItem={({ item }) => {
+              return renderData(item);
+            }}
+            refreshing={refresh}
+            onRefresh={handleRefresh}
+          />
+        )}
       </View>
     </SafeAreaView>
   );
@@ -136,7 +155,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: COLORS.white
+    backgroundColor: COLORS.white,
   },
 });
 

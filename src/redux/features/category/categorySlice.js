@@ -6,19 +6,22 @@ const categorySlice = createSlice({
   initialState,
   reducers: {
     fetchCategory(state, { payload }) {
-      console.log("CATEGORIES STORED IN STATE");
       // console.log(payload);
-      state.length = 0;
+      console.log("CATEGORIES STORED IN STATE");
+      // state.length = 0;
       var category = payload;
       category.map((item) => {
         state.push(item);
       });
-      console.log(state);
+      // console.log(state);
     },
+    clearCategory(state){
+      return [];
+    }
   },
 });
 
-export const { fetchCategory } = categorySlice.actions;
+export const { fetchCategory, clearCategory } = categorySlice.actions;
 const categoryReducer = categorySlice.reducer;
 
 export default categoryReducer;

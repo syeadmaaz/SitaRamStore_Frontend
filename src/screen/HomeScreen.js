@@ -11,13 +11,18 @@ import {
 } from "react-native";
 import { useFocusEffect, DrawerActions } from "@react-navigation/native";
 import { COLORS, WIDTH, HEIGHT } from "../constants/theme";
-import { setProducts } from "../data/ProductsData";
 import axios from "../../axios.automate";
 import { getCookie } from "../data/Cokkie";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCart } from "../redux/features/cart/cartSlice";
-import { fetchAddress } from "../redux/features/address/addressSlice";
-import { fetchCategory } from "../redux/features/category/categorySlice";
+import { fetchCart, clear } from "../redux/features/cart/cartSlice";
+import {
+  fetchAddress,
+  clearAddress,
+} from "../redux/features/address/addressSlice";
+import {
+  fetchCategory,
+  clearCategory,
+} from "../redux/features/category/categorySlice";
 
 import AppStatusBar from "../components/AppStatusBar/AppStatusBar";
 import Header from "../components/Header/Header";
@@ -63,6 +68,9 @@ const HomeScreen = ({ navigation }) => {
 
   useEffect(() => {
     setLoading(true);
+    dispatch(clearCategory());
+    dispatch(clear());
+    dispatch(clearAddress());
     async function fetchData() {
       const cooki = await getCookie();
       setCookie(cooki);
@@ -77,6 +85,7 @@ const HomeScreen = ({ navigation }) => {
           .then((res) => {
             if (res.data.success) {
               setLoading(false);
+              setError(null);
               console.log("Fetching Cart and Address");
               // console.log(res.data.cartDetails);
               dispatch(fetchCategory(res.data.categoryItems));
@@ -95,6 +104,9 @@ const HomeScreen = ({ navigation }) => {
 
   function handleRefresh() {
     setLoading(true);
+    dispatch(clearCategory());
+    dispatch(clear());
+    dispatch(clearAddress());
     axios
       .get("fetchCart", {
         params: {
@@ -104,6 +116,7 @@ const HomeScreen = ({ navigation }) => {
       .then((res) => {
         if (res.data.success) {
           setLoading(false);
+          setError(null);
           console.log("Fetching Cart and Address");
           // console.log(res.data.cartDetails);
           dispatch(fetchCategory(res.data.categoryItems));
@@ -118,30 +131,14 @@ const HomeScreen = ({ navigation }) => {
   }
 
   const goToProductsScreen = (item) => {
-    console.log(item.categoryName);
-    // setLoading(true);
-    axios
-      .get("getProduct", {
-        params: {
-          categoryID: item.categoryID,
-        },
-      })
-      .then((res) => {
-        // setLoading(false);
-        if (res.data.success) {
-          // console.log(res.data.productItems);
-          setProducts(res.data.productItems);
-
-          navigation.navigate("ProductStackScreen", {
-            screen: "ProductsScreen",
-            params: item.categoryName,
-          });
-        }
-      })
-      .catch((err) => {
-        // setLoading(false);
-        console.log(err);
-      });
+    // console.log(item.categoryName);
+    navigation.navigate("ProductStackScreen", {
+      screen: "ProductsScreen",
+      params: {
+        categoryName: item.categoryName,
+        categoryID: item.categoryID,
+      },
+    });
   };
 
   const renderData = (item) => {
@@ -191,7 +188,13 @@ const HomeScreen = ({ navigation }) => {
             }}
             keyExtractor={(item) => `${item.categoryID}`}
             scrollEnabled={true}
-            ListEmptyComponent={<MessageCard message={error} />}
+            ListEmptyComponent={
+              category.length == 0 && error ? (
+                <MessageCard message={error} />
+              ) : (
+                <MessageCard message={"Category Not Available"} />
+              )
+            }
             ListHeaderComponent={category.length != 0 ? <LowerHeader /> : null}
             ListFooterComponent={<></>}
             refreshing={refresh}
@@ -208,7 +211,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     width: WIDTH.screenWidth,
-    // backgroundColor: COLORS.orange,
+    backgroundColor: COLORS.white,
   },
   categoryText: {
     fontSize: 25,

@@ -2,44 +2,47 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
   Text,
-  Image,
   SafeAreaView,
   FlatList,
-  TextInput,
-  Button,
   ActivityIndicator,
-  Alert,
 } from "react-native";
-import { Card } from "react-native-paper";
-import Icon from "react-native-vector-icons/MaterialIcons";
+
 import { COLORS, WIDTH, HEIGHT } from "../../constants/theme";
-import { setProducts } from "../../data/ProductsData";
+// import { setProducts } from "../../data/ProductsData";
 import axios from "../../../axios.automate";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchCategory,
+  clearCategory,
+} from "../../redux/features/category/categorySlice";
 
 import AppStatusBar from "../../components/AppStatusBar/AppStatusBar";
 import Header from "../../components/Header/Header";
 import AddButton from "../../components/AddButton/AddButton";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import CategoryCard from "../components/CategoryCard/CategoryCard";
+import MessageCard from "../../components/MessageCard/MessageCard";
 
 const AdminCategoryScreen = ({ navigation }) => {
-  const [category, setCategory] = React.useState();
-  const [message, setMessage] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(null);
-  const [refresh, setRefresh] = React.useState(false);
+  const dispatch = useDispatch();
+  const category = useSelector((state) => state.category);
 
-  React.useEffect(() => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [refresh, setRefresh] = useState(false);
+
+  useEffect(() => {
     setLoading(true);
+    dispatch(clearCategory());
     axios
       .get("getCategory", { params: {} })
       .then((res) => {
         setLoading(false);
-        console.log(res);
+        // console.log(res.data);
         if (res.data.success) {
-          setCategory(res.data.categoryItems);
+          dispatch(fetchCategory(res.data.categoryItems));
+          setError(null);
         }
       })
       .catch((err) => {
@@ -51,13 +54,15 @@ const AdminCategoryScreen = ({ navigation }) => {
 
   function handleRefresh() {
     setLoading(true);
+    dispatch(clearCategory());
     axios
       .get("getCategory", { params: {} })
       .then((res) => {
         setLoading(false);
         console.log(res);
         if (res.data.success) {
-          setCategory(res.data.categoryItems);
+          dispatch(fetchCategory(res.data.categoryItems));
+          setError(null);
         }
       })
       .catch((err) => {
@@ -69,27 +74,39 @@ const AdminCategoryScreen = ({ navigation }) => {
 
   const goToProductsScreen = (item) => {
     // console.log(item.categoryID);
-    axios
-      .get("getProduct", {
-        params: {
-          categoryID: item.categoryID,
-        },
-      })
-      .then((res) => {
-        if (res.data.success) {
-          console.log(res.data.productItems);
-          setProducts(res.data.productItems);
-
-          navigation.navigate("AdminStackScreen", {
-            screen: "AdminProductScreen",
-            params: item.categoryID,
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    navigation.navigate("AdminStackScreen", {
+      screen: "AdminProductScreen",
+      params: {
+        categoryName: item.categoryName,
+        categoryID: item.categoryID,
+      },
+    });
   };
+
+  // const goToProductsScreen = (item) => {
+  //   // console.log(item.categoryID);
+
+  //   axios
+  //     .get("getProduct", {
+  //       params: {
+  //         categoryID: item.categoryID,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       if (res.data.success) {
+  //         console.log(res.data.productItems);
+  //         setProducts(res.data.productItems);
+
+  //         navigation.navigate("AdminStackScreen", {
+  //           screen: "AdminProductScreen",
+  //           params: item.categoryID,
+  //         });
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const deleteCategory = (item) => {
     // console.log(loginData);
@@ -102,7 +119,7 @@ const AdminCategoryScreen = ({ navigation }) => {
         setLoading(false);
         console.log(res.data);
         if (res.data.success) {
-          setCategory(res.data.categoryItems);
+          dispatch(fetchCategory(res.data.categoryItems));
         }
       });
   };
@@ -111,7 +128,7 @@ const AdminCategoryScreen = ({ navigation }) => {
     return (
       <>
         <SearchBar />
-        <AddButton onPress={() => navigation.navigate("AddCategoryScreen")}/>
+        <AddButton onPress={() => navigation.navigate("AddCategoryScreen")} />
       </>
     );
   };
@@ -133,53 +150,41 @@ const AdminCategoryScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <AppStatusBar translucent={true} backgroundColor={COLORS.orange} />
-      <Header 
-        title={"CATEGORY"} 
-      
-      />
+      <Header title={"CATEGORY"} />
       <View style={styles.content}>
         {loading ? (
-          error ? (
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                flex: 1,
-              }}
-            >
-              <Text style={{ color: "red", fontSize: 18, fontWeight: "bold" }}>
-                {error}
-              </Text>
-            </View>
-          ) : (
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                flex: 1,
-              }}
-            >
-              <ActivityIndicator size={80} color={COLORS.orange} />
-            </View>
-          )
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ActivityIndicator size={80} color={COLORS.orange} />
+          </View>
         ) : (
-          <>
-            <FlatList
-              numColumns={2}
-              data={category}
-              showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => {
-                return renderData(item);
-              }}
-              keyExtractor={(item) => `${item.categoryID}`}
-              scrollEnabled={true}
-              ListHeaderComponent={<LowerHeader />}
-              ListFooterComponent={<Footer />}
-              extraData={category}
-              refreshing={refresh}
-              onRefresh={handleRefresh}
-            />
-          </>
+          <FlatList
+            numColumns={2}
+            data={category}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => {
+              return renderData(item);
+            }}
+            keyExtractor={(item) => `${item.categoryID}`}
+            scrollEnabled={true}
+            ListEmptyComponent={
+              category.length == 0 && error ? (
+                <MessageCard message={error} />
+              ) : (
+                <MessageCard message={"Category Not Available"} />
+              )
+            }
+            ListHeaderComponent={!error ? <LowerHeader /> : null}
+            ListFooterComponent={<Footer />}
+            extraData={category}
+            refreshing={refresh}
+            onRefresh={handleRefresh}
+          />
         )}
       </View>
     </SafeAreaView>

@@ -4,30 +4,7 @@ import { Card } from "react-native-paper";
 import { COLORS, WIDTH, HEIGHT } from "../../../constants/theme";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import axios from "../../../../axios.automate";
 
-// const goToProductsScreen = (item) => {
-//     console.log(item.categoryID);
-//     axios
-//       .get("getProduct", {
-//         params: {
-//           categoryID: item.categoryID,
-//         },
-//       })
-//       .then((res) => {
-//         if (res.data.success) {
-//           console.log(res.data.productItems);
-//           setProducts(res.data.productItems);
-
-//           navigation.navigate("AdminStackScreen", {
-//             screen: "AddProduct",
-//           });
-//         }
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
 
 const CategoryCard = ({ item, onPressNavigate, onPressDelete }) => {
   return (

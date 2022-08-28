@@ -55,7 +55,6 @@ const AddressScreen = ({ navigation }) => {
           renderItem={({ item }) => {
             return renderData(item);
           }}
-          // keyExtractor={(item) => `${item.categoryID}`}
           scrollEnabled={true}
           ListHeaderComponent={<LowerHeader />}
           ListFooterComponent={<Footer />}

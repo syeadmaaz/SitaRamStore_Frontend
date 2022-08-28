@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
   header: {
     width: WIDTH.screenWidth,
     height: HEIGHT.headerHeight,
-    // height: "6.8%",
     paddingVertical: "3%",
     flexDirection: "row",
     justifyContent: "space-between",
